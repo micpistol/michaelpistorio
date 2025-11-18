@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Computer Vision Tools Catalog</title>
+  <style>
+    :root { --bg:#0b0c10; --card:#12131a; --text:#e6edf3; --muted:#9fb3c8; --accent:#4cc9f0; }
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,Segoe UI,Roboto,Inter,Arial,sans-serif}
+    header{padding:40px 24px;text-align:center;background:linear-gradient(180deg,#131521,rgba(19,21,33,0));border-bottom:1px solid #202334}
+    h1{margin:0 0 8px;font-size:32px;letter-spacing:.3px}
+    p.subtitle{margin:0;color:var(--muted)}
+    main{max-width:1000px;margin:32px auto;padding:0 20px;display:grid;gap:28px}
+    section{background:var(--card);border:1px solid #202334;border-radius:16px;padding:22px}
+    h2{margin:0 0 14px;font-size:22px}
+    ul{margin:0;padding-left:20px}
+    li{margin:8px 0}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .note{color:var(--muted);font-size:14px;margin-top:10px}
+    footer{max-width:1000px;margin:24px auto 40px;color:var(--muted);padding:0 20px;text-align:center}
+    code{background:#1a1d2a;color:#c6d4ff;padding:2px 6px;border-radius:6px}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Computer Vision Tools Catalog</h1>
+    <p class="subtitle">Curated lists of APIs, open‑source checkpoints, enterprise hosts, and supporting tools — with handy links.</p>
+  </header>
+  <main>
+
+    <!-- 1. Off‑the‑Shelf APIs -->
+    <section id="apis">
+      <h2>1) Off‑the‑Shelf APIs (Hosted AI Models)</h2>
+      <p class="note">Use via REST or SDKs for rapid prototyping and production inference.</p>
+      <ul>
+        <li><a href="https://openai.com/" target="_blank" rel="noopener">OpenAI</a> — GPT‑4o (Vision), Embeddings/CLIP‑like, <a href="https://openai.com/research/whisper" target="_blank" rel="noopener">Whisper</a>, DALL·E/Diffusion</li>
+        <li><a href="https://www.anthropic.com/" target="_blank" rel="noopener">Anthropic</a> — Claude models with image understanding</li>
+        <li><a href="https://stability.ai/" target="_blank" rel="noopener">Stability AI</a> — Stable Diffusion APIs</li>
+        <li><a href="https://runwayml.com/" target="_blank" rel="noopener">Runway</a> — Gen‑2 video, background removal</li>
+        <li><a href="https://replicate.com/" target="_blank" rel="noopener">Replicate</a> — Hosted OSS models (SAM, ControlNet, Whisper, etc.)</li>
+        <li><a href="https://huggingface.co/spaces" target="_blank" rel="noopener">Hugging Face Spaces</a> — Deploy demos & inference endpoints</li>
+      </ul>
+    </section>
+
+    <!-- 2. Open‑Source Checkpoints -->
+    <section id="open-source">
+      <h2>2) Open‑Source Checkpoints & Frameworks</h2>
+      <p class="note">Pretrained weights to fine‑tune or run locally with full control and minimal cost.</p>
+      <ul>
+        <li><a href="https://stability.ai/stable-diffusion" target="_blank" rel="noopener">Stable Diffusion</a></li>
+        <li><a href="https://segment-anything.com/" target="_blank" rel="noopener">Segment Anything (SAM)</a></li>
+        <li><a href="https://github.com/openai/CLIP" target="_blank" rel="noopener">CLIP</a></li>
+        <li><a href="https://openai.com/research/whisper" target="_blank" rel="noopener">Whisper</a></li>
+        <li><a href="https://ai.meta.com/llama/" target="_blank" rel="noopener">Llama</a></li>
+        <li><a href="https://mistral.ai/" target="_blank" rel="noopener">Mistral</a></li>
+        <li><a href="https://github.com/facebookresearch/detr" target="_blank" rel="noopener">DETR</a></li>
+        <li><a href="https://www.ultralytics.com/" target="_blank" rel="noopener">YOLO (Ultralytics)</a></li>
+        <li><a href="https://github.com/CMU-Perceptual-Computing-Lab/openpose" target="_blank" rel="noopener">OpenPose</a> / <a href="https://tfhub.dev/google/collections/movenet/1" target="_blank" rel="noopener">MoveNet</a></li>
+        <li><a href="https://github.com/princeton-vl/RAFT" target="_blank" rel="noopener">RAFT (Optical Flow)</a></li>
+        <li><a href="https://www.matthewtancik.com/nerf" target="_blank" rel="noopener">NeRF</a> / <a href="https://github.com/NVlabs/instant-ngp" target="_blank" rel="noopener">Instant‑NGP</a> / <a href="https://github.com/graphdeco-inria/gaussian-splatting" target="_blank" rel="noopener">Gaussian Splatting</a></li>
+        <li><a href="https://github.com/tensorflow/models/tree/master/research/deeplab" target="_blank" rel="noopener">DeepLab</a> / <a href="https://github.com/facebookresearch/detectron2" target="_blank" rel="noopener">Mask R‑CNN (Detectron2)</a> / <a href="https://arxiv.org/abs/1505.04597" target="_blank" rel="noopener">U‑Net</a></li>
+        <li><a href="https://arxiv.org/abs/2010.11929" target="_blank" rel="noopener">ViT (Vision Transformer)</a></li>
+        <li><a href="https://arxiv.org/abs/1512.03385" target="_blank" rel="noopener">ResNet</a> / <a href="https://arxiv.org/abs/1905.11946" target="_blank" rel="noopener">EfficientNet</a></li>
+      </ul>
+    </section>
+
+    <!-- 3. Enterprise Model Hosts -->
+    <section id="enterprise">
+      <h2>3) Enterprise Model Hosting Platforms</h2>
+      <p class="note">Managed services for scalable, compliant inference and MLOps.</p>
+      <ul>
+        <li><a href="https://aws.amazon.com/sagemaker/" target="_blank" rel="noopener">AWS SageMaker</a></li>
+        <li><a href="https://azure.microsoft.com/products/machine-learning" target="_blank" rel="noopener">Azure Machine Learning</a></li>
+        <li><a href="https://cloud.google.com/vertex-ai" target="_blank" rel="noopener">Google Vertex AI</a></li>
+        <li><a href="https://developer.nvidia.com/nvidia-triton-inference-server" target="_blank" rel="noopener">NVIDIA Triton Inference Server</a> / <a href="https://developer.nvidia.com/nim" target="_blank" rel="noopener">NVIDIA NIM</a></li>
+        <li><a href="https://mlflow.org/" target="_blank" rel="noopener">MLflow</a> (via Databricks / OSS)</li>
+        <li><a href="https://wandb.ai/" target="_blank" rel="noopener">Weights &amp; Biases</a> (monitoring &amp; evaluation)</li>
+      </ul>
+    </section>
+
+    <!-- 4. Supporting Tools -->
+    <section id="supporting">
+      <h2>4) Supporting Tools (Monitoring • Pipelines • Metrics)</h2>
+      <p class="note">Evaluation, observability, and classic CV / DL plumbing.</p>
+      <ul>
+        <li><a href="https://aws.amazon.com/sagemaker/clarify/" target="_blank" rel="noopener">AWS SageMaker Clarify</a></li>
+        <li><a href="https://learn.microsoft.com/azure/machine-learning/concept-responsible-ml" target="_blank" rel="noopener">Azure Responsible AI Dashboard</a></li>
+        <li><a href="https://www.comet.com/" target="_blank" rel="noopener">Comet ML</a> / <a href="https://neptune.ai/" target="_blank" rel="noopener">Neptune.ai</a></li>
+        <li><a href="https://opencv.org/" target="_blank" rel="noopener">OpenCV</a> / <a href="https://scikit-image.org/" target="_blank" rel="noopener">scikit‑image</a> / <a href="https://pytorch.org/vision/stable/index.html" target="_blank" rel="noopener">torchvision</a></li>
+        <li><a href="https://pytorch.org/" target="_blank" rel="noopener">PyTorch</a> / <a href="https://www.tensorflow.org/" target="_blank" rel="noopener">TensorFlow</a> / <a href="https://jax.readthedocs.io/" target="_blank" rel="noopener">JAX</a></li>
+      </ul>
+    </section>
+
+  </main>
+  <footer>
+    Built for quick reference. Add this file to any internal docs or Notion as an embed.
+  </footer>
+</body>
+</html>

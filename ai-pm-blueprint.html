@@ -1,0 +1,206 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Product Manager Learning Blueprint</title>
+<style>
+  :root{--bg:#0f1115;--card:#151923;--ink:#e8eefc;--muted:#9fb0d3;--accent:#7cc7ff;}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;line-height:1.55}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1100px;margin:0 auto;padding:40px 20px}
+  header{padding:10px 0 24px;border-bottom:1px solid #2a3142;margin-bottom:24px}
+  h1{font-size:clamp(26px,4vw,40px);margin:0 0 10px}
+  h2{font-size:clamp(20px,2.6vw,28px);margin:30px 0 10px}
+  h3{font-size:clamp(18px,2.2vw,22px);margin:20px 0 8px}
+  p,li{color:var(--muted)}
+  .card{background:var(--card);padding:18px 20px;border-radius:16px;margin:14px 0;border:1px solid #202637}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+  .toc a{display:block;padding:8px 10px;border-radius:10px;border:1px solid #263046;margin:6px 0;background:#121725}
+  table{width:100%;border-collapse:collapse;margin:12px 0}
+  th,td{padding:10px;border-bottom:1px solid #2a3142;text-align:left}
+  code,kbd{background:#0b0e16;border:1px solid #262d42;border-radius:6px;padding:1px 6px}
+  footer{opacity:.75;margin-top:40px;font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>AI Product Manager Learning Blueprint</h1>
+    <p>Four phases to go from model literacy to production impact — with sourcing options, evaluation metrics, and links to the referenced tools and readings.</p>
+  </header>
+
+  <section class="card toc">
+    <h2 id="toc">Table of Contents</h2>
+    <a href="#phase1">Phase 1 — Foundation & Framework</a>
+    <a href="#phase2">Phase 2 — Use‑Case Mapping & Mini‑Experiments</a>
+    <a href="#phase3">Phase 3 — Prototype & Validate</a>
+    <a href="#phase4">Phase 4 — Production Readiness & Roadmap</a>
+    <a href="#sourcing">Model Sourcing Options (with links)</a>
+    <a href="#metrics">Evaluation Metrics by Category</a>
+    <a href="#links">Reference Links</a>
+  </section>
+
+  <section class="card" id="phase1">
+    <h2>Phase 1 — Foundation & Framework (Weeks 1–4)</h2>
+    <p><strong>Objective:</strong> Build a mental model of how AI/ML fits into products, and get fluent in sourcing options and evaluation metrics.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>Read & Digest</h3>
+        <ul>
+          <li><a href="https://akfpartners.com/growth-blog/ai-ml-for-product-managers" target="_blank" rel="noopener">AI/ML for Product Managers — AKF Partners</a></li>
+          <li><a href="https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall" target="_blank" rel="noopener">Google ML Crash Course: Accuracy, Precision, Recall</a></li>
+          <li><a href="https://www.analyticsvidhya.com/blog/2019/08/11-important-model-evaluation-error-metrics/" target="_blank" rel="noopener">Analytics Vidhya: 12 Important Model Evaluation Metrics</a></li>
+          <li><a href="https://www.openlayer.com/glossary/ml-evaluation-metrics" target="_blank" rel="noopener">OpenLayer: Evaluation Metrics Glossary</a></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Deliverables</h3>
+        <ul>
+          <li>1‑page <em>AI model sourcing map</em> for your domain (API vs Open‑source vs Enterprise).</li>
+          <li>1‑page <em>Metrics decision table</em> mapping problems → metrics.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="phase2">
+    <h2>Phase 2 — Use‑Case Mapping & Mini‑Experiments (Weeks 5–10)</h2>
+    <p><strong>Objective:</strong> Map domain problems → solution types → sourcing → metrics, then run light experiments.</p>
+    <ol>
+      <li>Pick 3 domain problems. For each, classify as <em>classification</em>, <em>regression</em>, <em>generation</em>, or <em>vision</em>.</li>
+      <li>Choose a sourcing route (see <a href="#sourcing">Model Sourcing</a>).</li>
+      <li>Define success metrics (see <a href="#metrics">Metrics</a>).</li>
+      <li>Run mini‑experiments with public APIs or open‑source demos; record accuracy and latency.</li>
+    </ol>
+    <p><strong>Deliverables:</strong> Use‑case doc (3 problems) + one‑pager per experiment (findings & next steps).</p>
+  </section>
+
+  <section class="card" id="phase3">
+    <h2>Phase 3 — Prototype & Validate (Weeks 11–18)</h2>
+    <p><strong>Objective:</strong> Build a lightweight prototype for one use‑case and evaluate with metrics + stakeholder feedback.</p>
+    <ul>
+      <li>Deploy a minimal demo (no/low code is fine: e.g., <a href="https://streamlit.io/" target="_blank" rel="noopener">Streamlit</a>, <a href="https://huggingface.co/spaces" target="_blank" rel="noopener">HF Spaces</a>, or <a href="https://www.runwayml.com/" target="_blank" rel="noopener">Runway</a>).</li>
+      <li>Track accuracy, latency/throughput, fairness/drift risks.</li>
+      <li>Hold stakeholder demo and decide Go/No‑Go.</li>
+    </ul>
+    <p><strong>Deliverables:</strong> Prototype link, validation report, risk heat‑map, Go/No‑Go recommendation.</p>
+  </section>
+
+  <section class="card" id="phase4">
+    <h2>Phase 4 — Production Readiness & Roadmap (Weeks 19–24)</h2>
+    <p><strong>Objective:</strong> Translate prototype into a production plan with monitoring and business impact.</p>
+    <ul>
+      <li>Define deployment path (API vs batch), model registry, monitoring (drift, latency, uptime).</li>
+      <li>Create business case / ROI narrative tied to product KPIs.</li>
+      <li>Plan governance: versioning, retraining cadence, owners, data pipeline & feedback loop.</li>
+    </ul>
+    <p><strong>Deliverables:</strong> Production plan, metric dashboard mock, roadmap, exec summary.</p>
+  </section>
+
+  <section class="card" id="sourcing">
+    <h2>Model Sourcing Options (with links)</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Off‑the‑shelf APIs</h3>
+        <ul>
+          <li><a href="https://platform.openai.com/" target="_blank" rel="noopener">OpenAI Platform (GPT‑4o, Vision)</a></li>
+          <li><a href="https://www.anthropic.com/console" target="_blank" rel="noopener">Anthropic Console</a></li>
+          <li><a href="https://platform.stability.ai/" target="_blank" rel="noopener">Stability AI Platform</a></li>
+          <li><a href="https://research.runwayml.com/" target="_blank" rel="noopener">Runway</a></li>
+          <li><a href="https://replicate.com/explore" target="_blank" rel="noopener">Replicate</a></li>
+          <li><a href="https://huggingface.co/inference-endpoints" target="_blank" rel="noopener">Hugging Face Inference Endpoints</a></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Open‑source checkpoints</h3>
+        <ul>
+          <li><a href="https://stability.ai/stable-diffusion" target="_blank" rel="noopener">Stable Diffusion</a></li>
+          <li><a href="https://segment-anything.com/" target="_blank" rel="noopener">Segment Anything (SAM)</a></li>
+          <li><a href="https://github.com/openai/CLIP" target="_blank" rel="noopener">CLIP</a></li>
+          <li><a href="https://github.com/openai/whisper" target="_blank" rel="noopener">Whisper</a></li>
+          <li><a href="https://ai.meta.com/llama/" target="_blank" rel="noopener">Llama</a></li>
+          <li><a href="https://mistral.ai/news/" target="_blank" rel="noopener">Mistral</a></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Enterprise model hosts</h3>
+        <ul>
+          <li><a href="https://aws.amazon.com/sagemaker/" target="_blank" rel="noopener">AWS SageMaker</a></li>
+          <li><a href="https://azure.microsoft.com/en-us/products/machine-learning/" target="_blank" rel="noopener">Azure Machine Learning</a></li>
+          <li><a href="https://cloud.google.com/vertex-ai" target="_blank" rel="noopener">Google Vertex AI</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="metrics">
+    <h2>Evaluation Metrics by Category</h2>
+    <table>
+      <thead><tr><th>Category</th><th>Metric(s)</th><th>Why It Matters</th><th>Learn More</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Classification</td>
+          <td>Precision, Recall, F1</td>
+          <td>Trade‑off between false alarms and misses</td>
+          <td><a href="https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall" target="_blank" rel="noopener">Google ML Crash Course</a></td>
+        </tr>
+        <tr>
+          <td>Regression</td>
+          <td>MSE, R²</td>
+          <td>How close predictions are to actuals</td>
+          <td><a href="https://www.analyticsvidhya.com/blog/2019/08/11-important-model-evaluation-error-metrics/" target="_blank" rel="noopener">Analytics Vidhya</a></td>
+        </tr>
+        <tr>
+          <td>Generation</td>
+          <td>BLEU, CLIP score, Human evals</td>
+          <td>Quality and relevance of outputs</td>
+          <td><a href="https://huggingface.co/docs/transformers/main/en/perf_train_gpu_one#metrics-for-generation" target="_blank" rel="noopener">HF: Metrics for Generation</a></td>
+        </tr>
+        <tr>
+          <td>Vision Models</td>
+          <td>mAP, IoU</td>
+          <td>Object detection & segmentation</td>
+          <td><a href="https://cocodataset.org/#detection-eval" target="_blank" rel="noopener">COCO Detection Eval</a></td>
+        </tr>
+        <tr>
+          <td>Latency & Throughput</td>
+          <td>Time per inference, QPS</td>
+          <td>Impacts UX and scalability</td>
+          <td><a href="https://cloud.google.com/vertex-ai/docs/predictions/optimize-online-prediction" target="_blank" rel="noopener">Vertex AI: Optimize Predictions</a></td>
+        </tr>
+        <tr>
+          <td>Fairness / Drift</td>
+          <td>Bias metrics, data‑drift tests</td>
+          <td>Ensures trust and long‑term reliability</td>
+          <td><a href="https://docs.evidentlyai.com/" target="_blank" rel="noopener">Evidently AI Docs</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card" id="links">
+    <h2>Reference Links (All Mentioned)</h2>
+    <ul>
+      <li><a href="https://akfpartners.com/growth-blog/ai-ml-for-product-managers" target="_blank" rel="noopener">AKF Partners — AI/ML for Product Managers</a></li>
+      <li><a href="https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall" target="_blank" rel="noopener">Google ML Crash Course: Precision &amp; Recall</a></li>
+      <li><a href="https://www.analyticsvidhya.com/blog/2019/08/11-important-model-evaluation-error-metrics/" target="_blank" rel="noopener">Analytics Vidhya — Evaluation Metrics</a></li>
+      <li><a href="https://www.openlayer.com/glossary/ml-evaluation-metrics" target="_blank" rel="noopener">OpenLayer — Metrics Glossary</a></li>
+      <li><a href="https://stability.ai/stable-diffusion" target="_blank" rel="noopener">Stable Diffusion</a>, <a href="https://segment-anything.com/" target="_blank" rel="noopener">SAM</a>, <a href="https://github.com/openai/CLIP" target="_blank" rel="noopener">CLIP</a>, <a href="https://github.com/openai/whisper" target="_blank" rel="noopener">Whisper</a>, <a href="https://ai.meta.com/llama/" target="_blank" rel="noopener">Llama</a>, <a href="https://mistral.ai/news/" target="_blank" rel="noopener">Mistral</a></li>
+      <li><a href="https://platform.openai.com/" target="_blank" rel="noopener">OpenAI</a>, <a href="https://www.anthropic.com/console" target="_blank" rel="noopener">Anthropic</a>, <a href="https://platform.stability.ai/" target="_blank" rel="noopener">Stability AI</a>, <a href="https://research.runwayml.com/" target="_blank" rel="noopener">Runway</a>, <a href="https://replicate.com/explore" target="_blank" rel="noopener">Replicate</a>, <a href="https://huggingface.co/inference-endpoints" target="_blank" rel="noopener">Hugging Face Endpoints</a></li>
+      <li><a href="https://aws.amazon.com/sagemaker/" target="_blank" rel="noopener">AWS SageMaker</a>, <a href="https://azure.microsoft.com/en-us/products/machine-learning/" target="_blank" rel="noopener">Azure ML</a>, <a href="https://cloud.google.com/vertex-ai" target="_blank" rel="noopener">Google Vertex AI</a></li>
+      <li><a href="https://www.aicerts.ai/wp-content/uploads/2024/05/AI-Product-Manager-Blueprint.pdf" target="_blank" rel="noopener">AI Product Manager Blueprint (PDF)</a></li>
+      <li><a href="https://cocodataset.org/#detection-eval" target="_blank" rel="noopener">COCO — Detection Evaluation</a></li>
+      <li><a href="https://docs.evidentlyai.com/" target="_blank" rel="noopener">Evidently AI (Monitoring, Drift)</a></li>
+      <li><a href="https://huggingface.co/spaces" target="_blank" rel="noopener">Hugging Face Spaces</a>, <a href="https://streamlit.io/" target="_blank" rel="noopener">Streamlit</a></li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>© 2025 AI PM Blueprint • Built for personal learning. All external links belong to their respective owners.</p>
+  </footer>
+</div>
+</body>
+</html>

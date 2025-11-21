@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How Neural Rendering Redefines Look Development | Michael Pistorio</title>
+  <meta name="description" content="From NeRFs to neural BRDFs—exploring production-ready applications of neural rendering in VFX workflows.">
+  <style>
+    :root {
+      --bg:#0b0c10;
+      --card:#12131a;
+      --text:#e6edf3;
+      --muted:#9fb3c8;
+      --accent:#4cc9f0;
+      --border:#202334;
+    }
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font:17px/1.8 system-ui,Segoe UI,Roboto,Inter,Georgia,serif}
+
+    /* Article Layout */
+    .article-wrap{max-width:740px;margin:0 auto;padding:60px 20px}
+
+    /* Header */
+    .article-header{
+      border-bottom:1px solid var(--border);
+      padding-bottom:32px;
+      margin-bottom:40px;
+    }
+    .article-meta{
+      display:flex;
+      gap:16px;
+      align-items:center;
+      margin-bottom:20px;
+      font-size:14px;
+      color:var(--muted);
+    }
+    .article-tag{
+      background:rgba(76,201,240,0.15);
+      color:var(--accent);
+      padding:6px 14px;
+      border-radius:6px;
+      font-size:12px;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+    }
+    h1{
+      margin:0 0 20px;
+      font-size:clamp(32px,5vw,44px);
+      line-height:1.2;
+      letter-spacing:-0.5px;
+    }
+    .article-lede{
+      font-size:20px;
+      color:var(--muted);
+      line-height:1.6;
+      margin:0;
+    }
+
+    /* Article Content */
+    .article-content h2{
+      font-size:28px;
+      margin:48px 0 20px;
+      color:var(--text);
+      letter-spacing:-0.3px;
+    }
+    .article-content h3{
+      font-size:22px;
+      margin:36px 0 16px;
+      color:var(--accent);
+    }
+    .article-content p{
+      margin:20px 0;
+      color:var(--muted);
+    }
+    .article-content strong{
+      color:var(--text);
+      font-weight:600;
+    }
+    .article-content em{
+      color:var(--text);
+      font-style:italic;
+    }
+    .article-content a{
+      color:var(--accent);
+      text-decoration:none;
+      border-bottom:1px solid transparent;
+      transition:border-color 0.2s;
+    }
+    .article-content a:hover{
+      border-bottom-color:var(--accent);
+    }
+
+    /* Callout Boxes */
+    .callout{
+      background:var(--card);
+      border-left:4px solid var(--accent);
+      border-radius:8px;
+      padding:24px 28px;
+      margin:32px 0;
+    }
+    .callout h4{
+      margin:0 0 12px;
+      color:var(--accent);
+      font-size:18px;
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+      font-size:14px;
+    }
+    .callout p{
+      margin:8px 0;
+    }
+    .callout ul{
+      margin:12px 0;
+      padding-left:20px;
+    }
+    .callout li{
+      margin:8px 0;
+      color:var(--muted);
+    }
+
+    /* Pull Quotes */
+    .pull-quote{
+      font-size:24px;
+      line-height:1.5;
+      color:var(--accent);
+      font-style:italic;
+      margin:40px 0;
+      padding:24px 0;
+      border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border);
+      text-align:center;
+    }
+
+    /* Code Blocks */
+    code{
+      background:var(--card);
+      color:var(--accent);
+      padding:3px 8px;
+      border-radius:4px;
+      font-size:15px;
+      font-family:Monaco,Consolas,monospace;
+    }
+
+    /* Trajectory Section */
+    .trajectory{
+      background:linear-gradient(135deg, #1a1d2a 0%, #0f1115 100%);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:32px;
+      margin:48px 0;
+    }
+    .trajectory h3{
+      margin:0 0 16px;
+      color:var(--accent);
+      font-size:22px;
+    }
+    .trajectory p{
+      margin:12px 0;
+      color:var(--muted);
+    }
+
+    /* Footer Nav */
+    .article-footer{
+      margin-top:60px;
+      padding-top:32px;
+      border-top:1px solid var(--border);
+    }
+    .footer-nav{
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+    }
+    .footer-nav a{
+      color:var(--accent);
+      text-decoration:none;
+      font-size:15px;
+    }
+    .footer-nav a:hover{
+      text-decoration:underline;
+    }
+
+    nav{margin:20px auto;padding:16px 0;border-bottom:1px solid var(--border);max-width:740px}
+    nav a{margin-right:24px;color:var(--muted);font-size:14px;text-transform:uppercase;letter-spacing:0.5px;text-decoration:none;border:none}
+    nav a:hover{color:var(--accent);text-decoration:none;border:none}
+  </style>
+</head>
+<body>
+  <nav style="padding-left:20px;padding-right:20px">
+    <a href="index.html">← Back to Work</a>
+  </nav>
+
+  <article class="article-wrap">
+    <header class="article-header">
+      <div class="article-meta">
+        <span class="article-tag">Neural Rendering</span>
+        <span>12 min read</span>
+        <span>Jan 2025</span>
+      </div>
+      <h1>How Neural Rendering Redefines Look Development</h1>
+      <p class="article-lede">
+        From NeRFs to neural BRDFs, implicit scene representations are transforming how we think
+        about lighting, materials, and previsualization. But where does the hype end and production
+        reality begin?
+      </p>
+    </header>
+
+    <div class="article-content">
+      <p>
+        If you've spent any time in VFX lookdev over the past three years, you've heard the promise:
+        <strong>neural rendering will revolutionize how we create photorealistic imagery</strong>. NeRFs
+        (Neural Radiance Fields) let you reconstruct entire scenes from photos. Gaussian Splatting enables
+        real-time view synthesis. Neural BRDFs can learn material properties from reference images.
+      </p>
+
+      <p>
+        The research is compelling. The demos are stunning. But after building prototypes and talking to
+        studio pipeline TDs, I've learned this: <em>the technology is ready; the integration is not</em>.
+      </p>
+
+      <h2>The Promise: Implicit Representations</h2>
+
+      <p>
+        Traditional VFX workflows represent scenes explicitly—meshes, textures, lights. Every asset is
+        an artifact you can inspect, version, and hand off between departments. Neural rendering takes
+        a different approach: <strong>encode the scene as learned parameters in a neural network</strong>.
+      </p>
+
+      <p>
+        Instead of modeling a building with polygons and UV-mapped textures, a NeRF learns the building's
+        volumetric appearance from dozens of photographs. Query the network at any 3D point and viewing
+        angle, and it predicts color and density. The result? Photorealistic novel views without traditional
+        3D geometry.
+      </p>
+
+      <div class="callout">
+        <h4>Key Technologies</h4>
+        <ul>
+          <li><strong>NeRF (Neural Radiance Fields)</strong> — Volumetric scene representation via MLPs</li>
+          <li><strong>Gaussian Splatting</strong> — Real-time view synthesis using 3D Gaussians</li>
+          <li><strong>Neural BRDFs</strong> — Material property learning from reference imagery</li>
+          <li><strong>Instant-NGP</strong> — Fast NeRF training with multi-resolution hash encoding</li>
+        </ul>
+      </div>
+
+      <h2>Production Reality: The Integration Problem</h2>
+
+      <p>
+        Here's where theory meets the dailies room. Neural rendering systems don't fit cleanly into
+        existing VFX pipelines because:
+      </p>
+
+      <h3>1. Editability</h3>
+      <p>
+        Supervisors need to tweak things. "Make the lighting warmer." "Shift that reflection 10 degrees."
+        With explicit geometry and textures, artists have handles to grab. With implicit neural representations,
+        you're adjusting network weights—there's no "lighting layer" to isolate.
+      </p>
+
+      <h3>2. Version Control</h3>
+      <p>
+        VFX pipelines are built on versioning: asset v12, lighting v08, comp v23. Neural networks are
+        opaque blobs of weights. How do you diff two NeRF checkpoints? How do you merge artist feedback
+        into a retrained model without losing previous iterations?
+      </p>
+
+      <h3>3. Handoff Between Departments</h3>
+      <p>
+        Layout gives models to animation. Animation gives caches to lighting. Lighting gives renders to
+        comp. Neural rendering breaks this chain. If your set extension is a NeRF, how does the compositor
+        adjust the color? How does lighting add interactive elements?
+      </p>
+
+      <div class="pull-quote">
+        "The technology is ready; the integration is not."
+      </div>
+
+      <h2>Where Neural Rendering Works Today</h2>
+
+      <p>
+        Despite integration challenges, neural rendering has found production niches where the tradeoffs
+        make sense:
+      </p>
+
+      <h3>Set Reconstruction for Virtual Production</h3>
+      <p>
+        Scanning real locations with NeRFs/Gaussian Splatting for LED wall backgrounds. Artists don't
+        need to edit the implicit representation—they just need photorealistic playback. Integration
+        with Unreal Engine via Lumen provides lighting interaction.
+      </p>
+
+      <h3>Reference-Based Material Synthesis</h3>
+      <p>
+        Neural BRDFs excel at "create a wood material that looks like this photo." The output is still
+        traditional texture maps (albedo, roughness, normal), so it slots into existing MaterialX/MDL
+        workflows. The neural network is a <em>tool</em>, not the final asset.
+      </p>
+
+      <h3>Previsualization with Instant Feedback</h3>
+      <p>
+        Real-time Gaussian Splatting for rapid camera blocking and composition exploration. Not final-pixel,
+        but fast enough for art department decision-making. Handoff to traditional 3D for hero shots.
+      </p>
+
+      <div class="callout">
+        <h4>Takeaway</h4>
+        <p>
+          Neural rendering works best when it <strong>augments</strong> traditional workflows rather than
+          replacing them. Think of it as a render pass, not the entire pipeline.
+        </p>
+      </div>
+
+      <h2>The Path Forward: Hybrid Systems</h2>
+
+      <p>
+        The future isn't "neural rendering vs. traditional rendering"—it's hybrid systems that leverage
+        both. Imagine:
+      </p>
+
+      <p>
+        <strong>USD Scene Graphs with Neural Prims</strong> — A NeRF as a first-class USD primitive,
+        composable with polygon meshes and lights. Renderers like Hydra could support both explicit and
+        implicit representations in the same scene.
+      </p>
+
+      <p>
+        <strong>Neural Render Layers</strong> — Environment passes via NeRF, hero assets via path tracing.
+        Composite in Nuke with full per-layer control. The neural component is just another AOV.
+      </p>
+
+      <p>
+        <strong>Feedback Loops for Editability</strong> — Train NeRFs with semantic labels (sky, building,
+        ground). Let artists manipulate high-level parameters ("shift building color toward warm") and
+        retrain in near-real-time with Instant-NGP optimizations.
+      </p>
+
+      <div class="trajectory">
+        <h3>Trajectory</h3>
+        <p>
+          Over the next 2-3 years, expect neural rendering to become a <strong>utility layer</strong>
+          within VFX pipelines—not the hero technology, but the invisible infrastructure that makes
+          certain tasks faster and cheaper.
+        </p>
+        <p>
+          Studios that treat neural models as <em>production assets</em> (versioned, governed, integrated)
+          will see ROI. Those chasing the hype without solving integration will waste budget on R&D that
+          never ships.
+        </p>
+      </div>
+
+      <h2>Conclusion</h2>
+
+      <p>
+        Neural rendering is genuinely transformative technology. But transformation doesn't happen overnight,
+        and it doesn't happen in isolation. The real work isn't training better NeRFs—it's building the
+        infrastructure that lets neural methods coexist with 50 years of VFX tooling.
+      </p>
+
+      <p>
+        As someone who's spent 8 years in production and the past year prototyping AI systems, my advice
+        is this: <strong>start small, focus on hybrid workflows, and obsess over integration</strong>.
+        The studios that figure this out won't just use neural rendering—they'll build pipelines where
+        traditional and neural methods enhance each other.
+      </p>
+
+      <p>
+        That's the intelligent VFX pipeline. And it's infrastructure, not magic.
+      </p>
+    </div>
+
+    <footer class="article-footer">
+      <div class="footer-nav">
+        <a href="index.html">← Back to Work</a>
+      </div>
+    </footer>
+  </article>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Neural Rendering and the New Creative Stack | Michael Pistorio</title>
+  <meta name="description" content="How neural networks accelerate lookdev without replacing path tracing.">
+  <style>
+    :root {
+      --bg:#0b0c10;
+      --card:#12131a;
+      --text:#e6edf3;
+      --muted:#9fb3c8;
+      --accent:#4cc9f0;
+      --border:#202334;
+    }
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font:17px/1.8 system-ui,Segoe UI,Roboto,Inter,Georgia,serif}
+    .article-wrap{max-width:740px;margin:0 auto;padding:60px 20px}
+    .article-header{border-bottom:1px solid var(--border);padding-bottom:32px;margin-bottom:40px}
+    .article-meta{display:flex;gap:16px;align-items:center;margin-bottom:20px;font-size:14px;color:var(--muted)}
+    .article-tag{background:rgba(76,201,240,0.15);color:var(--accent);padding:6px 14px;border-radius:6px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+    h1{margin:0 0 20px;font-size:clamp(32px,5vw,44px);line-height:1.2;letter-spacing:-0.5px}
+    .article-lede{font-size:20px;color:var(--muted);line-height:1.6;margin:0}
+    .article-content h2{font-size:28px;margin:48px 0 20px;color:var(--text);letter-spacing:-0.3px}
+    .article-content h3{font-size:22px;margin:36px 0 16px;color:var(--accent)}
+    .article-content p{margin:20px 0;color:var(--muted)}
+    .article-content strong{color:var(--text);font-weight:600}
+    .article-content ul{margin:20px 0;padding-left:24px}
+    .article-content li{margin:12px 0;color:var(--muted)}
+    .article-footer{margin-top:60px;padding-top:32px;border-top:1px solid var(--border)}
+    .footer-nav{display:flex;justify-content:space-between;gap:20px}
+    .footer-nav a{color:var(--accent);text-decoration:none;font-size:15px}
+    .footer-nav a:hover{text-decoration:underline}
+    nav{margin:20px auto;padding:16px 0;border-bottom:1px solid var(--border);max-width:740px}
+    nav a{margin-right:24px;color:var(--muted);font-size:14px;text-transform:uppercase;letter-spacing:0.5px;text-decoration:none;border:none}
+    nav a:hover{color:var(--accent);text-decoration:none;border:none}
+  </style>
+</head>
+<body>
+  <nav style="padding-left:20px;padding-right:20px">
+    <a href="index.html">← Back to Work</a> |
+    <a href="writing.html">All Writing</a>
+  </nav>
+
+  <article class="article-wrap">
+    <header class="article-header">
+      <div class="article-meta">
+        <span class="article-tag">Part 3 - Representation</span>
+        <span>14 min read</span>
+        <span>Nov 2024</span>
+      </div>
+      <h1>Neural Rendering and the New Creative Stack</h1>
+      <p class="article-lede">
+        Neural representations compress iteration cycles without replacing path tracing. Show-specific
+        models adapt to production aesthetics. This is neural rendering as pipeline primitive.
+      </p>
+    </header>
+
+    <div class="article-content">
+      <p>
+        "Adjust a shader, tweak a light, push a parameter—then wait."
+      </p>
+
+      <p>
+        Traditional physically-based rendering creates <strong>iteration friction</strong>. Artists spend more
+        time waiting for full-quality renders than exploring creative possibilities. This bottleneck compounds
+        across lookdev, lighting, and comp—every department waiting for confirmation that their work looks right.
+      </p>
+
+      <p>
+        Neural rendering offers a different path: <strong>learned representations</strong> that compress or guide
+        traditional rendering, enabling faster feedback without replacing path tracing entirely.
+      </p>
+
+      <h2>Four Categories of Neural Rendering</h2>
+
+      <h3>1. Neural Representations</h3>
+
+      <p>
+        Instead of explicit geometry and textures, neural networks encode scenes as learned functions:
+      </p>
+
+      <ul>
+        <li><strong>Neural geometry:</strong> SDFs, 3D Gaussian Splatting—compact, queryable alternatives to heavy meshes</li>
+        <li><strong>Neural materials:</strong> BRDFs learned from reference imagery or physical measurements</li>
+        <li><strong>Neural light fields:</strong> Radiance fields capturing illumination without explicit lights</li>
+      </ul>
+
+      <p>
+        The value: <strong>compression without loss of fidelity</strong>. A massive photogrammetry scan becomes
+        a lightweight neural representation that renders interactively.
+      </p>
+
+      <h3>2. Lookdev Acceleration Tools</h3>
+
+      <p>
+        Neural networks as <strong>accelerators for traditional workflows</strong>:
+      </p>
+
+      <ul>
+        <li><strong>Neural upsampling and denoising:</strong> Reducing sample counts needed for clean images</li>
+        <li><strong>Material authoring assistance:</strong> Text-to-material or image-to-material generation</li>
+        <li><strong>Look transfer:</strong> Matching aesthetics across shots using neural style transfer</li>
+      </ul>
+
+      <p>
+        Artists maintain full control over final outputs but iterate 3-5x faster during exploration phases.
+      </p>
+
+      <h3>3. Hybrid Approaches</h3>
+
+      <p>
+        Neural methods <strong>guiding rather than replacing</strong> path tracing:
+      </p>
+
+      <ul>
+        <li><strong>Neural path guiding:</strong> ML-predicted importance sampling reduces noise in difficult lighting scenarios</li>
+        <li><strong>Scene-level neural caches:</strong> Pre-computing illumination patterns for reuse across similar shots</li>
+        <li><strong>Neural BRDF models:</strong> Learned material behaviors that integrate with traditional shading systems</li>
+      </ul>
+
+      <p>
+        These preserve artistic control and render determinism while capturing neural efficiency gains.
+      </p>
+
+      <h3>4. Creative Expansion Tools</h3>
+
+      <p>
+        Neural rendering enabling <strong>new creative possibilities</strong>:
+      </p>
+
+      <ul>
+        <li><strong>Stylization tools:</strong> Photorealistic renders transformed to painterly, illustrative, or abstract styles</li>
+        <li><strong>Conceptual variant generation:</strong> Exploring lighting/material alternatives rapidly</li>
+        <li><strong>Neural compositing aids:</strong> Relighting, depth-of-field, atmospheric effects in comp</li>
+      </ul>
+
+      <p>
+        Expanding the creative palette from photorealism to stylization without manual rotoscoping or re-rendering.
+      </p>
+
+      <h2>The Show-Specific Model Advantage</h2>
+
+      <p>
+        Here's the critical insight: <strong>neural models perform dramatically better when trained on the visual
+        identity of a specific show</strong>.
+      </p>
+
+      <p>
+        A generic denoiser trained on random CG imagery produces mediocre results. A denoiser fine-tuned on
+        <em>your show's</em> materials, lighting conditions, and stylistic choices produces results that feel
+        native to the production.
+      </p>
+
+      <p>
+        This applies across domains:
+      </p>
+
+      <ul>
+        <li><strong>Material generators</strong> trained on show-specific texture libraries</li>
+        <li><strong>Denoisers</strong> understanding particular hair, skin, and fabric characteristics</li>
+        <li><strong>Path guides</strong> optimized for recurring lighting patterns</li>
+      </ul>
+
+      <p>
+        The strategic implication: studios should treat <strong>show-specific neural models as production assets</strong>,
+        versioned and maintained like USD libraries or shader networks.
+      </p>
+
+      <h2>Neural Assets as Pipeline Primitives</h2>
+
+      <p>
+        The paradigm shift: neural models become <strong>first-class pipeline data types</strong> alongside geometry,
+        textures, and lights.
+      </p>
+
+      <ul>
+        <li>Neural scene representations stored in USD</li>
+        <li>Neural BRDFs as MaterialX nodes</li>
+        <li>Neural caches referenced like texture maps</li>
+        <li>Denoising models tracked in ShotGrid</li>
+      </ul>
+
+      <p>
+        This enables:
+      </p>
+
+      <ul>
+        <li><strong>Version control:</strong> Neural model checkpoints tied to shot metadata</li>
+        <li><strong>Dependency tracking:</strong> Changes to neural assets propagate like texture updates</li>
+        <li><strong>Collaborative workflows:</strong> Artists share and refine neural representations</li>
+      </ul>
+
+      <h2>Production Impact: Faster Decisions</h2>
+
+      <p>
+        The measurable value of neural rendering:
+      </p>
+
+      <ul>
+        <li><strong>Shorter iteration cycles:</strong> 10-minute preview renders become 30-second neural previews</li>
+        <li><strong>Fewer full renders:</strong> Confidence in creative decisions before expensive final renders</li>
+        <li><strong>Expanded creative palette:</strong> Stylization and creative variants that were too expensive become feasible</li>
+      </ul>
+
+      <p>
+        The time saved isn't just efficiency—it's <strong>creative freedom</strong>. More iterations mean better
+        creative outcomes.
+      </p>
+
+      <h2>Limitations and Hybrid Reality</h2>
+
+      <p>
+        Neural rendering isn't a silver bullet:
+      </p>
+
+      <ul>
+        <li><strong>Training overhead:</strong> Show-specific models require curated datasets</li>
+        <li><strong>Temporal consistency challenges:</strong> Flickering remains problematic for some neural methods</li>
+        <li><strong>Integration complexity:</strong> Neural representations don't always fit cleanly into existing pipelines</li>
+        <li><strong>Artist trust:</strong> "Black box" neural systems require transparency and confidence scoring</li>
+      </ul>
+
+      <p>
+        The pragmatic approach: <strong>hybrid workflows</strong> where neural methods handle heavy lifting while
+        traditional path tracing provides final quality and editorial control.
+      </p>
+
+      <h2>What's Next</h2>
+
+      <p>
+        Computer vision perceives, machine learning predicts, neural rendering creates. The final essay explores
+        <strong>platform architecture</strong>—how to make these intelligent capabilities production-ready through
+        governance, determinism, and infrastructure thinking.
+      </p>
+
+      <p>
+        We move from what AI can do to how studios operationalize it at scale.
+      </p>
+    </div>
+
+    <footer class="article-footer">
+      <div class="footer-nav">
+        <a href="essay-predictive-pipelines.html">← Prev: Part 2 - Predictive Pipelines</a>
+        <a href="essay-ai-co-creator.html">Next: Part 4 - AI Co-Creator →</a>
+      </div>
+    </footer>
+  </article>
+</body>
+</html>

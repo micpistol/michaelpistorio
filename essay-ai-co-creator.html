@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI as a Co-Creator: Building Production-Ready, Node-Based AI Pipelines | Michael Pistorio</title>
+  <meta name="description" content="Making AI production-ready through node-based platforms with governance and determinism.">
+  <style>
+    :root {
+      --bg:#0b0c10;
+      --card:#12131a;
+      --text:#e6edf3;
+      --muted:#9fb3c8;
+      --accent:#4cc9f0;
+      --border:#202334;
+    }
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font:17px/1.8 system-ui,Segoe UI,Roboto,Inter,Georgia,serif}
+    .article-wrap{max-width:740px;margin:0 auto;padding:60px 20px}
+    .article-header{border-bottom:1px solid var(--border);padding-bottom:32px;margin-bottom:40px}
+    .article-meta{display:flex;gap:16px;align-items:center;margin-bottom:20px;font-size:14px;color:var(--muted)}
+    .article-tag{background:rgba(76,201,240,0.15);color:var(--accent);padding:6px 14px;border-radius:6px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+    h1{margin:0 0 20px;font-size:clamp(32px,5vw,44px);line-height:1.2;letter-spacing:-0.5px}
+    .article-lede{font-size:20px;color:var(--muted);line-height:1.6;margin:0}
+    .article-content h2{font-size:28px;margin:48px 0 20px;color:var(--text);letter-spacing:-0.3px}
+    .article-content h3{font-size:22px;margin:36px 0 16px;color:var(--accent)}
+    .article-content p{margin:20px 0;color:var(--muted)}
+    .article-content strong{color:var(--text);font-weight:600}
+    .article-content ul{margin:20px 0;padding-left:24px}
+    .article-content li{margin:12px 0;color:var(--muted)}
+    .article-footer{margin-top:60px;padding-top:32px;border-top:1px solid var(--border)}
+    .footer-nav{display:flex;justify-content:space-between;gap:20px}
+    .footer-nav a{color:var(--accent);text-decoration:none;font-size:15px}
+    .footer-nav a:hover{text-decoration:underline}
+    nav{margin:20px auto;padding:16px 0;border-bottom:1px solid var(--border);max-width:740px}
+    nav a{margin-right:24px;color:var(--muted);font-size:14px;text-transform:uppercase;letter-spacing:0.5px;text-decoration:none;border:none}
+    nav a:hover{color:var(--accent);text-decoration:none;border:none}
+  </style>
+</head>
+<body>
+  <nav style="padding-left:20px;padding-right:20px">
+    <a href="index.html">← Back to Work</a> |
+    <a href="writing.html">All Writing</a>
+  </nav>
+
+  <article class="article-wrap">
+    <header class="article-header">
+      <div class="article-meta">
+        <span class="article-tag">Part 4 - Platform</span>
+        <span>11 min read</span>
+        <span>Nov 2024</span>
+      </div>
+      <h1>AI as a Co-Creator: Building Production-Ready, Node-Based AI Pipelines</h1>
+      <p class="article-lede">
+        Current AI workflows lack determinism, versioning, and traceability. A node-based platform architecture
+        inspired by Nuke and USD can make AI production-ready at scale.
+      </p>
+    </header>
+
+    <div class="article-content">
+      <p>
+        Studios experiment with AI daily: Stable Diffusion for concept art, ChatGPT for script notes, Runway
+        for video generation. But these remain <strong>experimental</strong>—not production integrated.
+      </p>
+
+      <p>
+        The gap? Today's AI processes are <strong>non-deterministic, non-versioned, non-trackable,
+        non-interoperable, non-reviewable</strong>. You can't operationalize workflows that lack these fundamentals.
+      </p>
+
+      <p>
+        How do we bridge the gap between AI experimentation and production deployment?
+      </p>
+
+      <h2>The Node-Based Solution</h2>
+
+      <p>
+        VFX learned this lesson decades ago. Nuke, Houdini, Katana, USD—all standardized around <strong>graph-based
+        workflows</strong> where operations connect as nodes, parameters expose artist control, and graphs version
+        like code.
+      </p>
+
+      <p>
+        ComfyUI demonstrates this approach for generative AI: workflow graphs where models, prompts, and
+        conditioning steps connect as nodes. The result? <strong>Reproducible, shareable, iterative</strong>
+        AI workflows.
+      </p>
+
+      <p>
+        Now scale that thinking to production VFX.
+      </p>
+
+      <h2>Five Production Requirements</h2>
+
+      <h3>1. Deterministic Outputs</h3>
+
+      <p>
+        Generative AI is inherently stochastic—different results every run. Production requires <strong>locked
+        behavior</strong>: same inputs = same outputs.
+      </p>
+
+      <p>
+        Solutions:
+      </p>
+
+      <ul>
+        <li><strong>Frozen seeds:</strong> Lock random number generation for reproducibility</li>
+        <li><strong>Model checkpoints:</strong> Pin specific model versions (not "latest")</li>
+        <li><strong>Config snapshots:</strong> Capture all parameters at execution time</li>
+      </ul>
+
+      <p>
+        Artists need confidence that approved iterations won't mysteriously change on re-render.
+      </p>
+
+      <h3>2. Versioned Workflows</h3>
+
+      <p>
+        Like Nuke scripts or USD files, AI workflows must <strong>branch, compare, and rollback</strong>:
+      </p>
+
+      <ul>
+        <li>Supervisor approves version A → artist explores version B → can revert to A if B fails</li>
+        <li>Compare two workflow graphs side-by-side (diff view)</li>
+        <li>Git-like versioning with commit messages describing changes</li>
+      </ul>
+
+      <p>
+        This transforms AI from "black box experiment" to "trackable production asset."
+      </p>
+
+      <h3>3. Pipeline-Aware Conditioning</h3>
+
+      <p>
+        Generic AI tools generate standalone outputs. Production tools integrate with <strong>existing pipeline
+        data</strong>:
+      </p>
+
+      <ul>
+        <li><strong>Depth maps from comp:</strong> Condition generation on scene geometry</li>
+        <li><strong>Masks from roto:</strong> Control regions precisely</li>
+        <li><strong>Segmentation maps:</strong> Ensure character/background separation</li>
+        <li><strong>USD scene context:</strong> Respect camera angles, lighting direction, asset positions</li>
+      </ul>
+
+      <p>
+        AI outputs that ignore shot continuity, depth relationships, or lighting coherence don't fit production
+        workflows.
+      </p>
+
+      <h3>4. Asset Tracking Integration</h3>
+
+      <p>
+        Every output connects to <strong>production metadata</strong>:
+      </p>
+
+      <ul>
+        <li>Shot ID and version number (ShotGrid integration)</li>
+        <li>USD paths for 3D assets referenced</li>
+        <li>Model checkpoints and seed values used</li>
+        <li>Artist name and approval status</li>
+      </ul>
+
+      <p>
+        This enables queries like: "Which shots used model X?" "What assets were generated by artist Y?" "Show
+        me all approved AI outputs for episode 3."
+      </p>
+
+      <h3>5. Full Lineage Documentation</h3>
+
+      <p>
+        For every AI-generated asset, capture <strong>complete provenance</strong>:
+      </p>
+
+      <ul>
+        <li>Source images or prompts</li>
+        <li>Model checkpoint versions</li>
+        <li>Workflow graph structure</li>
+        <li>Parameters and conditioning inputs</li>
+        <li>Approval chain and modification history</li>
+      </ul>
+
+      <p>
+        This isn't just good practice—it's <strong>legal and creative necessity</strong>. Studios must trace
+        how every pixel was created.
+      </p>
+
+      <h2>Platform Architecture: Infrastructure Over Point Solutions</h2>
+
+      <p>
+        The strategic shift: studios should invest in <strong>AI platform infrastructure</strong> rather than
+        point solutions.
+      </p>
+
+      <p>
+        Platform components:
+      </p>
+
+      <ul>
+        <li><strong>Workflow graph runtime:</strong> Execute node-based AI pipelines (like Nuke for generative AI)</li>
+        <li><strong>Model registry:</strong> Version control for AI checkpoints with metadata and approval status</li>
+        <li><strong>Conditioning library:</strong> Reusable control modules (depth, pose, segmentation, style)</li>
+        <li><strong>Integration adapters:</strong> Connect to ShotGrid, USD, editorial systems, render farms</li>
+        <li><strong>Review and approval tools:</strong> Compare outputs, annotate issues, track feedback</li>
+      </ul>
+
+      <h2>Governance and Trust</h2>
+
+      <p>
+        Production-ready AI requires <strong>governance frameworks</strong>:
+      </p>
+
+      <ul>
+        <li><strong>Model approval process:</strong> QC before deployment to shows</li>
+        <li><strong>Data usage policies:</strong> What training data is acceptable? How is bias monitored?</li>
+        <li><strong>Output validation:</strong> Automated checks for technical compliance (resolution, format, metadata)</li>
+        <li><strong>Artist training:</strong> Teams understand AI capabilities and limitations</li>
+      </ul>
+
+      <p>
+        Trust comes from <strong>transparency and control</strong>—not hiding complexity behind "magic" buttons.
+      </p>
+
+      <h2>The ComfyUI Lesson</h2>
+
+      <p>
+        ComfyUI's success demonstrates that <strong>graph-based workflows work for generative AI</strong>. Artists
+        embrace node-based tools when they provide:
+      </p>
+
+      <ul>
+        <li>Visual clarity (see the entire pipeline at a glance)</li>
+        <li>Modularity (swap components, test alternatives)</li>
+        <li>Shareability (export graphs, collaborate with teammates)</li>
+        <li>Extensibility (add custom nodes, integrate studio tools)</li>
+      </ul>
+
+      <p>
+        The next step: <strong>production-grade platforms</strong> with determinism, versioning, and pipeline
+        integration built-in.
+      </p>
+
+      <h2>What Success Looks Like</h2>
+
+      <p>
+        Imagine:
+      </p>
+
+      <ul>
+        <li>Concept artists save workflow graphs alongside Photoshop files</li>
+        <li>Lookdev artists version neural material generators like shader networks</li>
+        <li>Compositors integrate AI relighting as standard Nuke nodes</li>
+        <li>ShotGrid tracks AI model versions like any other production asset</li>
+        <li>Supervisors review AI outputs with full lineage: "This was generated using model v2.3, seed 42, approved by Artist X"</li>
+      </ul>
+
+      <p>
+        AI becomes <strong>governed infrastructure</strong>, not experimental side projects.
+      </p>
+
+      <h2>Conclusion: The Cognitive Supply Chain</h2>
+
+      <p>
+        Across four essays, we've explored how AI transforms VFX production:
+      </p>
+
+      <ul>
+        <li><strong>Computer vision:</strong> Perception—turning pixels into structured data</li>
+        <li><strong>Machine learning:</strong> Prediction—forecasting render behavior and optimizing workflows</li>
+        <li><strong>Neural rendering:</strong> Representation—accelerating creative iteration</li>
+        <li><strong>Platform architecture:</strong> Integration—making AI production-ready through governance</li>
+      </ul>
+
+      <p>
+        The vision: VFX pipelines as <strong>cognitive supply chains</strong>—systems that learn, predict, adapt,
+        and scale. Intelligence embedded in infrastructure. Creative augmentation, not replacement.
+      </p>
+
+      <p>
+        This is the next wave of VFX tooling. And it starts with treating AI as <strong>foundational infrastructure</strong>,
+        not experimental features.
+      </p>
+
+      <p>
+        Welcome to the intelligent VFX pipeline.
+      </p>
+    </div>
+
+    <footer class="article-footer">
+      <div class="footer-nav">
+        <a href="essay-neural-rendering-series.html">← Prev: Part 3 - Neural Rendering</a>
+        <a href="writing.html">View All Writing →</a>
+      </div>
+    </footer>
+  </article>
+</body>
+</html>

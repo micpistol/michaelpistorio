@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VFX Data Corpus Visualization | Michael Pistorio</title>
+  <meta name="description" content="Knowledge graph connecting shots, annotations, model training data, and production lineage.">
+  <style>
+    :root {
+      --bg: #fafafa;
+      --text: #1a1a1a;
+      --muted: #666;
+      --accent: #0066ff;
+      --border: #e0e0e0;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0a0a0a;
+        --text: #f0f0f0;
+        --muted: #999;
+        --accent: #4cc9f0;
+        --border: #222;
+      }
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.7;
+    }
+
+    .container {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 80px 20px;
+    }
+
+    nav {
+      margin-bottom: 60px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--text);
+    }
+
+    .project-meta {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+      font-size: 13px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    h1 {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .lede {
+      font-size: 20px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 60px;
+    }
+
+    .image-placeholder {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      border-radius: 12px;
+      margin-bottom: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 600;
+    }
+
+    h2 {
+      font-size: clamp(24px, 4vw, 32px);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin: 60px 0 24px;
+    }
+
+    p {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    ul {
+      margin: 20px 0;
+      padding-left: 24px;
+    }
+
+    li {
+      color: var(--muted);
+      margin: 12px 0;
+      line-height: 1.6;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 40px 0;
+    }
+
+    .tag {
+      font-size: 12px;
+      color: var(--muted);
+      background: var(--border);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    footer {
+      margin-top: 80px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    footer a:hover {
+      color: var(--text);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <a href="portfolio-minimal.html">← Back to Work</a>
+    </nav>
+
+    <div class="project-meta">
+      <span>2024</span>
+      <span>Infrastructure</span>
+      <span>Research Phase</span>
+    </div>
+
+    <h1>VFX Data Corpus Visualization</h1>
+
+    <p class="lede">
+      Interactive exploration of shot metadata, model training datasets, and production lineage.
+      Treating data as strategic infrastructure, not scattered artifacts.
+    </p>
+
+    <div class="image-placeholder">Project Screenshot</div>
+
+    <h2>Challenge</h2>
+    <p>
+      Production data is fragmented across ShotGrid, editorial systems, render logs, and QC
+      databases. There's no unified view of how shots, assets, and model training data relate—making
+      it difficult to trace model decisions or audit dataset quality.
+    </p>
+    <p>
+      When an AI model makes a mistake, you need to understand: What training data influenced
+      this decision? Which shots contributed similar examples? How has artist feedback modified
+      the model over time? Without data lineage, these questions are unanswerable.
+    </p>
+
+    <h2>Approach</h2>
+    <ul>
+      <li>
+        <strong>Building knowledge graph</strong> connecting shots, plates, annotations, model
+        versions, and inference results with full lineage tracking
+      </li>
+      <li>
+        <strong>Interactive 3D visualization</strong> showing data relationships and flow through
+        the production pipeline
+      </li>
+      <li>
+        <strong>Filtering by shot complexity</strong>, model performance, artist feedback scores,
+        and temporal patterns
+      </li>
+      <li>
+        <strong>Version control for datasets</strong> treating training data as a versioned asset
+        like code or models
+      </li>
+      <li>
+        <strong>Query interface for artists</strong> to explore which shots influenced model
+        behavior on specific cases
+      </li>
+    </ul>
+
+    <h2>Research Questions</h2>
+    <p>
+      <strong>Can we trace model decisions back to training examples?</strong> If a segmentation
+      model fails on a reflective surface, which training images taught it about reflections?
+      This explainability builds trust and identifies dataset gaps.
+    </p>
+    <p>
+      <strong>How does data quality correlate with model performance?</strong> By visualizing
+      relationships between annotation quality, shot complexity, and inference accuracy, we can
+      prioritize dataset improvements with highest impact.
+    </p>
+    <p>
+      <strong>What's the ROI of human feedback?</strong> When artists correct AI outputs, that
+      becomes training data. Tracking this loop shows which corrections improve the model most,
+      guiding where to invest annotation effort.
+    </p>
+
+    <h2>Current Status</h2>
+    <p>
+      Designing data schema and graph relationships. Prototyping with small dataset from personal
+      projects before scaling to production volumes. Exploring Neo4j for graph database and D3.js
+      for visualization.
+    </p>
+    <p>
+      The goal is a system that makes production data explorable and valuable—not just archived.
+      Data becomes infrastructure that improves over time, not just historical records.
+    </p>
+
+    <div class="tags">
+      <span class="tag">Neo4j</span>
+      <span class="tag">D3.js</span>
+      <span class="tag">ShotGrid API</span>
+      <span class="tag">MLflow</span>
+      <span class="tag">PostgreSQL</span>
+    </div>
+
+    <footer>
+      <a href="portfolio-minimal.html">← Back to Work</a>
+    </footer>
+  </div>
+</body>
+</html>

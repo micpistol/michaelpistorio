@@ -219,6 +219,38 @@
             margin-bottom: 1rem;
         }
 
+        /* Freshness Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-new {
+            background: #10b981;
+            color: white;
+        }
+
+        .badge-updated {
+            background: var(--accent-amber);
+            color: white;
+        }
+
+        .badge-version {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .badge-date {
+            background: var(--bg-gray);
+            color: var(--text-gray);
+            font-weight: 600;
+        }
+
         .featured-article {
             display: grid;
             grid-template-columns: 1.2fr 1fr;
@@ -758,8 +790,8 @@
                 Next Wave Intelligence
             </a>
             <ul class="nav-links">
-                <li><a href="writing.html">Research</a></li>
-                <li><a href="#projects">Projects</a></li>
+                <li><a href="writing.html">Writing</a></li>
+                <li><a href="#projects">Lab</a></li>
                 <li><a href="#about">About</a></li>
             </ul>
             <a href="#newsletter" class="nav-cta">Subscribe</a>
@@ -781,19 +813,23 @@
     <!-- Latest Update -->
     <section class="section-white">
         <div class="latest-update-section">
-            <div class="section-label">Latest Update</div>
+            <div class="section-label">Latest Update • December 2024</div>
             <div class="featured-article">
                 <div class="featured-image"></div>
                 <div class="featured-content">
                     <div class="article-meta">
+                        <span class="badge badge-new">New</span>
                         <span class="category-tag research">Research Series</span>
-                        <span class="date">2024</span>
+                        <span class="date">Dec 15, 2024</span>
                     </div>
                     <h2>AI as a Co-Creator: Production-Ready Platforms</h2>
                     <p>The final installment in the Intelligent VFX Futures series. Exploring the architecture requirements for production-grade AI systems—from latency constraints to human-in-the-loop feedback mechanisms. What does it take to move from prototype to pipeline?</p>
                     <a href="essay-ai-co-creator.html" class="read-more">
                         Read update →
                     </a>
+                    <p style="margin-top: 1.5rem; font-size: 0.875rem; color: var(--text-gray);">
+                        <strong>Updates published every 2-4 weeks.</strong> <a href="#newsletter" style="color: var(--primary-blue); font-weight: 600;">Subscribe for updates →</a>
+                    </p>
                 </div>
             </div>
         </div>
@@ -838,10 +874,14 @@
                 <a href="project-sam2.html" class="article-card">
                     <div class="article-image"></div>
                     <div class="article-body">
+                        <div class="article-meta">
+                            <span class="badge badge-version">v0.8</span>
+                            <span class="badge badge-updated">Updated</span>
+                        </div>
                         <h4>SAM2 Roto Assistant</h4>
                         <p>AI-powered segmentation tool reducing manual rotoscoping time by 78%.</p>
                         <div class="article-footer">
-                            <span class="date">Last updated: 2024</span>
+                            <span class="date">Last updated: Nov 2024</span>
                         </div>
                         <a href="project-sam2.html" class="read-more" style="margin-top: 0.5rem;">View project →</a>
                     </div>
@@ -850,10 +890,14 @@
                 <a href="project-neural-materials.html" class="article-card">
                     <div class="article-image"></div>
                     <div class="article-body">
+                        <div class="article-meta">
+                            <span class="badge badge-version">v0.2</span>
+                            <span class="badge badge-date">In Progress</span>
+                        </div>
                         <h4>Neural Material Explorer</h4>
                         <p>Text-to-material workflows generating MaterialX-compliant texture sets for lookdev.</p>
                         <div class="article-footer">
-                            <span class="date">Last updated: In Progress</span>
+                            <span class="date">Last updated: Oct 2024</span>
                         </div>
                         <a href="project-neural-materials.html" class="read-more" style="margin-top: 0.5rem;">View project →</a>
                     </div>
@@ -862,10 +906,14 @@
                 <a href="project-data-corpus.html" class="article-card">
                     <div class="article-image"></div>
                     <div class="article-body">
+                        <div class="article-meta">
+                            <span class="badge badge-version">v0.1</span>
+                            <span class="badge badge-date">Research</span>
+                        </div>
                         <h4>VFX Corpus Visualization</h4>
                         <p>Knowledge graph connecting shots, annotations, model versions, and production lineage.</p>
                         <div class="article-footer">
-                            <span class="date">Last updated: Research Phase</span>
+                            <span class="date">Last updated: Sep 2024</span>
                         </div>
                         <a href="project-data-corpus.html" class="read-more" style="margin-top: 0.5rem;">View project →</a>
                     </div>
@@ -884,19 +932,19 @@
             <div class="notes-list">
                 <a href="essay-computer-vision.html" class="note-item">
                     <span class="note-title">Computer Vision: Automating the Creative Prep Phase</span>
-                    <span class="note-date">2024</span>
+                    <span class="note-date">Dec 1, 2024</span>
                 </a>
                 <a href="essay-predictive-pipelines.html" class="note-item">
                     <span class="note-title">Predictive Pipelines: ML for Smarter Workflows</span>
-                    <span class="note-date">2024</span>
+                    <span class="note-date">Nov 20, 2024</span>
                 </a>
                 <a href="essay-neural-rendering.html" class="note-item">
                     <span class="note-title">Neural Rendering as a Pipeline Primitive</span>
-                    <span class="note-date">2024</span>
+                    <span class="note-date">Nov 8, 2024</span>
                 </a>
                 <a href="essay-introduction.html" class="note-item">
                     <span class="note-title">Building Cognitive Supply Chains for VFX</span>
-                    <span class="note-date">2024</span>
+                    <span class="note-date">Oct 15, 2024</span>
                 </a>
             </div>
         </div>

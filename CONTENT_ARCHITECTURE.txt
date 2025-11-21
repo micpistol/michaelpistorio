@@ -1,0 +1,215 @@
+WEBSITE CONTENT ARCHITECTURE
+===============================================
+
+┌─────────────────────────────────────────────────────────────┐
+│                    HOMEPAGE                                 │
+│                  (index.html)                                │
+│    DataCamp-style Research Publication Front Page           │
+└─────────────────────────────────────────────────────────────┘
+                           ↓
+        ┌──────────────┬─────────────┬──────────────┐
+        ↓              ↓              ↓              ↓
+    WRITING       PROJECTS       TUTORIALS        LAB
+  (writing.html) (projects.html)  (tutorials.html) (lab.html)
+       ↓              ↓              ↓              ↓
+    Essays        Projects      Tutorials      Experiments
+    & Notes      Showcases      & Guides       & Research
+
+
+═══════════════════════════════════════════════════════════════
+ESSAYS / BLOG POSTS (Currently in root directory)
+═══════════════════════════════════════════════════════════════
+
+SERIES: "Intelligent VFX Futures" (5-Part Progression)
+┌─────────────────────────────────────────────────────────────┐
+│                                                              │
+│  Introduction                                                │
+│  └─ essay-introduction.html                                  │
+│                                                              │
+│  Part 1: Computer Vision                                     │
+│  └─ essay-computer-vision.html                               │
+│                                                              │
+│  Part 2: Prediction & Pipelines                              │
+│  └─ essay-predictive-pipelines.html                          │
+│                                                              │
+│  Part 3: Neural Rendering & Representation                   │
+│  └─ essay-neural-rendering-series.html                       │
+│                                                              │
+│  Part 4: Platform (AI as Co-Creator)                         │
+│  └─ essay-ai-co-creator.html                                 │
+│                                                              │
+│  BONUS: Standalone Essay                                     │
+│  └─ essay-neural-rendering.html                              │
+│     (How Neural Rendering Redefines Look Development)        │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════
+CONTENT LINKING STRUCTURE
+═══════════════════════════════════════════════════════════════
+
+Index.html (Homepage)
+  ├─ Featured Content Links
+  ├─ Research Areas Cards
+  ├─ Links to Essays
+  └─ Links to Projects
+
+Writing.html (Essays Index)
+  ├─ Grid of Essay Cards
+  │   ├─ Title
+  │   ├─ Description/Excerpt
+  │   ├─ Category Tag (e.g., "Introduction", "Part 1 - CV")
+  │   ├─ Read Time
+  │   └─ Link to Full Essay
+  │
+  └─ Essay Pages (e.g., essay-neural-rendering.html)
+      ├─ Header (Tag, Read Time, Date)
+      ├─ Title + Lede
+      ├─ Content Sections
+      ├─ Special Elements:
+      │   ├─ Callout Boxes (.callout)
+      │   ├─ Pull Quotes (.pull-quote)
+      │   └─ Trajectory Sections (.trajectory)
+      └─ Footer Navigation
+          ├─ ← Back to All Writing
+          └─ Previous/Next Article Links
+
+
+═══════════════════════════════════════════════════════════════
+CURRENT FILE INVENTORY
+═══════════════════════════════════════════════════════════════
+
+ROOT ESSAYS (6 files):
+- essay-introduction.html (296 lines)
+- essay-computer-vision.html (296 lines)
+- essay-predictive-pipelines.html (250 lines)
+- essay-neural-rendering-series.html (250 lines)
+- essay-neural-rendering.html (377 lines)
+- essay-ai-co-creator.html (296 lines)
+
+PROJECTS (3 files):
+- project-sam2.html (311 lines) - SAM2 Roto Assistant
+- project-neural-materials.html (258 lines) - Neural Materials
+- project-data-corpus.html (262 lines) - Data Corpus
+
+TUTORIALS & RESEARCH (3 files):
+- tutorial-sam2-roto.html (1122 lines) - Complete tutorial
+- note-sam2-motion-blur.html (495 lines) - Research note
+- ai-pm-blueprint.html - AI PM concepts
+
+INDEX/LISTING PAGES (4 files):
+- index.html (1023 lines) - Homepage
+- writing.html (333 lines) - Essays index
+- tutorials.html (640 lines) - Tutorials index
+- notes.html (543 lines) - Notes index
+- lab.html (703 lines) - Lab overview
+
+REFERENCE/EXAMPLES (in /examples folder):
+- essay-neural-rendering.html - Template
+- blog-index.html - Blog listing template
+- index-enhanced.html - Homepage option
+- portfolio-minimal.html - Portfolio option
+- projects.html - Projects template
+- research-hub.html - Research hub template
+
+
+═══════════════════════════════════════════════════════════════
+HTML ESSAY TEMPLATE ANATOMY
+═══════════════════════════════════════════════════════════════
+
+<doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>[Article Title]</title>
+    <meta name="description" content="[Excerpt]">
+    
+    <style>
+      :root { /* Color variables */ }
+      /* Inline CSS for all styling */
+      .article-wrap { max-width: 740px }
+      .article-meta { display: flex; }
+      .article-tag { category badge styling }
+      .callout { key concept boxes }
+      .pull-quote { highlighted quotes }
+      .trajectory { forward-looking section }
+      /* ... more styles ... */
+    </style>
+  </head>
+  
+  <body>
+    <nav>
+      <a href="index.html">← Back to Work</a>
+      <a href="writing.html">All Writing</a>
+    </nav>
+
+    <article class="article-wrap">
+      <header class="article-header">
+        <div class="article-meta">
+          <span class="article-tag">[CATEGORY]</span>
+          <span>[X min read]</span>
+          <span>[Date]</span>
+        </div>
+        <h1>[Title]</h1>
+        <p class="article-lede">[Subtitle/Hook]</p>
+      </header>
+
+      <div class="article-content">
+        <h2>[Section 1]</h2>
+        <p>Content...</p>
+        
+        <div class="callout">
+          <h4>[Key Concept]</h4>
+          <p>Explanation...</p>
+        </div>
+
+        <p class="pull-quote">"Highlighted insight"</p>
+
+        <h2>[Section 2]</h2>
+        <h3>[Subsection]</h3>
+        <p>Content...</p>
+
+        <div class="trajectory">
+          <h3>Trajectory / Forward Outlook</h3>
+          <p>Future implications...</p>
+        </div>
+      </div>
+
+      <div class="article-footer">
+        <div class="footer-nav">
+          <a href="essay-X.html">← Previous Article</a>
+          <a href="essay-Y.html">Next Article →</a>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>
+
+
+═══════════════════════════════════════════════════════════════
+METADATA PATTERNS USED
+═══════════════════════════════════════════════════════════════
+
+Current (Manual HTML):
+- Title: In <h1> tag
+- Description: In meta tag
+- Category: In <article-tag> span
+- Read Time: In <article-meta> span (hardcoded text like "12 min read")
+- Date: In <article-meta> span (hardcoded text like "Jan 2025")
+- Author: Not in individual posts (assumed Michael Pistorio)
+
+For Generator (Should Support):
+- title: "Article Title"
+- slug: "article-slug" (for URLs)
+- date: "2025-01-20" (ISO format)
+- category: "Introduction" | "Part 1 - Topic" | "Neural Rendering"
+- excerpt: "Brief description for card display"
+- readingTime: 12 (auto-calculated or manual)
+- tags: ["ai", "vfx", "infrastructure"]
+- featured: true/false (for homepage)
+- image: "/images/article-hero.jpg" (optional)
+- series: "Intelligent VFX Futures" (for grouping parts)
+- seriesPart: 4 (for ordering within series)
+

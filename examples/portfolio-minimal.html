@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Michael Pistorio</title>
+  <meta name="description" content="AI & VFX infrastructure researcher exploring neural rendering and intelligent production systems.">
+  <style>
+    /* Minimalist, typography-focused approach inspired by designer portfolios */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #fafafa;
+      --text: #1a1a1a;
+      --muted: #666;
+      --accent: #0066ff;
+      --border: #e0e0e0;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0a0a0a;
+        --text: #f0f0f0;
+        --muted: #999;
+        --accent: #4cc9f0;
+        --border: #222;
+      }
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.7;
+      padding: 0 24px;
+    }
+
+    /* Container with max-width for readability */
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 80px 0;
+    }
+
+    /* Minimal nav */
+    nav {
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      padding: 24px 0;
+      margin-bottom: 60px;
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      transition: color 0.2s;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--text);
+    }
+
+    /* Hero - large, impactful typography */
+    .hero {
+      margin-bottom: 120px;
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 7vw, 72px);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    .hero .lead {
+      font-size: clamp(20px, 3vw, 28px);
+      color: var(--muted);
+      max-width: 720px;
+      line-height: 1.5;
+      font-weight: 400;
+    }
+
+    /* Section spacing */
+    section {
+      margin-bottom: 120px;
+    }
+
+    h2 {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 48px;
+    }
+
+    h3 {
+      font-size: clamp(22px, 3vw, 28px);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 16px;
+    }
+
+    p {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    a:hover {
+      border-bottom-color: var(--accent);
+    }
+
+    /* Work grid - large cards with imagery space */
+    .work-grid {
+      display: grid;
+      gap: 80px;
+    }
+
+    .work-item {
+      text-decoration: none;
+      display: block;
+      transition: opacity 0.3s;
+    }
+
+    .work-item:hover {
+      opacity: 0.7;
+    }
+
+    .work-item .image-placeholder {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 12px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 600;
+    }
+
+    .work-item.alt-1 .image-placeholder {
+      background: linear-gradient(135deg, #4cc9f0 0%, #0066ff 100%);
+    }
+
+    .work-item.alt-2 .image-placeholder {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+
+    .work-item.alt-3 .image-placeholder {
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    }
+
+    .work-meta {
+      display: flex;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .work-item h3 {
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .work-item p {
+      font-size: 16px;
+    }
+
+    /* About section with two-column layout */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+
+    @media (max-width: 768px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+
+    .about-grid p {
+      font-size: 16px;
+    }
+
+    /* Simple footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 60px 0;
+      margin-top: 120px;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      font-size: 14px;
+      border: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    /* Tag list */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .tag {
+      font-size: 12px;
+      color: var(--muted);
+      background: var(--border);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <ul>
+        <li><a href="#" class="active">Work</a></li>
+        <li><a href="research-hub.html">Research</a></li>
+        <li><a href="blog-index.html">Writing</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
+
+    <div class="hero">
+      <h1>Building intelligent infrastructure for creative production</h1>
+      <p class="lead">
+        AI researcher and product strategist exploring how neural rendering, automated segmentation,
+        and cognitive pipelines transform VFX workflows. 8 years at Netflix, now researching
+        the next wave of intelligent tooling.
+      </p>
+    </div>
+
+    <section id="work">
+      <h2>Selected Work</h2>
+      <div class="work-grid">
+        <a href="projects.html#sam2" class="work-item">
+          <div class="image-placeholder">Visual Demo</div>
+          <div class="work-meta">
+            <span>2024</span>
+            <span>Production Tool</span>
+          </div>
+          <h3>SAM2 Roto Assistant</h3>
+          <p>
+            AI-powered segmentation for VFX rotoscoping, reducing manual work by 78%.
+            Interactive prompting with temporal tracking across frame sequences.
+          </p>
+          <div class="tags">
+            <span class="tag">Segmentation</span>
+            <span class="tag">PyTorch</span>
+            <span class="tag">VFX Pipeline</span>
+          </div>
+        </a>
+
+        <a href="projects.html#neural-materials" class="work-item alt-1">
+          <div class="image-placeholder">Visual Demo</div>
+          <div class="work-meta">
+            <span>2024</span>
+            <span>Research</span>
+          </div>
+          <h3>Neural Material Explorer</h3>
+          <p>
+            Neural BRDF synthesis for physically-based material generation. Text-to-material
+            and image-to-material workflows for lookdev artists.
+          </p>
+          <div class="tags">
+            <span class="tag">Neural Rendering</span>
+            <span class="tag">MaterialX</span>
+            <span class="tag">Stable Diffusion</span>
+          </div>
+        </a>
+
+        <a href="projects.html#data-corpus" class="work-item alt-2">
+          <div class="image-placeholder">Visual Demo</div>
+          <div class="work-meta">
+            <span>2024</span>
+            <span>Infrastructure</span>
+          </div>
+          <h3>VFX Data Corpus Visualization</h3>
+          <p>
+            Knowledge graph connecting shots, annotations, model training data, and production
+            lineage. Treating data as strategic infrastructure.
+          </p>
+          <div class="tags">
+            <span class="tag">Data Governance</span>
+            <span class="tag">Neo4j</span>
+            <span class="tag">Pipeline Integration</span>
+          </div>
+        </a>
+
+        <a href="projects.html#previs" class="work-item alt-3">
+          <div class="image-placeholder">Visual Demo</div>
+          <div class="work-meta">
+            <span>2024</span>
+            <span>Creative Tool</span>
+          </div>
+          <h3>Generative Previsualization Lab</h3>
+          <p>
+            Diffusion-based shot planning for virtual art departments. ComfyUI workflows
+            generating composition variants with ControlNet guidance.
+          </p>
+          <div class="tags">
+            <span class="tag">Generative AI</span>
+            <span class="tag">ComfyUI</span>
+            <span class="tag">Virtual Production</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section id="about">
+      <h2>About</h2>
+      <div class="about-grid">
+        <div>
+          <h3>Background</h3>
+          <p>
+            I spent 8+ years managing VFX production at Netflix, overseeing 5,000+ shots
+            and $20M+ in vendor spend across series like The Umbrella Academy, Locke & Key,
+            and other Netflix Originals.
+          </p>
+          <p>
+            Through that experience, I identified a core inefficiency: 30-40% of VFX prep
+            budgets go to manual, repetitive tasks with minimal creative value. This sparked
+            my research into AI-native infrastructure for creative pipelines.
+          </p>
+        </div>
+        <div>
+          <h3>Current Focus</h3>
+          <p>
+            Founded <strong>Next Wave Intelligence</strong>, an R&D practice exploring how
+            AI functions as production infrastructure—not a plugin. Current research areas
+            include neural rendering integration, promptable segmentation, and building
+            cognitive supply chains that learn from production data.
+          </p>
+          <p>
+            Completing UCLA AI certification while prototyping tools and conducting industry
+            validation with VFX supervisors, pipeline TDs, and studio technology leads.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-content">
+        <div>
+          <p style="color: var(--text); font-size: 14px;">
+            Open to product roles, research partnerships, and pilot collaborations
+          </p>
+        </div>
+        <div class="footer-links">
+          <a href="mailto:m.pistorio@gmail.com">Email</a>
+          <a href="https://linkedin.com/in/michaelpistorio" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="blog-index.html">Essays</a>
+          <a href="research-hub.html">Research</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

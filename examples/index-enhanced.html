@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Michael Pistorio - AI & VFX Infrastructure Researcher</title>
+  <meta name="description" content="Defining how AI infrastructure transforms creative VFX pipelines. Research at the intersection of neural rendering, production systems, and intelligent tooling.">
+  <style>
+    :root {
+      --bg:#0b0c10;
+      --card:#12131a;
+      --card-hover:#1a1d2a;
+      --text:#e6edf3;
+      --muted:#9fb3c8;
+      --accent:#4cc9f0;
+      --accent-dim:#3a9dbf;
+      --border:#202334;
+    }
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,Segoe UI,Roboto,Inter,Arial,sans-serif}
+    .wrap{max-width:1100px;margin:0 auto;padding:40px 20px}
+
+    /* Hero Section */
+    .hero{
+      padding:60px 0;
+      text-align:center;
+      margin-bottom:40px;
+    }
+    .hero h1{
+      margin:0 0 16px;
+      font-size:clamp(36px,6vw,56px);
+      background:linear-gradient(135deg, var(--accent) 0%, #7cc7ff 100%);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+      letter-spacing:-0.5px;
+    }
+    .hero .role{
+      font-size:clamp(20px,3vw,26px);
+      color:var(--muted);
+      margin:0 0 12px;
+    }
+    .hero .tagline{
+      font-size:18px;
+      color:var(--muted);
+      max-width:700px;
+      margin:0 auto 30px;
+      line-height:1.7;
+    }
+    .hero-links{
+      display:flex;
+      gap:16px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-top:30px;
+    }
+    .btn{
+      display:inline-block;
+      padding:12px 28px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:500;
+      transition:all 0.3s ease;
+    }
+    .btn-primary{
+      background:var(--accent);
+      color:#0b0c10;
+    }
+    .btn-primary:hover{
+      background:#7cc7ff;
+      transform:translateY(-2px);
+      box-shadow:0 6px 20px rgba(76,201,240,0.3);
+    }
+    .btn-secondary{
+      background:var(--card);
+      color:var(--text);
+      border:1px solid var(--border);
+    }
+    .btn-secondary:hover{
+      border-color:var(--accent);
+      transform:translateY(-2px);
+    }
+
+    /* Section Headers */
+    section{margin:60px 0}
+    h2{
+      font-size:clamp(28px,4vw,36px);
+      margin:0 0 12px;
+      letter-spacing:-0.3px;
+    }
+    .section-subtitle{
+      color:var(--muted);
+      font-size:18px;
+      margin:0 0 32px;
+    }
+
+    /* Feature Grid */
+    .feature-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:24px;
+      margin:32px 0;
+    }
+    .feature-card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:32px;
+      transition:all 0.3s ease;
+      text-decoration:none;
+      display:block;
+    }
+    .feature-card:hover{
+      transform:translateY(-4px);
+      border-color:var(--accent);
+      box-shadow:0 8px 24px rgba(76,201,240,0.12);
+      text-decoration:none;
+    }
+    .feature-icon{
+      font-size:42px;
+      display:block;
+      margin-bottom:16px;
+    }
+    .feature-card h3{
+      margin:0 0 12px;
+      font-size:22px;
+      color:var(--text);
+    }
+    .feature-card p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.6;
+    }
+    .feature-card .arrow{
+      color:var(--accent);
+      margin-top:12px;
+      display:inline-block;
+      font-weight:500;
+      font-size:14px;
+    }
+
+    /* About Section */
+    .about-content{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:40px;
+    }
+    .about-content p{
+      color:var(--muted);
+      line-height:1.7;
+      margin:16px 0;
+      font-size:17px;
+    }
+    .about-content strong{
+      color:var(--text);
+      font-weight:600;
+    }
+
+    /* Recent Essays */
+    .essay-preview{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:28px;
+      margin:20px 0;
+      transition:all 0.3s ease;
+      text-decoration:none;
+      display:block;
+    }
+    .essay-preview:hover{
+      border-color:var(--accent);
+      transform:translateX(4px);
+      text-decoration:none;
+    }
+    .essay-preview .tag{
+      background:rgba(76,201,240,0.15);
+      color:var(--accent);
+      padding:4px 12px;
+      border-radius:6px;
+      font-size:12px;
+      font-weight:600;
+      text-transform:uppercase;
+      display:inline-block;
+      margin-bottom:12px;
+    }
+    .essay-preview h3{
+      margin:0 0 8px;
+      font-size:20px;
+      color:var(--text);
+    }
+    .essay-preview p{
+      margin:0;
+      color:var(--muted);
+      font-size:15px;
+    }
+
+    /* Stats Bar */
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:24px;
+      margin:40px 0;
+    }
+    .stat-box{
+      background:linear-gradient(135deg, #1a1d2a 0%, #0f1115 100%);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:24px;
+      text-align:center;
+    }
+    .stat-box .number{
+      font-size:36px;
+      font-weight:700;
+      color:var(--accent);
+      display:block;
+      margin-bottom:8px;
+    }
+    .stat-box .label{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    footer{
+      margin-top:80px;
+      padding-top:40px;
+      border-top:1px solid var(--border);
+      text-align:center;
+      color:var(--muted);
+    }
+    footer p{margin:8px 0}
+    footer a{color:var(--accent);text-decoration:none}
+    footer a:hover{text-decoration:underline}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Michael Pistorio</h1>
+      <p class="role">AI & VFX Infrastructure Researcher</p>
+      <p class="tagline">
+        Defining how AI becomes infrastructure for creative pipelines—from neural rendering
+        to cognitive supply chains. Bridging 8 years of Netflix production with AI research.
+      </p>
+      <div class="hero-links">
+        <a href="research-hub.html" class="btn btn-primary">Explore Research Hub</a>
+        <a href="mailto:m.pistorio@gmail.com" class="btn btn-secondary">Get in Touch</a>
+        <a href="https://linkedin.com/in/michaelpistorio" class="btn btn-secondary" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat-box">
+        <span class="number">8+</span>
+        <span class="label">Years Netflix VFX Production</span>
+      </div>
+      <div class="stat-box">
+        <span class="number">5,000+</span>
+        <span class="label">Shots Managed</span>
+      </div>
+      <div class="stat-box">
+        <span class="number">$20M+</span>
+        <span class="label">Vendor Spend Oversight</span>
+      </div>
+      <div class="stat-box">
+        <span class="number">3</span>
+        <span class="label">AI Prototypes Built</span>
+      </div>
+    </div>
+
+    <section>
+      <h2>Core Research Areas</h2>
+      <p class="section-subtitle">
+        Exploring AI-native infrastructure across the VFX production stack
+      </p>
+      <div class="feature-grid">
+        <a href="research-hub.html#neural-rendering" class="feature-card">
+          <span class="feature-icon">🧠</span>
+          <h3>Neural Rendering & Materials</h3>
+          <p>NeRFs, Gaussian Splatting, and neural BRDFs for lookdev and set reconstruction</p>
+          <span class="arrow">Learn more →</span>
+        </a>
+
+        <a href="research-hub.html#infrastructure" class="feature-card">
+          <span class="feature-icon">⚡</span>
+          <h3>Creative Infrastructure</h3>
+          <p>Cognitive supply chains: closed-loop systems that learn from production</p>
+          <span class="arrow">Learn more →</span>
+        </a>
+
+        <a href="research-hub.html#human-ai" class="feature-card">
+          <span class="feature-icon">🤝</span>
+          <h3>Human-in-the-Loop AI</h3>
+          <p>Artist-centered design with explainable, augmentative tools</p>
+          <span class="arrow">Learn more →</span>
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <h2>About</h2>
+      <div class="about-content">
+        <p>
+          I'm a product strategist and researcher exploring how foundational AI models can transform
+          VFX production workflows—from hands-on prototyping to industry validation.
+        </p>
+        <p>
+          After <strong>8+ years managing VFX production at Netflix</strong> (5,000+ shots, $20M+ vendor spend),
+          I identified a persistent inefficiency: 30-40% of prep budgets go to manual, repetitive work
+          with minimal creative value.
+        </p>
+        <p>
+          I founded <strong>Next Wave Intelligence</strong> to investigate how intelligent tooling can
+          augment these workflows without disrupting artist autonomy. My approach combines Netflix-class
+          production experience with AI research training (UCLA AI certification, deep learning coursework).
+        </p>
+        <p>
+          Current focus: production-aware segmentation (SAM2), depth inference, neural rendering integration,
+          and building the cognitive supply chain that makes VFX pipelines learn from production data.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Recent Essays</h2>
+      <p class="section-subtitle">
+        Thought leadership on AI-native VFX infrastructure
+      </p>
+
+      <a href="essay-neural-rendering.html" class="essay-preview">
+        <span class="tag">Neural Rendering</span>
+        <h3>How Neural Rendering Redefines Look Development</h3>
+        <p>From NeRFs to neural BRDFs—exploring production-ready applications and integration challenges</p>
+      </a>
+
+      <a href="essay-cognitive-supply-chain.html" class="essay-preview">
+        <span class="tag">Infrastructure</span>
+        <h3>The Cognitive Supply Chain: AI as VFX Infrastructure</h3>
+        <p>Five-layer stack treating compute, data, models, and feedback loops as production assets</p>
+      </a>
+
+      <a href="essay-prep-automation.html" class="essay-preview">
+        <span class="tag">Case Studies</span>
+        <h3>Why VFX Prep is Ripe for AI Augmentation</h3>
+        <p>30-40% of prep budgets wasted on manual work—lessons from 8 years at Netflix</p>
+      </a>
+
+      <div style="text-align:center;margin-top:32px">
+        <a href="blog-index.html" class="btn btn-secondary">View All Essays →</a>
+      </div>
+    </section>
+
+    <section>
+      <h2>R&D Projects</h2>
+      <p class="section-subtitle">
+        Experimental AI systems bridging research with production reality
+      </p>
+      <div class="feature-grid">
+        <a href="projects.html#sam2-roto" class="feature-card">
+          <h3>SAM2 Roto Assistant</h3>
+          <p>Promptable segmentation for tracked rotoscoping—78% time reduction on test shots</p>
+          <span class="arrow">View project →</span>
+        </a>
+
+        <a href="projects.html#neural-materials" class="feature-card">
+          <h3>Neural Material Explorer</h3>
+          <p>Neural BRDF synthesis for physically-based material generation</p>
+          <span class="arrow">View project →</span>
+        </a>
+
+        <a href="projects.html#data-corpus" class="feature-card">
+          <h3>VFX Data Corpus Visualization</h3>
+          <p>Knowledge graph connecting shots, models, and production lineage</p>
+          <span class="arrow">View project →</span>
+        </a>
+      </div>
+      <div style="text-align:center;margin-top:32px">
+        <a href="projects.html" class="btn btn-secondary">View All Projects →</a>
+      </div>
+    </section>
+
+    <section>
+      <h2>Resources</h2>
+      <div class="feature-grid">
+        <a href="ai-pm-blueprint.html" class="feature-card">
+          <h3>AI PM Learning Blueprint</h3>
+          <p>Four-phase framework for AI product managers—from model literacy to production impact</p>
+          <span class="arrow">Explore blueprint →</span>
+        </a>
+
+        <a href="vision-tools.html" class="feature-card">
+          <h3>Computer Vision Tools Catalog</h3>
+          <p>Curated reference of APIs, open-source checkpoints, enterprise hosts, and supporting tools</p>
+          <span class="arrow">Browse catalog →</span>
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      <p><strong>Open to:</strong> Product roles, research partnerships, pilot collaborations</p>
+      <p>
+        <a href="mailto:m.pistorio@gmail.com">m.pistorio@gmail.com</a> ·
+        <a href="https://linkedin.com/in/michaelpistorio" target="_blank" rel="noopener">LinkedIn</a> ·
+        Los Angeles, CA
+      </p>
+      <p style="margin-top:24px;font-size:14px;opacity:0.7">© 2025 Michael Pistorio · Next Wave Intelligence R&D</p>
+    </footer>
+  </div>
+</body>
+</html>

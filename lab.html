@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab | Next Wave Intelligence</title>
+    <meta name="description" content="In-progress prototypes and experiments exploring AI-native VFX pipelines.">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="favicon.ico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #1e3a8a;
+            --accent-cyan: #06b6d4;
+            --accent-amber: #f59e0b;
+            --bg-white: #ffffff;
+            --bg-gray: #fafafa;
+            --bg-dark: #1f2937;
+            --text-dark: #1f2937;
+            --text-gray: #6b7280;
+            --border-color: #e5e7eb;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--bg-white);
+        }
+
+        /* Navigation */
+        .nav-container {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-cyan));
+            border-radius: 6px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-blue);
+        }
+
+        .nav-cta {
+            background: var(--primary-blue);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .nav-cta:hover {
+            background: var(--accent-cyan);
+        }
+
+        /* Hero Section */
+        .page-hero {
+            background: var(--bg-gray);
+            padding: 4rem 2rem 3rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            font-size: 0.875rem;
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+        }
+
+        .breadcrumb a {
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        .page-hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--primary-blue);
+        }
+
+        .page-hero .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+        }
+
+        .page-hero .intro-text {
+            max-width: 900px;
+            font-size: 1.0625rem;
+            line-height: 1.7;
+            color: var(--text-dark);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        /* Prototype Cards Grid */
+        .prototypes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 2rem;
+            margin-bottom: 5rem;
+        }
+
+        .prototype-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .prototype-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .prototype-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .prototype-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--primary-blue);
+        }
+
+        .prototype-card .one-liner {
+            color: var(--text-gray);
+            font-size: 0.938rem;
+            margin-bottom: 1rem;
+        }
+
+        .pills-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .pill-category {
+            background: var(--accent-cyan);
+            color: white;
+        }
+
+        .pill-tech {
+            background: var(--bg-gray);
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+        }
+
+        .pill-version {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .prototype-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .prototype-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: var(--bg-gray);
+            border-top: 1px solid var(--border-color);
+            font-size: 0.875rem;
+            color: var(--text-gray);
+        }
+
+        .prototype-link {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .prototype-link:hover {
+            gap: 0.75rem;
+            transition: gap 0.2s;
+        }
+
+        /* Experiment Log */
+        .experiment-log {
+            background: var(--bg-gray);
+            padding: 3rem 2rem;
+            margin-top: 3rem;
+        }
+
+        .experiment-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .log-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .log-entry {
+            background: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-cyan);
+            border-radius: 4px;
+            padding: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .log-entry:hover {
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .log-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .log-entry h4 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .log-date {
+            color: var(--text-gray);
+            font-size: 0.875rem;
+        }
+
+        .log-entry p {
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        .view-all-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.0625rem;
+        }
+
+        .view-all-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-dark);
+            color: white;
+            padding: 3rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-about h4 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-about p {
+            color: #9ca3af;
+            line-height: 1.7;
+        }
+
+        .footer-links h5 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            line-height: 2;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+            text-align: center;
+            color: #9ca3af;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .prototypes-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+
+            .prototypes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-container">
+        <nav>
+            <a href="index.html" class="logo">
+                <div class="logo-icon"></div>
+                Next Wave Intelligence
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="writing.html">Research</a></li>
+                <li><a href="tutorials.html">Tutorials</a></li>
+                <li><a href="lab.html" class="active">Lab</a></li>
+                <li><a href="notes.html">Notes</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <a href="index.html#newsletter" class="nav-cta">Subscribe</a>
+        </nav>
+    </div>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="hero-content">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> / Lab
+            </div>
+            <h1>Lab</h1>
+            <p class="subtitle">In-progress prototypes and experiments exploring AI-native VFX pipelines.</p>
+            <p class="intro-text">
+                This is an R&D playground, not a showcase of finished products. Each prototype represents active research into production-aware AI systems for visual effects. Tools are versioned, evolving, and designed to solve real pipeline constraints—from latency requirements to human-in-the-loop feedback mechanisms.
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="main-content">
+        <div class="section-header">
+            <h2>Active Prototypes</h2>
+        </div>
+
+        <div class="prototypes-grid">
+            <!-- SAM2 Roto Assistant -->
+            <div class="prototype-card">
+                <div class="prototype-header">
+                    <h3>SAM2 Roto Assistant</h3>
+                    <p class="one-liner">SAM2-powered segmentation assistant for complex VFX plates</p>
+                    <div class="pills-row">
+                        <span class="pill pill-category">Segmentation & Roto</span>
+                        <span class="pill pill-version">v0.8</span>
+                    </div>
+                    <div class="pills-row">
+                        <span class="pill pill-tech">SAM2</span>
+                        <span class="pill pill-tech">PyTorch</span>
+                        <span class="pill pill-tech">Nuke</span>
+                        <span class="pill pill-tech">Python</span>
+                    </div>
+                </div>
+                <div class="prototype-body">
+                    <p>Interactive rotoscoping tool that reduces manual segmentation time by 78%. Integrates with Nuke for production workflows, handling motion blur, occlusion, and fine detail preservation.</p>
+                </div>
+                <div class="prototype-meta">
+                    <span>Last updated: Nov 2024</span>
+                    <a href="project-sam2.html" class="prototype-link">View details →</a>
+                </div>
+            </div>
+
+            <!-- Neural Material Explorer -->
+            <div class="prototype-card">
+                <div class="prototype-header">
+                    <h3>Neural Material Explorer</h3>
+                    <p class="one-liner">Text-to-material workflows for lookdev acceleration</p>
+                    <div class="pills-row">
+                        <span class="pill pill-category">Neural Materials</span>
+                        <span class="pill pill-version">v0.2</span>
+                    </div>
+                    <div class="pills-row">
+                        <span class="pill pill-tech">SDXL</span>
+                        <span class="pill pill-tech">MaterialX</span>
+                        <span class="pill pill-tech">USD</span>
+                        <span class="pill pill-tech">ComfyUI</span>
+                    </div>
+                </div>
+                <div class="prototype-body">
+                    <p>Generates MaterialX-compliant physically-based texture sets from text prompts. Produces albedo, roughness, normal, and displacement maps optimized for production rendering.</p>
+                </div>
+                <div class="prototype-meta">
+                    <span>Last updated: Oct 2024</span>
+                    <a href="project-neural-materials.html" class="prototype-link">View details →</a>
+                </div>
+            </div>
+
+            <!-- VFX Corpus Visualization -->
+            <div class="prototype-card">
+                <div class="prototype-header">
+                    <h3>VFX Corpus Visualization</h3>
+                    <p class="one-liner">Knowledge graph connecting shots, annotations, and model lineage</p>
+                    <div class="pills-row">
+                        <span class="pill pill-category">Data Corpus</span>
+                        <span class="pill pill-version">v0.1</span>
+                    </div>
+                    <div class="pills-row">
+                        <span class="pill pill-tech">Neo4j</span>
+                        <span class="pill pill-tech">React</span>
+                        <span class="pill pill-tech">D3.js</span>
+                        <span class="pill pill-tech">Python</span>
+                    </div>
+                </div>
+                <div class="prototype-body">
+                    <p>Interactive visualization of VFX production data lineage. Tracks relationships between shots, annotations, model versions, and artist feedback to create a queryable production knowledge graph.</p>
+                </div>
+                <div class="prototype-meta">
+                    <span>Last updated: Sep 2024</span>
+                    <a href="project-data-corpus.html" class="prototype-link">View details →</a>
+                </div>
+            </div>
+
+            <!-- Generative Previz (Example) -->
+            <div class="prototype-card">
+                <div class="prototype-header">
+                    <h3>Generative Previz</h3>
+                    <p class="one-liner">AI-assisted scene composition for virtual production</p>
+                    <div class="pills-row">
+                        <span class="pill pill-category">Virtual Production</span>
+                        <span class="pill pill-version">v0.1</span>
+                    </div>
+                    <div class="pills-row">
+                        <span class="pill pill-tech">ControlNet</span>
+                        <span class="pill pill-tech">Unreal Engine</span>
+                        <span class="pill pill-tech">USD</span>
+                    </div>
+                </div>
+                <div class="prototype-body">
+                    <p>Rapid scene layout tool for virtual production. Generates camera-ready environments from rough sketches and text descriptions, exporting to Unreal Engine for real-time rendering.</p>
+                </div>
+                <div class="prototype-meta">
+                    <span>Last updated: Aug 2024</span>
+                    <a href="#" class="prototype-link">View details →</a>
+                </div>
+            </div>
+
+            <!-- Shot Complexity Estimator (Example) -->
+            <div class="prototype-card">
+                <div class="prototype-header">
+                    <h3>Shot Complexity Estimator</h3>
+                    <p class="one-liner">ML-based pipeline scheduling and resource allocation</p>
+                    <div class="pills-row">
+                        <span class="pill pill-category">Production Infrastructure</span>
+                        <span class="pill pill-version">v0.3</span>
+                    </div>
+                    <div class="pills-row">
+                        <span class="pill pill-tech">XGBoost</span>
+                        <span class="pill pill-tech">Pandas</span>
+                        <span class="pill pill-tech">ShotGrid API</span>
+                    </div>
+                </div>
+                <div class="prototype-body">
+                    <p>Predictive model trained on historical shot data to estimate VFX complexity, render time, and artist hours. Integrates with production tracking systems for smarter bidding and scheduling.</p>
+                </div>
+                <div class="prototype-meta">
+                    <span>Last updated: Jul 2024</span>
+                    <a href="#" class="prototype-link">View details →</a>
+                </div>
+            </div>
+
+            <!-- Neural Relighting Assistant (Example) -->
+            <div class="prototype-card">
+                <div class="prototype-header">
+                    <h3>Neural Relighting Assistant</h3>
+                    <p class="one-liner">Real-time lighting inference from single HDRI probes</p>
+                    <div class="pills-row">
+                        <span class="pill pill-category">Neural Rendering</span>
+                        <span class="pill pill-version">v0.2</span>
+                    </div>
+                    <div class="pills-row">
+                        <span class="pill pill-tech">NeRF</span>
+                        <span class="pill pill-tech">PyTorch</span>
+                        <span class="pill pill-tech">OpenEXR</span>
+                    </div>
+                </div>
+                <div class="prototype-body">
+                    <p>Infers full scene lighting from a single HDRI capture. Enables interactive relighting of live-action plates for faster lookdev iterations and client reviews.</p>
+                </div>
+                <div class="prototype-meta">
+                    <span>Last updated: Jun 2024</span>
+                    <a href="#" class="prototype-link">View details →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experiment Log -->
+    <section class="experiment-log">
+        <div class="experiment-content">
+            <div class="section-header">
+                <h2>Experiment Log</h2>
+            </div>
+
+            <div class="log-list">
+                <div class="log-entry">
+                    <div class="log-header">
+                        <h4>Testing SAM2 on motion-blurred footage</h4>
+                        <span class="log-date">Nov 28, 2024</span>
+                    </div>
+                    <p>Evaluated SAM2's handling of fast-moving subjects with heavy motion blur. Found that temporal consistency breaks down above 180-degree shutter angles. Investigating frame interpolation preprocessing as a workaround.</p>
+                </div>
+
+                <div class="log-entry">
+                    <div class="log-header">
+                        <h4>MaterialX export pipeline for neural materials</h4>
+                        <span class="log-date">Nov 15, 2024</span>
+                    </div>
+                    <p>Built automated MaterialX export from SDXL-generated texture sets. Successfully validated PBR compliance in Arnold and Karma. Next: testing displacement map fidelity at production resolutions (8K+).</p>
+                </div>
+
+                <div class="log-entry">
+                    <div class="log-header">
+                        <h4>Knowledge graph schema for shot dependencies</h4>
+                        <span class="log-date">Oct 30, 2024</span>
+                    </div>
+                    <p>Designed Neo4j schema linking shots, assets, annotations, and model checkpoints. Can now query "which shots were affected by model version X" and "show me all annotations that influenced this training run." Promising for pipeline observability.</p>
+                </div>
+
+                <div class="log-entry">
+                    <div class="log-header">
+                        <h4>ControlNet depth maps for virtual production blocking</h4>
+                        <span class="log-date">Oct 12, 2024</span>
+                    </div>
+                    <p>Testing ControlNet with depth conditioning for rapid environment generation. Can produce coherent scene layouts from director sketches in under 30 seconds. Quality sufficient for previz but requires manual cleanup for finals.</p>
+                </div>
+
+                <div class="log-entry">
+                    <div class="log-header">
+                        <h4>Shot complexity features from production databases</h4>
+                        <span class="log-date">Sep 25, 2024</span>
+                    </div>
+                    <p>Extracted 47 features from ShotGrid data (FX elements, character count, camera complexity, etc.). XGBoost model achieving 82% accuracy in predicting artist hours within ±20% margin. Ready for pilot deployment.</p>
+                </div>
+            </div>
+
+            <a href="notes.html" class="view-all-link">View all lab notes →</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="about">
+        <div class="footer-content">
+            <div class="footer-about">
+                <h4>Next Wave Intelligence</h4>
+                <p>Ongoing research, tutorials, and tools for AI-native VFX pipelines. Combining production experience with machine learning research to build the next generation of creative infrastructure.</p>
+            </div>
+            <div class="footer-links">
+                <h5>Research</h5>
+                <ul>
+                    <li><a href="writing.html">Published Work</a></li>
+                    <li><a href="tutorials.html">Tutorials</a></li>
+                    <li><a href="notes.html">Research Notes</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h5>Lab</h5>
+                <ul>
+                    <li><a href="project-sam2.html">SAM2 Roto Assistant</a></li>
+                    <li><a href="project-neural-materials.html">Neural Materials</a></li>
+                    <li><a href="project-data-corpus.html">Data Corpus Viz</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h5>Connect</h5>
+                <ul>
+                    <li><a href="mailto:m.pistorio@gmail.com">Email</a></li>
+                    <li><a href="https://linkedin.com/in/michaelpistorio" target="_blank" rel="noopener">LinkedIn</a></li>
+                    <li><a href="https://github.com/micpistol" target="_blank" rel="noopener">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Next Wave Intelligence. Built by Michael Pistorio.</p>
+        </div>
+    </footer>
+</body>
+</html>

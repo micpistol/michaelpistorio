@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Notes | Next Wave Intelligence</title>
+    <meta name="description" content="Short updates, experiment logs, and field notes from the lab.">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="favicon.ico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #1e3a8a;
+            --accent-cyan: #06b6d4;
+            --accent-amber: #f59e0b;
+            --bg-white: #ffffff;
+            --bg-gray: #fafafa;
+            --bg-dark: #1f2937;
+            --text-dark: #1f2937;
+            --text-gray: #6b7280;
+            --border-color: #e5e7eb;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--bg-white);
+        }
+
+        /* Navigation */
+        .nav-container {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-cyan));
+            border-radius: 6px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-blue);
+        }
+
+        .nav-cta {
+            background: var(--primary-blue);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .nav-cta:hover {
+            background: var(--accent-cyan);
+        }
+
+        /* Hero Section */
+        .page-hero {
+            background: var(--bg-gray);
+            padding: 4rem 2rem 3rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            font-size: 0.875rem;
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+        }
+
+        .breadcrumb a {
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        .page-hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--primary-blue);
+        }
+
+        .page-hero .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-gray);
+            max-width: 800px;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* Notes List */
+        .notes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .note-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-cyan);
+            border-radius: 4px;
+            padding: 1.5rem;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .note-card:hover {
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            gap: 1rem;
+        }
+
+        .note-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            flex-grow: 1;
+        }
+
+        .note-date {
+            color: var(--text-gray);
+            font-size: 0.875rem;
+            white-space: nowrap;
+        }
+
+        .note-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: var(--bg-gray);
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+        }
+
+        .note-excerpt {
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        .read-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-blue);
+            font-weight: 600;
+            margin-top: 0.75rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-dark);
+            color: white;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-about h4 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-about p {
+            color: #9ca3af;
+            line-height: 1.7;
+        }
+
+        .footer-links h5 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            line-height: 2;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+            text-align: center;
+            color: #9ca3af;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .note-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-container">
+        <nav>
+            <a href="index.html" class="logo">
+                <div class="logo-icon"></div>
+                Next Wave Intelligence
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="writing.html">Research</a></li>
+                <li><a href="tutorials.html">Tutorials</a></li>
+                <li><a href="lab.html">Lab</a></li>
+                <li><a href="notes.html" class="active">Notes</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <a href="index.html#newsletter" class="nav-cta">Subscribe</a>
+        </nav>
+    </div>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="hero-content">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> / Research Notes
+            </div>
+            <h1>Research Notes</h1>
+            <p class="subtitle">
+                Short updates, experiment logs, and field notes from the lab. Quick observations on what's working, what's not, and what's next in AI-native VFX infrastructure.
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="main-content">
+        <div class="notes-list">
+            <!-- Note 1 -->
+            <a href="note-sam2-motion-blur.html" class="note-card">
+                <div class="note-header">
+                    <h3>Testing SAM2 on motion-blurred footage</h3>
+                    <span class="note-date">Nov 28, 2024</span>
+                </div>
+                <div class="note-pills">
+                    <span class="pill">Segmentation</span>
+                    <span class="pill">SAM2</span>
+                </div>
+                <p class="note-excerpt">
+                    Evaluated SAM2's handling of fast-moving subjects with heavy motion blur. Found that temporal consistency breaks down above 180-degree shutter angles. Investigating frame interpolation preprocessing as a workaround.
+                </p>
+                <span class="read-link">Read note →</span>
+            </a>
+
+            <!-- Note 2 -->
+            <a href="note-materialx-export.html" class="note-card">
+                <div class="note-header">
+                    <h3>MaterialX export pipeline for neural materials</h3>
+                    <span class="note-date">Nov 15, 2024</span>
+                </div>
+                <div class="note-pills">
+                    <span class="pill">Neural Materials</span>
+                    <span class="pill">MaterialX</span>
+                </div>
+                <p class="note-excerpt">
+                    Built automated MaterialX export from SDXL-generated texture sets. Successfully validated PBR compliance in Arnold and Karma. Next: testing displacement map fidelity at production resolutions (8K+).
+                </p>
+                <span class="read-link">Read note →</span>
+            </a>
+
+            <!-- Note 3 -->
+            <a href="note-knowledge-graph-schema.html" class="note-card">
+                <div class="note-header">
+                    <h3>Knowledge graph schema for shot dependencies</h3>
+                    <span class="note-date">Oct 30, 2024</span>
+                </div>
+                <div class="note-pills">
+                    <span class="pill">Data Pipelines</span>
+                    <span class="pill">Neo4j</span>
+                </div>
+                <p class="note-excerpt">
+                    Designed Neo4j schema linking shots, assets, annotations, and model checkpoints. Can now query "which shots were affected by model version X" and "show me all annotations that influenced this training run." Promising for pipeline observability.
+                </p>
+                <span class="read-link">Read note →</span>
+            </a>
+
+            <!-- Note 4 -->
+            <a href="note-controlnet-depth.html" class="note-card">
+                <div class="note-header">
+                    <h3>ControlNet depth maps for virtual production blocking</h3>
+                    <span class="note-date">Oct 12, 2024</span>
+                </div>
+                <div class="note-pills">
+                    <span class="pill">Virtual Production</span>
+                    <span class="pill">ControlNet</span>
+                </div>
+                <p class="note-excerpt">
+                    Testing ControlNet with depth conditioning for rapid environment generation. Can produce coherent scene layouts from director sketches in under 30 seconds. Quality sufficient for previz but requires manual cleanup for finals.
+                </p>
+                <span class="read-link">Read note →</span>
+            </a>
+
+            <!-- Note 5 -->
+            <a href="note-shot-complexity-features.html" class="note-card">
+                <div class="note-header">
+                    <h3>Shot complexity features from production databases</h3>
+                    <span class="note-date">Sep 25, 2024</span>
+                </div>
+                <div class="note-pills">
+                    <span class="pill">ML Infrastructure</span>
+                    <span class="pill">ShotGrid</span>
+                </div>
+                <p class="note-excerpt">
+                    Extracted 47 features from ShotGrid data (FX elements, character count, camera complexity, etc.). XGBoost model achieving 82% accuracy in predicting artist hours within ±20% margin. Ready for pilot deployment.
+                </p>
+                <span class="read-link">Read note →</span>
+            </a>
+
+            <!-- Note 6 -->
+            <a href="note-nerf-lookdev.html" class="note-card">
+                <div class="note-header">
+                    <h3>NeRF-accelerated lookdev for on-set lighting</h3>
+                    <span class="note-date">Sep 10, 2024</span>
+                </div>
+                <div class="note-pills">
+                    <span class="pill">Neural Rendering</span>
+                    <span class="pill">NeRF</span>
+                </div>
+                <p class="note-excerpt">
+                    Trained NeRF models on set reference photography to provide interactive relighting previews for DOP review. Reduced feedback cycle from 24 hours (traditional render) to real-time. Artists love it for client approvals.
+                </p>
+                <span class="read-link">Read note →</span>
+            </a>
+
+            <!-- Note 7 -->
+            <a href="note-gaussian-splatting.html" class="note-card">
+                <div class="note-header">
+                    <h3>Gaussian Splatting vs NeRF for production assets</h3>
+                    <span class="note-date">Aug 28, 2024</span>
+                </div>
+                <div class="note-pills">
+                    <span class="pill">Neural Rendering</span>
+                    <span class="pill">Gaussian Splatting</span>
+                </div>
+                <p class="note-excerpt">
+                    Compared 3D Gaussian Splatting and NeRF for asset capture workflows. Gaussian Splatting trains 10x faster and exports cleaner point clouds. NeRF still wins on view synthesis quality. Hybrid approach looking promising.
+                </p>
+                <span class="read-link">Read note →</span>
+            </a>
+
+            <!-- Note 8 -->
+            <a href="note-latency-constraints.html" class="note-card">
+                <div class="note-header">
+                    <h3>Latency constraints for interactive AI tools</h3>
+                    <span class="note-date">Aug 15, 2024</span>
+                </div>
+                <div class="note-pills">
+                    <span class="pill">Production Infrastructure</span>
+                    <span class="pill">UX</span>
+                </div>
+                <p class="note-excerpt">
+                    Interviewed 12 artists about acceptable latency for AI-assisted tools. Consensus: under 2 seconds for "feels instant", under 10 seconds for "feels responsive", above 30 seconds loses context. Design accordingly.
+                </p>
+                <span class="read-link">Read note →</span>
+            </a>
+
+            <!-- Note 9 -->
+            <a href="note-human-in-loop.html" class="note-card">
+                <div class="note-header">
+                    <h3>Human-in-the-loop feedback for model improvement</h3>
+                    <span class="note-date">Jul 30, 2024</span>
+                </div>
+                <div class="note-pills">
+                    <span class="pill">ML Infrastructure</span>
+                    <span class="pill">RLHF</span>
+                </div>
+                <p class="note-excerpt">
+                    Designed annotation capture system for artist corrections on ML-generated masks. Data goes into retraining pipeline automatically. Early results: 15% quality improvement after one production cycle of feedback.
+                </p>
+                <span class="read-link">Read note →</span>
+            </a>
+
+            <!-- Note 10 -->
+            <a href="note-usd-interop.html" class="note-card">
+                <div class="note-header">
+                    <h3>USD interoperability for AI-generated assets</h3>
+                    <span class="note-date">Jul 12, 2024</span>
+                </div>
+                <div class="note-pills">
+                    <span class="pill">USD</span>
+                    <span class="pill">Pipelines</span>
+                </div>
+                <p class="note-excerpt">
+                    Standardized USD schema for AI-generated geometry and materials. Enables round-tripping between generative tools (Stable Diffusion, NeRF) and production DCCs (Maya, Houdini, Katana). Schema now in internal production use.
+                </p>
+                <span class="read-link">Read note →</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="about">
+        <div class="footer-content">
+            <div class="footer-about">
+                <h4>Next Wave Intelligence</h4>
+                <p>Ongoing research, tutorials, and tools for AI-native VFX pipelines. Combining production experience with machine learning research to build the next generation of creative infrastructure.</p>
+            </div>
+            <div class="footer-links">
+                <h5>Research</h5>
+                <ul>
+                    <li><a href="writing.html">Published Work</a></li>
+                    <li><a href="tutorials.html">Tutorials</a></li>
+                    <li><a href="notes.html">Research Notes</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h5>Lab</h5>
+                <ul>
+                    <li><a href="project-sam2.html">SAM2 Roto Assistant</a></li>
+                    <li><a href="project-neural-materials.html">Neural Materials</a></li>
+                    <li><a href="project-data-corpus.html">Data Corpus Viz</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h5>Connect</h5>
+                <ul>
+                    <li><a href="mailto:m.pistorio@gmail.com">Email</a></li>
+                    <li><a href="https://linkedin.com/in/michaelpistorio" target="_blank" rel="noopener">LinkedIn</a></li>
+                    <li><a href="https://github.com/micpistol" target="_blank" rel="noopener">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Next Wave Intelligence. Built by Michael Pistorio.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build a SAM2-Powered Roto Assistant for VFX | Next Wave Intelligence</title>
+    <meta name="description" content="Learn how to integrate Meta's SAM2 into a production compositing workflow for interactive rotoscoping.">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="favicon.ico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #1e3a8a;
+            --accent-cyan: #06b6d4;
+            --accent-amber: #f59e0b;
+            --bg-white: #ffffff;
+            --bg-gray: #fafafa;
+            --bg-dark: #1f2937;
+            --text-dark: #1f2937;
+            --text-gray: #6b7280;
+            --border-color: #e5e7eb;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--bg-white);
+        }
+
+        /* Navigation */
+        .nav-container {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-cyan));
+            border-radius: 6px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-blue);
+        }
+
+        .nav-cta {
+            background: var(--primary-blue);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .nav-cta:hover {
+            background: var(--accent-cyan);
+        }
+
+        /* Article Header */
+        .article-header {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem 2rem;
+        }
+
+        .breadcrumb {
+            font-size: 0.875rem;
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .breadcrumb a {
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .article-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            color: var(--primary-blue);
+        }
+
+        .dek {
+            font-size: 1.125rem;
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .meta-row {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-gray);
+            font-size: 0.875rem;
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .pill-category {
+            background: var(--accent-amber);
+            color: white;
+        }
+
+        .pill-tech {
+            background: var(--bg-gray);
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Article Body */
+        .article-body {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 2rem 4rem;
+        }
+
+        .article-body h2 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-blue);
+        }
+
+        .article-body h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .article-body p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1.0625rem;
+        }
+
+        .article-body ul,
+        .article-body ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+
+        .article-body li {
+            margin-bottom: 0.75rem;
+            line-height: 1.7;
+        }
+
+        .callout {
+            background: var(--bg-gray);
+            border-left: 4px solid var(--accent-cyan);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 4px;
+        }
+
+        .callout-title {
+            font-weight: 700;
+            font-size: 1.0625rem;
+            margin-bottom: 0.75rem;
+            color: var(--primary-blue);
+        }
+
+        .callout p {
+            margin-bottom: 0.75rem;
+        }
+
+        .callout p:last-child {
+            margin-bottom: 0;
+        }
+
+        .code-block {
+            background: var(--bg-dark);
+            color: #f0f0f0;
+            padding: 1.5rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 2rem 0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        .code-block code {
+            color: #f0f0f0;
+        }
+
+        /* Next Steps Section */
+        .next-steps {
+            background: var(--bg-gray);
+            padding: 3rem 2rem;
+            margin-top: 3rem;
+        }
+
+        .next-steps-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .next-steps h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary-blue);
+        }
+
+        .next-steps ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .next-steps li {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: var(--bg-white);
+            border-left: 4px solid var(--accent-cyan);
+            border-radius: 4px;
+        }
+
+        .next-steps a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .next-steps a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-dark);
+            color: white;
+            padding: 3rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-about h4 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-about p {
+            color: #9ca3af;
+            line-height: 1.7;
+        }
+
+        .footer-links h5 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            line-height: 2;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+            text-align: center;
+            color: #9ca3af;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .article-header h1 {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-container">
+        <nav>
+            <a href="index.html" class="logo">
+                <div class="logo-icon"></div>
+                Next Wave Intelligence
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="writing.html">Research</a></li>
+                <li><a href="tutorials.html" class="active">Tutorials</a></li>
+                <li><a href="lab.html">Lab</a></li>
+                <li><a href="notes.html">Notes</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <a href="index.html#newsletter" class="nav-cta">Subscribe</a>
+        </nav>
+    </div>
+
+    <!-- Article Header -->
+    <article class="article-header">
+        <div class="breadcrumb">
+            <a href="index.html">Home</a> / <a href="tutorials.html">Tutorials</a> / <a href="tutorials.html">Segmentation & Roto</a> / Build a SAM2-Powered Roto Assistant
+        </div>
+
+        <h1>Build a SAM2-Powered Roto Assistant for VFX</h1>
+
+        <p class="dek">
+            Learn how to integrate Meta's Segment Anything Model 2 (SAM2) into a production compositing workflow. You'll build an interactive rotoscoping tool that reduces manual segmentation time while handling motion blur and occlusion.
+        </p>
+
+        <div class="meta-row">
+            <span class="meta-item">Nov 19, 2024</span>
+            <span class="meta-item">11 min read</span>
+            <span class="pill pill-category">Segmentation & Roto</span>
+            <span class="pill pill-tech">SAM2</span>
+            <span class="pill pill-tech">Nuke</span>
+            <span class="pill pill-tech">Python</span>
+        </div>
+    </article>
+
+    <!-- Article Body -->
+    <div class="article-body">
+        <div class="callout">
+            <div class="callout-title">Prerequisites</div>
+            <p><strong>Skills:</strong> Python (intermediate), basic compositing concepts, familiarity with Nuke or similar tools</p>
+            <p><strong>Software:</strong> Python 3.9+, PyTorch 2.0+, Nuke 13+ (or After Effects), CUDA-capable GPU (recommended)</p>
+            <p><strong>Time:</strong> 2-3 hours for full implementation</p>
+        </div>
+
+        <h2>Introduction</h2>
+        <p>
+            Rotoscoping is one of the most time-intensive tasks in VFX production. Artists spend hours manually drawing and refining masks for complex plates—particularly when dealing with hair, motion blur, or occlusion. Meta's Segment Anything Model 2 (SAM2) offers a breakthrough: interactive segmentation that can handle these edge cases while integrating into production pipelines.
+        </p>
+        <p>
+            In this tutorial, you'll build a production-aware roto assistant that:
+        </p>
+        <ul>
+            <li>Accepts interactive user prompts (clicks, boxes) for segmentation</li>
+            <li>Handles temporal consistency across frames</li>
+            <li>Exports masks compatible with Nuke and other compositing tools</li>
+            <li>Manages GPU memory efficiently for high-resolution plates</li>
+        </ul>
+
+        <h2>Set Up Your Environment</h2>
+        <p>
+            First, let's set up the Python environment with all required dependencies:
+        </p>
+
+        <div class="code-block"><code># Create a new virtual environment
+python -m venv sam2-roto-env
+source sam2-roto-env/bin/activate  # On Windows: sam2-roto-env\Scripts\activate
+
+# Install PyTorch (CUDA 11.8 version)
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
+
+# Install SAM2
+pip install git+https://github.com/facebookresearch/segment-anything-2.git
+
+# Install additional dependencies
+pip install opencv-python numpy pillow tqdm
+</code></div>
+
+        <h3>Download SAM2 Model Checkpoints</h3>
+        <p>
+            SAM2 provides multiple model sizes. For production work, we recommend the <code>sam2_hiera_large</code> checkpoint, which balances quality and performance:
+        </p>
+
+        <div class="code-block"><code># Download checkpoint
+mkdir checkpoints
+cd checkpoints
+wget https://dl.fbaipublicfiles.com/segment_anything_2/072824/sam2_hiera_large.pt
+cd ..
+</code></div>
+
+        <h2>Prepare Your VFX Plates</h2>
+        <p>
+            SAM2 works best with properly prepared input sequences. Here's how to prepare your footage:
+        </p>
+
+        <h3>Convert to Image Sequence</h3>
+        <p>
+            SAM2 expects individual frames. If you're working with a video file, extract frames first:
+        </p>
+
+        <div class="code-block"><code># Using FFmpeg to extract frames
+ffmpeg -i input_plate.mov -qscale:v 2 frames/frame_%04d.png
+
+# Or export directly from Nuke as an image sequence (EXR or PNG)
+</code></div>
+
+        <h3>Downscale for Processing (Optional)</h3>
+        <p>
+            For 4K+ plates, consider downscaling to 2K for initial segmentation, then upscale the mask:
+        </p>
+
+        <div class="code-block"><code>import cv2
+import os
+
+input_dir = 'frames_4k'
+output_dir = 'frames_2k'
+os.makedirs(output_dir, exist_ok=True)
+
+for filename in os.listdir(input_dir):
+    img = cv2.imread(os.path.join(input_dir, filename))
+    img_2k = cv2.resize(img, (1920, 1080), interpolation=cv2.INTER_AREA)
+    cv2.imwrite(os.path.join(output_dir, filename), img_2k)
+</code></div>
+
+        <h2>Wire Up SAM2 for Segmentation</h2>
+        <p>
+            Now let's build the core segmentation engine. We'll create a class that handles SAM2 inference with interactive prompts:
+        </p>
+
+        <div class="code-block"><code>import torch
+from sam2.build_sam import build_sam2_video_predictor
+
+class SAM2RotoAssistant:
+    def __init__(self, checkpoint_path, model_cfg='sam2_hiera_l.yaml'):
+        """Initialize SAM2 video predictor"""
+        self.predictor = build_sam2_video_predictor(model_cfg, checkpoint_path)
+        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        print(f"Using device: {self.device}")
+
+    def load_sequence(self, frame_dir):
+        """Load video frames for processing"""
+        with torch.inference_mode(), torch.autocast(self.device.type, dtype=torch.float16):
+            state = self.predictor.init_state(video_path=frame_dir)
+        return state
+
+    def add_click_prompt(self, state, frame_idx, point, label):
+        """
+        Add interactive click prompt
+        point: (x, y) coordinates
+        label: 1 for foreground, 0 for background
+        """
+        _, out_obj_ids, out_mask_logits = self.predictor.add_new_points(
+            inference_state=state,
+            frame_idx=frame_idx,
+            obj_id=0,
+            points=point,
+            labels=label
+        )
+        return out_mask_logits
+
+    def propagate_masks(self, state):
+        """Propagate masks across all frames"""
+        masks = {}
+        for frame_idx, obj_ids, mask_logits in self.predictor.propagate_in_video(state):
+            masks[frame_idx] = (mask_logits[0] > 0.0).cpu().numpy()
+        return masks
+</code></div>
+
+        <div class="callout">
+            <div class="callout-title">Note: GPU Memory Management</div>
+            <p>
+                SAM2 can consume significant GPU memory for high-resolution sequences. If you encounter out-of-memory errors:
+            </p>
+            <ul>
+                <li>Use the <code>sam2_hiera_small</code> checkpoint instead</li>
+                <li>Process sequences in smaller chunks (e.g., 50-frame batches)</li>
+                <li>Enable gradient checkpointing in the model config</li>
+            </ul>
+        </div>
+
+        <h2>Integrate With Your Compositing Workflow</h2>
+        <p>
+            Now let's connect this to Nuke. We'll create a Python panel that allows artists to:
+        </p>
+        <ul>
+            <li>Load a plate sequence</li>
+            <li>Add interactive foreground/background clicks</li>
+            <li>Preview the segmentation</li>
+            <li>Export masks as a Nuke-compatible image sequence</li>
+        </ul>
+
+        <h3>Export Masks for Nuke</h3>
+        <div class="code-block"><code>def export_masks_for_nuke(masks, output_dir, frame_format='frame_%04d.png'):
+    """Export binary masks as 8-bit PNG sequence"""
+    import os
+    os.makedirs(output_dir, exist_ok=True)
+
+    for frame_idx, mask in masks.items():
+        # Convert boolean mask to 8-bit (0 or 255)
+        mask_8bit = (mask[0] * 255).astype('uint8')
+
+        # Write to disk
+        filename = frame_format % (frame_idx + 1)
+        cv2.imwrite(os.path.join(output_dir, filename), mask_8bit)
+
+    print(f"Exported {len(masks)} masks to {output_dir}")
+</code></div>
+
+        <h3>Create a Simple Interactive UI</h3>
+        <p>
+            For production use, you'll want a GUI. Here's a minimal example using OpenCV's window system:
+        </p>
+
+        <div class="code-block"><code>import cv2
+
+def interactive_segmentation(assistant, frame_dir):
+    """Simple click-based interface for segmentation"""
+    state = assistant.load_sequence(frame_dir)
+
+    # Load first frame for display
+    first_frame_path = os.path.join(frame_dir, sorted(os.listdir(frame_dir))[0])
+    display_frame = cv2.imread(first_frame_path)
+
+    points = []
+    labels = []
+
+    def mouse_callback(event, x, y, flags, param):
+        if event == cv2.EVENT_LBUTTONDOWN:  # Foreground click
+            points.append([x, y])
+            labels.append(1)
+            cv2.circle(display_frame, (x, y), 5, (0, 255, 0), -1)
+        elif event == cv2.EVENT_RBUTTONDOWN:  # Background click
+            points.append([x, y])
+            labels.append(0)
+            cv2.circle(display_frame, (x, y), 5, (0, 0, 255), -1)
+
+    cv2.namedWindow('SAM2 Roto Assistant')
+    cv2.setMouseCallback('SAM2 Roto Assistant', mouse_callback)
+
+    while True:
+        cv2.imshow('SAM2 Roto Assistant', display_frame)
+        key = cv2.waitKey(1)
+
+        if key == ord('q'):  # Quit
+            break
+        elif key == ord('p'):  # Propagate
+            if points:
+                mask_logits = assistant.add_click_prompt(state, 0, points, labels)
+                masks = assistant.propagate_masks(state)
+                export_masks_for_nuke(masks, 'output_masks')
+                print("Masks exported!")
+
+    cv2.destroyAllWindows()
+</code></div>
+
+        <h2>Visualize and Iterate</h2>
+        <p>
+            Once you've generated masks, bring them back into Nuke to refine:
+        </p>
+        <ol>
+            <li>Import the mask sequence as a Read node</li>
+            <li>Use a Premult node to apply the mask to your original plate</li>
+            <li>Add a RotoPaint node for manual refinements on problem frames</li>
+            <li>Use edge operations (Dilate/Erode) to fine-tune the mask edge</li>
+        </ol>
+
+        <div class="callout">
+            <div class="callout-title">Tip: Handling Motion Blur</div>
+            <p>
+                SAM2 can struggle with heavy motion blur. For best results:
+            </p>
+            <ul>
+                <li>Add more interactive prompts on blurred frames</li>
+                <li>Use Nuke's MotionBlur node to match the original plate blur on the mask</li>
+                <li>Consider temporal smoothing with a FrameBlend node</li>
+            </ul>
+        </div>
+
+        <h2>Production Considerations</h2>
+        <p>
+            Before deploying this in a production pipeline, consider:
+        </p>
+        <ul>
+            <li><strong>Latency:</strong> SAM2 inference on a 100-frame sequence at 2K resolution takes ~2-3 minutes on an A100 GPU. Budget accordingly for interactive sessions.</li>
+            <li><strong>Quality assurance:</strong> Always review masks frame-by-frame. SAM2 is excellent but not perfect—plan for manual cleanup time.</li>
+            <li><strong>Version control:</strong> Save prompt coordinates and model versions so artists can reproduce results.</li>
+            <li><strong>Batch processing:</strong> For large shows, create a job submission system that queues SAM2 inference on render nodes.</li>
+        </ul>
+    </div>
+
+    <!-- Next Steps Section -->
+    <section class="next-steps">
+        <div class="next-steps-content">
+            <h2>Next Steps</h2>
+            <p>Now that you've built a basic SAM2 roto assistant, consider these extensions:</p>
+            <ul>
+                <li>
+                    <strong>Integrate with production databases:</strong> Connect to ShotGrid or Ftrack to automatically pull plates and publish masks. See <a href="tutorial-production-ml-pipeline.html">Build ML Pipelines from Production Tracking Data</a>.
+                </li>
+                <li>
+                    <strong>Add temporal refinement:</strong> Use optical flow or feature tracking to improve temporal consistency. Explore the <a href="project-sam2.html">SAM2 Roto Assistant</a> prototype for advanced techniques.
+                </li>
+                <li>
+                    <strong>Build a web-based UI:</strong> Create a browser-based tool using React and FastAPI for remote artist collaboration. Reference the <a href="essay-ai-co-creator.html">AI as a Co-Creator</a> essay for architecture patterns.
+                </li>
+                <li>
+                    <strong>Train on studio-specific data:</strong> Fine-tune SAM2 on your studio's footage for improved accuracy on challenging material (hair, glass, smoke).
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="about">
+        <div class="footer-content">
+            <div class="footer-about">
+                <h4>Next Wave Intelligence</h4>
+                <p>Ongoing research, tutorials, and tools for AI-native VFX pipelines. Combining production experience with machine learning research to build the next generation of creative infrastructure.</p>
+            </div>
+            <div class="footer-links">
+                <h5>Research</h5>
+                <ul>
+                    <li><a href="writing.html">Published Work</a></li>
+                    <li><a href="tutorials.html">Tutorials</a></li>
+                    <li><a href="notes.html">Research Notes</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h5>Lab</h5>
+                <ul>
+                    <li><a href="project-sam2.html">SAM2 Roto Assistant</a></li>
+                    <li><a href="project-neural-materials.html">Neural Materials</a></li>
+                    <li><a href="project-data-corpus.html">Data Corpus Viz</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h5>Connect</h5>
+                <ul>
+                    <li><a href="mailto:m.pistorio@gmail.com">Email</a></li>
+                    <li><a href="https://linkedin.com/in/michaelpistorio" target="_blank" rel="noopener">LinkedIn</a></li>
+                    <li><a href="https://github.com/micpistol" target="_blank" rel="noopener">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Next Wave Intelligence. Built by Michael Pistorio.</p>
+        </div>
+    </footer>
+</body>
+</html>

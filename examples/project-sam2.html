@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SAM2 Roto Assistant | Michael Pistorio</title>
+  <meta name="description" content="AI-powered segmentation for VFX rotoscoping—reducing manual work by 78%.">
+  <style>
+    :root {
+      --bg: #fafafa;
+      --text: #1a1a1a;
+      --muted: #666;
+      --accent: #0066ff;
+      --border: #e0e0e0;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0a0a0a;
+        --text: #f0f0f0;
+        --muted: #999;
+        --accent: #4cc9f0;
+        --border: #222;
+      }
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.7;
+    }
+
+    .container {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 80px 20px;
+    }
+
+    nav {
+      margin-bottom: 60px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--text);
+    }
+
+    .project-meta {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+      font-size: 13px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    h1 {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .lede {
+      font-size: 20px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 60px;
+    }
+
+    .image-placeholder {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 12px;
+      margin-bottom: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 600;
+    }
+
+    h2 {
+      font-size: clamp(24px, 4vw, 32px);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin: 60px 0 24px;
+    }
+
+    h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 40px 0 16px;
+    }
+
+    p {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    ul {
+      margin: 20px 0;
+      padding-left: 24px;
+    }
+
+    li {
+      color: var(--muted);
+      margin: 12px 0;
+      line-height: 1.6;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 24px;
+      margin: 40px 0;
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .metric {
+      text-align: center;
+    }
+
+    .metric .number {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .metric .label {
+      font-size: 13px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 40px 0;
+    }
+
+    .tag {
+      font-size: 12px;
+      color: var(--muted);
+      background: var(--border);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    footer {
+      margin-top: 80px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    footer a:hover {
+      color: var(--text);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <a href="portfolio-minimal.html">← Back to Work</a>
+    </nav>
+
+    <div class="project-meta">
+      <span>2024</span>
+      <span>Production Tool</span>
+      <span>Prototype Complete</span>
+    </div>
+
+    <h1>SAM2 Roto Assistant</h1>
+
+    <p class="lede">
+      AI-powered segmentation for VFX rotoscoping, reducing manual work by 78%.
+      Interactive prompting with temporal tracking across frame sequences.
+    </p>
+
+    <div class="image-placeholder">Project Screenshot</div>
+
+    <h2>Challenge</h2>
+    <p>
+      Rotoscoping is one of the most time-intensive prep tasks in VFX—often requiring 2-4 days
+      per shot for complex subjects. While AI segmentation models exist, they lack the temporal
+      coherence and artist control needed for production-quality mattes.
+    </p>
+    <p>
+      After managing 5,000+ shots at Netflix, I saw this pattern repeatedly: talented artists
+      spending days on tedious, frame-by-frame masking when they could be solving creative
+      challenges instead.
+    </p>
+
+    <h2>Approach</h2>
+    <ul>
+      <li>
+        <strong>Fine-tuned Meta's SAM2 model</strong> on VFX-specific footage including motion
+        blur, depth of field, and complex backgrounds
+      </li>
+      <li>
+        <strong>Built interactive web interface</strong> for prompt-based segmentation using
+        clicks, bounding boxes, and natural language descriptions
+      </li>
+      <li>
+        <strong>Implemented temporal tracking</strong> across frame sequences with confidence
+        scoring to flag problematic frames
+      </li>
+      <li>
+        <strong>Created artist feedback loop</strong> where refinements feed back into model
+        training for continuous improvement
+      </li>
+    </ul>
+
+    <h2>Outcome</h2>
+    <p>
+      Achieved 78% reduction in manual roto time for simple-to-medium complexity shots. Artist
+      feedback indicated high satisfaction with "rough pass" quality, requiring only edge
+      refinement rather than full frame-by-frame work.
+    </p>
+    <p>
+      The system successfully identified its own failure modes: extreme motion blur, reflective
+      surfaces, and rapid lighting changes. This self-awareness allowed artists to selectively
+      apply the tool where it added value.
+    </p>
+
+    <div class="metrics">
+      <div class="metric">
+        <span class="number">78%</span>
+        <span class="label">Time Reduction</span>
+      </div>
+      <div class="metric">
+        <span class="number">92%</span>
+        <span class="label">Frame Accuracy</span>
+      </div>
+      <div class="metric">
+        <span class="number">4.2/5</span>
+        <span class="label">Artist Rating</span>
+      </div>
+    </div>
+
+    <h2>Key Learnings</h2>
+    <p>
+      <strong>Integration matters more than accuracy.</strong> Even with 92% frame accuracy,
+      the tool only succeeded because it fit into existing workflows. Artists could export
+      results directly to Nuke, refine edges using familiar tools, and version control through
+      ShotGrid.
+    </p>
+    <p>
+      <strong>Confidence scoring builds trust.</strong> By flagging low-confidence frames,
+      the system let artists focus QC efforts where needed rather than reviewing every frame.
+      This transparency was critical for adoption.
+    </p>
+    <p>
+      <strong>Failure modes inform product strategy.</strong> Rather than trying to solve
+      every edge case, we documented where the tool worked well and steered artists toward
+      those scenarios. Honesty about limitations built credibility.
+    </p>
+
+    <div class="tags">
+      <span class="tag">SAM2</span>
+      <span class="tag">PyTorch</span>
+      <span class="tag">FastAPI</span>
+      <span class="tag">React</span>
+      <span class="tag">OpenCV</span>
+      <span class="tag">NVIDIA Triton</span>
+    </div>
+
+    <footer>
+      <a href="portfolio-minimal.html">← Back to Work</a>
+    </footer>
+  </div>
+</body>
+</html>

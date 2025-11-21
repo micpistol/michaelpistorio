@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Neural Material Explorer | Michael Pistorio</title>
+  <meta name="description" content="Neural BRDF synthesis for physically-based material generation in lookdev workflows.">
+  <style>
+    :root {
+      --bg: #fafafa;
+      --text: #1a1a1a;
+      --muted: #666;
+      --accent: #0066ff;
+      --border: #e0e0e0;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0a0a0a;
+        --text: #f0f0f0;
+        --muted: #999;
+        --accent: #4cc9f0;
+        --border: #222;
+      }
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.7;
+    }
+
+    .container {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 80px 20px;
+    }
+
+    nav {
+      margin-bottom: 60px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--text);
+    }
+
+    .project-meta {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+      font-size: 13px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    h1 {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .lede {
+      font-size: 20px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 60px;
+    }
+
+    .image-placeholder {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, #4cc9f0 0%, #0066ff 100%);
+      border-radius: 12px;
+      margin-bottom: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 600;
+    }
+
+    h2 {
+      font-size: clamp(24px, 4vw, 32px);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin: 60px 0 24px;
+    }
+
+    p {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    ul {
+      margin: 20px 0;
+      padding-left: 24px;
+    }
+
+    li {
+      color: var(--muted);
+      margin: 12px 0;
+      line-height: 1.6;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 40px 0;
+    }
+
+    .tag {
+      font-size: 12px;
+      color: var(--muted);
+      background: var(--border);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    footer {
+      margin-top: 80px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    footer a:hover {
+      color: var(--text);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <a href="portfolio-minimal.html">← Back to Work</a>
+    </nav>
+
+    <div class="project-meta">
+      <span>2024</span>
+      <span>Research</span>
+      <span>In Progress</span>
+    </div>
+
+    <h1>Neural Material Explorer</h1>
+
+    <p class="lede">
+      Neural BRDF synthesis for physically-based material generation. Text-to-material
+      and image-to-material workflows for lookdev artists.
+    </p>
+
+    <div class="image-placeholder">Project Screenshot</div>
+
+    <h2>Challenge</h2>
+    <p>
+      Traditional material authoring requires manual tuning of albedo, roughness, normal, and
+      metallic maps. This is time-consuming and requires deep technical knowledge of how light
+      interacts with surfaces.
+    </p>
+    <p>
+      Lookdev artists often work from reference images—photos of real materials they want to
+      recreate. The question: can neural networks learn material properties from these references
+      and generate production-ready texture sets?
+    </p>
+
+    <h2>Approach</h2>
+    <ul>
+      <li>
+        <strong>Training neural BRDF model</strong> on MaterialX-compliant physically-based
+        material datasets with known ground truth
+      </li>
+      <li>
+        <strong>Text-to-material generation</strong> using Stable Diffusion conditioning:
+        "weathered copper with green patina" → complete material stack
+      </li>
+      <li>
+        <strong>Image-to-material synthesis</strong> where reference photos generate albedo,
+        roughness, normal, and metallic maps
+      </li>
+      <li>
+        <strong>Path-traced preview rendering</strong> with real-time feedback using GPU
+        acceleration
+      </li>
+      <li>
+        <strong>Export to industry formats</strong> including MaterialX, MDL, and OSL for
+        seamless integration with existing pipelines
+      </li>
+    </ul>
+
+    <h2>Current Status</h2>
+    <p>
+      Proof-of-concept complete for basic material classes: wood, metal, concrete, stone.
+      The system successfully generates plausible texture maps that render correctly under
+      different lighting conditions.
+    </p>
+    <p>
+      Currently expanding training dataset to include complex materials: translucent (skin,
+      wax), iridescent (oil slick, butterfly wings), and anisotropic (brushed metal, hair).
+      These require more sophisticated BRDF representations.
+    </p>
+    <p>
+      Exploring integration with USD workflows for direct Hydra rendering. The goal is seamless
+      material generation within existing DCC tools rather than standalone application.
+    </p>
+
+    <h2>Key Insight</h2>
+    <p>
+      The breakthrough isn't replacing material artists—it's accelerating the iteration loop.
+      Artists can generate a dozen material variations in seconds, select the best starting
+      point, then refine using traditional tools. The neural network handles the "80% there"
+      first pass; artists add the final 20% that makes it production-ready.
+    </p>
+
+    <div class="tags">
+      <span class="tag">Stable Diffusion XL</span>
+      <span class="tag">MaterialX</span>
+      <span class="tag">USD/Hydra</span>
+      <span class="tag">PyTorch</span>
+      <span class="tag">Blender</span>
+    </div>
+
+    <footer>
+      <a href="portfolio-minimal.html">← Back to Work</a>
+    </footer>
+  </div>
+</body>
+</html>

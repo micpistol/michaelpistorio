@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>R&D Projects | Michael Pistorio</title>
+  <meta name="description" content="Experimental AI systems bridging VFX production with neural rendering, segmentation, and intelligent tooling.">
+  <style>
+    :root {
+      --bg:#0b0c10;
+      --card:#12131a;
+      --card-hover:#1a1d2a;
+      --text:#e6edf3;
+      --muted:#9fb3c8;
+      --accent:#4cc9f0;
+      --border:#202334;
+      --success:#4ade80;
+      --warning:#fbbf24;
+    }
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,Segoe UI,Roboto,Inter,Arial,sans-serif}
+    .wrap{max-width:1100px;margin:0 auto;padding:40px 20px}
+
+    header{padding:20px 0 30px;border-bottom:1px solid var(--border);margin-bottom:40px}
+    h1{margin:0 0 12px;font-size:clamp(32px,5vw,42px)}
+    .subtitle{color:var(--muted);font-size:18px;margin:0}
+
+    /* Project Cards */
+    .project-grid{
+      display:grid;
+      gap:40px;
+      margin:40px 0;
+    }
+    .project-card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:20px;
+      overflow:hidden;
+      transition:all 0.3s ease;
+    }
+    .project-card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 12px 32px rgba(76,201,240,0.15);
+      border-color:var(--accent);
+    }
+
+    .project-hero{
+      background:linear-gradient(135deg, #1a1d2a 0%, #0f1115 100%);
+      padding:40px;
+      border-bottom:1px solid var(--border);
+      position:relative;
+    }
+    .project-status{
+      position:absolute;
+      top:20px;
+      right:20px;
+      background:var(--success);
+      color:#0b0c10;
+      padding:6px 14px;
+      border-radius:20px;
+      font-size:12px;
+      font-weight:600;
+      text-transform:uppercase;
+    }
+    .project-status.wip{background:var(--warning)}
+
+    .project-hero h2{
+      margin:0 0 12px;
+      font-size:28px;
+      color:var(--accent);
+    }
+    .project-hero .one-liner{
+      color:var(--text);
+      font-size:18px;
+      margin:0;
+    }
+
+    .project-content{
+      padding:32px 40px;
+    }
+    .project-section{
+      margin:24px 0;
+    }
+    .project-section h3{
+      margin:0 0 10px;
+      font-size:18px;
+      color:var(--accent);
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+      font-size:14px;
+    }
+    .project-section p,
+    .project-section ul{
+      color:var(--muted);
+      line-height:1.6;
+    }
+    .project-section ul{
+      margin:8px 0;
+      padding-left:20px;
+    }
+    .project-section li{
+      margin:6px 0;
+    }
+
+    .tech-stack{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:8px;
+    }
+    .tech-badge{
+      background:rgba(76,201,240,0.15);
+      color:var(--accent);
+      padding:6px 12px;
+      border-radius:6px;
+      font-size:13px;
+      font-weight:500;
+    }
+
+    .metrics{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+      gap:16px;
+      margin:20px 0;
+    }
+    .metric-box{
+      background:var(--card-hover);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:16px;
+      text-align:center;
+    }
+    .metric-box .number{
+      font-size:28px;
+      font-weight:700;
+      color:var(--accent);
+      display:block;
+      margin-bottom:4px;
+    }
+    .metric-box .label{
+      font-size:12px;
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+    }
+
+    nav{margin:20px 0;padding:16px 0;border-bottom:1px solid var(--border)}
+    nav a{margin-right:24px;color:var(--muted);font-size:14px;text-transform:uppercase;letter-spacing:0.5px;text-decoration:none}
+    nav a:hover{color:var(--accent)}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <a href="index.html">← Home</a>
+      <a href="research-hub.html">Research Hub</a>
+      <a href="blog-index.html">Essays</a>
+      <a href="projects.html">Projects</a>
+    </nav>
+
+    <header>
+      <h1>R&D Projects</h1>
+      <p class="subtitle">Experimental systems exploring AI-native VFX infrastructure</p>
+    </header>
+
+    <div class="project-grid">
+      <!-- Project 1: SAM2 Roto Assistant -->
+      <div class="project-card">
+        <div class="project-hero">
+          <span class="project-status">Prototype Complete</span>
+          <h2>SAM2 Roto Assistant</h2>
+          <p class="one-liner">Promptable segmentation for tracked rotoscoping with artist-in-the-loop refinement</p>
+        </div>
+        <div class="project-content">
+          <div class="project-section">
+            <h3>Challenge</h3>
+            <p>
+              Rotoscoping is one of the most time-intensive prep tasks in VFX—often requiring 2-4 days per shot
+              for complex subjects. While AI segmentation models exist, they lack the temporal coherence and
+              artist control needed for production-quality mattes.
+            </p>
+          </div>
+
+          <div class="project-section">
+            <h3>Approach</h3>
+            <ul>
+              <li>Fine-tuned Meta's SAM2 model on VFX-specific footage (motion blur, depth of field, complex backgrounds)</li>
+              <li>Built interactive web interface for prompt-based segmentation (click, bounding box, natural language)</li>
+              <li>Implemented temporal tracking across frame sequences with confidence scoring</li>
+              <li>Created artist feedback loop: refinements → annotation → model improvement</li>
+            </ul>
+          </div>
+
+          <div class="project-section">
+            <h3>Outcome</h3>
+            <p>
+              Achieved 78% reduction in manual roto time for simple-to-medium complexity shots. Artist feedback
+              indicated high satisfaction with "rough pass" quality, requiring only edge refinement. Identified
+              failure modes: extreme motion blur, reflective surfaces, and rapid lighting changes.
+            </p>
+            <div class="metrics">
+              <div class="metric-box">
+                <span class="number">78%</span>
+                <span class="label">Time Reduction</span>
+              </div>
+              <div class="metric-box">
+                <span class="number">92%</span>
+                <span class="label">Frame Accuracy</span>
+              </div>
+              <div class="metric-box">
+                <span class="number">4.2/5</span>
+                <span class="label">Artist Rating</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-section">
+            <h3>Technologies Used</h3>
+            <div class="tech-stack">
+              <span class="tech-badge">SAM2</span>
+              <span class="tech-badge">PyTorch</span>
+              <span class="tech-badge">FastAPI</span>
+              <span class="tech-badge">React</span>
+              <span class="tech-badge">OpenCV</span>
+              <span class="tech-badge">NVIDIA Triton</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2: Neural Material Explorer -->
+      <div class="project-card">
+        <div class="project-hero">
+          <span class="project-status wip">In Progress</span>
+          <h2>Neural Material Explorer</h2>
+          <p class="one-liner">Neural BRDF synthesis for physically-based material generation in lookdev workflows</p>
+        </div>
+        <div class="project-content">
+          <div class="project-section">
+            <h3>Challenge</h3>
+            <p>
+              Traditional material authoring requires manual tuning of albedo, roughness, normal, and metallic maps.
+              This is time-consuming and requires deep technical knowledge. Can neural networks learn material
+              properties from reference images and generate production-ready texture sets?
+            </p>
+          </div>
+
+          <div class="project-section">
+            <h3>Approach</h3>
+            <ul>
+              <li>Training neural BRDF model on MaterialX-compliant physically-based material datasets</li>
+              <li>Text-to-material and image-to-material generation with Stable Diffusion conditioning</li>
+              <li>Path-traced preview rendering with real-time feedback</li>
+              <li>Export to industry-standard formats (MaterialX, MDL, OSL)</li>
+            </ul>
+          </div>
+
+          <div class="project-section">
+            <h3>Current Status</h3>
+            <p>
+              Proof-of-concept complete for basic materials (wood, metal, concrete). Expanding training dataset
+              to include complex materials (translucent, iridescent, anisotropic). Exploring integration with
+              USD workflows for direct Hydra rendering.
+            </p>
+          </div>
+
+          <div class="project-section">
+            <h3>Technologies Used</h3>
+            <div class="tech-stack">
+              <span class="tech-badge">Stable Diffusion XL</span>
+              <span class="tech-badge">MaterialX</span>
+              <span class="tech-badge">USD/Hydra</span>
+              <span class="tech-badge">PyTorch</span>
+              <span class="tech-badge">Blender</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 3: VFX Data Corpus Visualization -->
+      <div class="project-card">
+        <div class="project-hero">
+          <span class="project-status">Research Phase</span>
+          <h2>VFX Data Corpus Visualization</h2>
+          <p class="one-liner">Interactive exploration of shot metadata, model training datasets, and production lineage</p>
+        </div>
+        <div class="project-content">
+          <div class="project-section">
+            <h3>Challenge</h3>
+            <p>
+              Production data is fragmented across ShotGrid, editorial systems, render logs, and QC databases.
+              There's no unified view of how shots, assets, and model training data relate—making it difficult
+              to trace model decisions or audit dataset quality.
+            </p>
+          </div>
+
+          <div class="project-section">
+            <h3>Approach</h3>
+            <ul>
+              <li>Building knowledge graph connecting shots, plates, annotations, model versions, and inferences</li>
+              <li>Interactive 3D visualization showing data lineage and relationships</li>
+              <li>Filtering by shot complexity, model performance, artist feedback scores</li>
+              <li>Treating production data as a strategic asset with version tracking</li>
+            </ul>
+          </div>
+
+          <div class="project-section">
+            <h3>Technologies Used</h3>
+            <div class="tech-stack">
+              <span class="tech-badge">Neo4j</span>
+              <span class="tech-badge">D3.js</span>
+              <span class="tech-badge">ShotGrid API</span>
+              <span class="tech-badge">MLflow</span>
+              <span class="tech-badge">PostgreSQL</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 4: Generative Previsualization Lab -->
+      <div class="project-card">
+        <div class="project-hero">
+          <span class="project-status wip">In Progress</span>
+          <h2>Generative Previsualization Lab</h2>
+          <p class="one-liner">Diffusion-based shot planning and concept iteration for virtual art departments</p>
+        </div>
+        <div class="project-content">
+          <div class="project-section">
+            <h3>Challenge</h3>
+            <p>
+              Previs and concept art require iteration speed that traditional 3D rendering can't provide.
+              Virtual art departments need rapid exploration of camera angles, lighting setups, and composition
+              variants without building full CG environments.
+            </p>
+          </div>
+
+          <div class="project-section">
+            <h3>Approach</h3>
+            <ul>
+              <li>ComfyUI workflow for ControlNet-driven shot generation (depth, pose, edge maps)</li>
+              <li>Integration with Unreal Engine virtual cameras for real-time feedback</li>
+              <li>Style transfer from reference imagery and previous show lookbooks</li>
+              <li>Multi-variant generation with art director approval workflow</li>
+            </ul>
+          </div>
+
+          <div class="project-section">
+            <h3>Current Status</h3>
+            <p>
+              Testing with small-scale virtual production teams. Positive feedback on iteration speed
+              (10+ variants in minutes vs. hours). Exploring tighter USD integration for seamless
+              handoff to lighting/rendering departments.
+            </p>
+          </div>
+
+          <div class="project-section">
+            <h3>Technologies Used</h3>
+            <div class="tech-stack">
+              <span class="tech-badge">ComfyUI</span>
+              <span class="tech-badge">SDXL</span>
+              <span class="tech-badge">ControlNet</span>
+              <span class="tech-badge">Unreal Engine</span>
+              <span class="tech-badge">USD</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

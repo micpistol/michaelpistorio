@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Next Wave Intelligence Research Hub | Michael Pistorio</title>
+  <meta name="description" content="Defining how AI infrastructure transforms creative VFX pipelines—from neural rendering to cognitive supply chains.">
+  <style>
+    :root {
+      --bg:#0b0c10;
+      --card:#12131a;
+      --card-hover:#1a1d2a;
+      --text:#e6edf3;
+      --muted:#9fb3c8;
+      --accent:#4cc9f0;
+      --accent-dim:#3a9dbf;
+      --border:#202334;
+    }
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,Segoe UI,Roboto,Inter,Arial,sans-serif}
+    .wrap{max-width:1100px;margin:0 auto;padding:40px 20px}
+
+    /* Hero Section */
+    .hero{
+      background:linear-gradient(135deg, #1a1d2a 0%, #0f1115 100%);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:60px 40px;
+      margin-bottom:50px;
+      text-align:center;
+    }
+    .hero h1{
+      margin:0 0 16px;
+      font-size:clamp(32px,5vw,48px);
+      background:linear-gradient(135deg, var(--accent) 0%, #7cc7ff 100%);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    .hero .tagline{
+      font-size:clamp(18px,2.5vw,24px);
+      color:var(--muted);
+      max-width:800px;
+      margin:0 auto 30px;
+      line-height:1.5;
+    }
+    .hero .manifesto{
+      color:var(--text);
+      font-size:17px;
+      max-width:900px;
+      margin:0 auto;
+      line-height:1.7;
+    }
+
+    /* Architecture Diagram */
+    .architecture{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:40px;
+      margin:50px 0;
+    }
+    .architecture h2{
+      text-align:center;
+      margin:0 0 40px;
+      font-size:28px;
+    }
+    .stack-layer{
+      background:linear-gradient(90deg, var(--card-hover) 0%, var(--card) 100%);
+      border-left:3px solid var(--accent);
+      padding:20px 24px;
+      margin:16px 0;
+      border-radius:8px;
+      transition:all 0.3s ease;
+    }
+    .stack-layer:hover{
+      transform:translateX(8px);
+      border-left-width:5px;
+    }
+    .stack-layer h3{
+      margin:0 0 8px;
+      color:var(--accent);
+      font-size:20px;
+    }
+    .stack-layer p{
+      margin:0;
+      color:var(--muted);
+      font-size:15px;
+    }
+
+    /* Research Pillars Grid */
+    .pillars-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:24px;
+      margin:50px 0;
+    }
+    .pillar-card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:30px;
+      transition:all 0.3s ease;
+    }
+    .pillar-card:hover{
+      transform:translateY(-4px);
+      border-color:var(--accent);
+      box-shadow:0 8px 24px rgba(76,201,240,0.1);
+    }
+    .pillar-card .icon{
+      font-size:36px;
+      margin-bottom:16px;
+      display:block;
+    }
+    .pillar-card h3{
+      margin:0 0 12px;
+      font-size:22px;
+      color:var(--text);
+    }
+    .pillar-card p{
+      margin:0 0 16px;
+      color:var(--muted);
+      font-size:15px;
+    }
+    .pillar-card ul{
+      margin:0;
+      padding-left:20px;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .pillar-card li{margin:6px 0}
+
+    /* CTA Section */
+    .cta-section{
+      background:linear-gradient(135deg, #1a1d2a 0%, #0f1115 100%);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:40px;
+      text-align:center;
+      margin:50px 0;
+    }
+    .cta-section h2{
+      margin:0 0 16px;
+      font-size:28px;
+    }
+    .cta-section p{
+      color:var(--muted);
+      margin:0 0 24px;
+    }
+    .btn-primary{
+      display:inline-block;
+      padding:14px 32px;
+      background:var(--accent);
+      color:#0b0c10;
+      font-weight:600;
+      border-radius:8px;
+      text-decoration:none;
+      transition:all 0.3s ease;
+    }
+    .btn-primary:hover{
+      background:#7cc7ff;
+      transform:translateY(-2px);
+      box-shadow:0 6px 20px rgba(76,201,240,0.3);
+    }
+
+    h2{font-size:clamp(24px,3vw,32px);margin:40px 0 24px}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    nav{margin:20px 0;padding:16px 0;border-bottom:1px solid var(--border)}
+    nav a{margin-right:24px;color:var(--muted);font-size:14px;text-transform:uppercase;letter-spacing:0.5px}
+    nav a:hover{color:var(--accent)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <a href="index.html">← Home</a>
+      <a href="research-hub.html">Research Hub</a>
+      <a href="blog-index.html">Essays</a>
+      <a href="projects.html">Projects</a>
+    </nav>
+
+    <div class="hero">
+      <h1>Next Wave Intelligence</h1>
+      <p class="tagline">Defining AI Infrastructure for Creative VFX Pipelines</p>
+      <p class="manifesto">
+        This isn't about replacing artists—it's about building the <strong>cognitive supply chain</strong>
+        that makes VFX production scalable, intelligent, and artist-centric. From neural rendering
+        to closed-loop feedback systems, I'm exploring how AI becomes <em>infrastructure</em>, not a toy.
+      </p>
+    </div>
+
+    <div class="architecture">
+      <h2>The Intelligent VFX Stack</h2>
+      <p style="text-align:center;color:var(--muted);margin-bottom:30px">
+        A layered architecture treating AI as production infrastructure—like a power grid for creative intelligence.
+      </p>
+
+      <div class="stack-layer">
+        <h3>5. Creative Loop Layer</h3>
+        <p>Artist feedback → Model retraining → Improved automation. Human-in-the-loop systems that learn from creative decisions.</p>
+      </div>
+
+      <div class="stack-layer">
+        <h3>4. Workflow Integration Layer</h3>
+        <p>Production-aware tools: ShotGrid, Flow, USD scene graphs. Where AI meets dailies, editorial, and lookdev.</p>
+      </div>
+
+      <div class="stack-layer">
+        <h3>3. Model & Training Layer</h3>
+        <p>NeRFs, Gaussian Splatting, neural BRDFs, SAM2. Domain-specific models trained on studio-scale datasets.</p>
+      </div>
+
+      <div class="stack-layer">
+        <h3>2. Data Governance Layer</h3>
+        <p>Shot metadata, plate specs, QC diagnostics. Treating production data as a strategic asset with lineage tracking.</p>
+      </div>
+
+      <div class="stack-layer">
+        <h3>1. Compute Infrastructure Layer</h3>
+        <p>GPU farms, inference servers, batch processing. The foundational layer enabling real-time and overnight workflows.</p>
+      </div>
+    </div>
+
+    <h2>Research Pillars</h2>
+    <div class="pillars-grid">
+      <div class="pillar-card">
+        <span class="icon">🧠</span>
+        <h3>Neural Rendering & Materials</h3>
+        <p>Redefining lookdev and lighting workflows with implicit representations.</p>
+        <ul>
+          <li>NeRFs & Gaussian Splatting for set reconstruction</li>
+          <li>Neural BRDFs for physically-based material synthesis</li>
+          <li>Path-guided rendering for previsualization</li>
+        </ul>
+      </div>
+
+      <div class="pillar-card">
+        <span class="icon">⚡</span>
+        <h3>Creative Infrastructure</h3>
+        <p>The cognitive supply chain: closed-loop pipelines that learn from production.</p>
+        <ul>
+          <li>Shot → Model → Feedback → Dataset → Retrain</li>
+          <li>Treating compute/data/models as enterprise assets</li>
+          <li>Governance frameworks for ML in production</li>
+        </ul>
+      </div>
+
+      <div class="pillar-card">
+        <span class="icon">🤝</span>
+        <h3>Human-in-the-Loop AI</h3>
+        <p>Artist-centered design with explainable, augmentative tools.</p>
+        <ul>
+          <li>Interactive segmentation (SAM2) with artist refinement</li>
+          <li>Confidence scoring and uncertainty visualization</li>
+          <li>Feedback loops that improve model accuracy</li>
+        </ul>
+      </div>
+
+      <div class="pillar-card">
+        <span class="icon">🏗️</span>
+        <h3>Enterprise-Scale AI for VFX</h3>
+        <p>Netflix-class production reality: latency, trust, and scalability.</p>
+        <ul>
+          <li>Real-time inference vs. overnight batch processing</li>
+          <li>Data security and studio compliance requirements</li>
+          <li>Integration with existing pipeline tools (Nuke, Houdini, Maya)</li>
+        </ul>
+      </div>
+
+      <div class="pillar-card">
+        <span class="icon">📊</span>
+        <h3>Production Case Studies</h3>
+        <p>Lessons from virtual production and studio-scale deployments.</p>
+        <ul>
+          <li>Virtual art department workflows at Netflix</li>
+          <li>When AI becomes the pipeline, not a plugin</li>
+          <li>Measuring creative ROI vs. technical metrics</li>
+        </ul>
+      </div>
+
+      <div class="pillar-card">
+        <span class="icon">🔬</span>
+        <h3>R&D Practice</h3>
+        <p>Bridging AI research with production pragmatism.</p>
+        <ul>
+          <li>UCLA AI certification + 8 years Netflix production</li>
+          <li>Proof-of-concept demos and industry validation</li>
+          <li>Positioning for AI Product/Systems Strategist roles</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <h2>Explore the Research</h2>
+      <p>Deep-dive essays, system diagrams, and experimental projects</p>
+      <a href="blog-index.html" class="btn-primary">Read Essays & Case Studies</a>
+    </div>
+  </div>
+</body>
+</html>

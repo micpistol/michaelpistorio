@@ -1,419 +1,837 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Michael Pistorio</title>
-  <meta name="description" content="AI & VFX infrastructure researcher exploring neural rendering and intelligent production systems.">
-  <style>
-    /* Minimalist, typography-focused approach */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next Wave Intelligence | AI Research & VFX Production</title>
+    <meta name="description" content="Original research, industry analysis, and practical tools for intelligent visual effects workflows by Michael Pistorio.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    :root {
-      --bg: #fafafa;
-      --text: #1a1a1a;
-      --muted: #666;
-      --accent: #0066ff;
-      --border: #e0e0e0;
-    }
+        :root {
+            --primary-blue: #1e3a8a;
+            --accent-cyan: #06b6d4;
+            --accent-amber: #f59e0b;
+            --bg-white: #ffffff;
+            --bg-gray: #fafafa;
+            --bg-dark: #1f2937;
+            --text-dark: #1f2937;
+            --text-gray: #6b7280;
+            --border-color: #e5e7eb;
+        }
 
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #0a0a0a;
-        --text: #f0f0f0;
-        --muted: #999;
-        --accent: #4cc9f0;
-        --border: #222;
-      }
-    }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary-blue: #3b82f6;
+                --accent-cyan: #06b6d4;
+                --accent-amber: #f59e0b;
+                --bg-white: #0a0a0a;
+                --bg-gray: #111111;
+                --bg-dark: #1f2937;
+                --text-dark: #f0f0f0;
+                --text-gray: #9ca3af;
+                --border-color: #2a2a2a;
+            }
+        }
 
-    html {
-      font-size: 16px;
-      -webkit-font-smoothing: antialiased;
-    }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--bg-white);
+        }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
-      line-height: 1.7;
-      padding: 0 24px;
-    }
+        /* Navigation */
+        .nav-container {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
 
-    .container {
-      max-width: 920px;
-      margin: 0 auto;
-      padding: 80px 0;
-    }
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    /* Minimal nav */
-    nav {
-      position: sticky;
-      top: 0;
-      background: var(--bg);
-      padding: 24px 0;
-      margin-bottom: 60px;
-      border-bottom: 1px solid var(--border);
-      z-index: 100;
-    }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 32px;
-      align-items: center;
-    }
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-cyan));
+            border-radius: 6px;
+        }
 
-    nav a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: 0.3px;
-      transition: color 0.2s;
-    }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
 
-    nav a:hover,
-    nav a.active {
-      color: var(--text);
-    }
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
 
-    /* Hero - large, impactful typography */
-    .hero {
-      margin-bottom: 120px;
-    }
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
 
-    .hero h1 {
-      font-size: clamp(40px, 7vw, 72px);
-      font-weight: 600;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      margin-bottom: 24px;
-    }
+        .nav-cta {
+            background: var(--primary-blue);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
 
-    .hero .lead {
-      font-size: clamp(20px, 3vw, 28px);
-      color: var(--muted);
-      max-width: 720px;
-      line-height: 1.5;
-      font-weight: 400;
-    }
+        .nav-cta:hover {
+            background: var(--accent-cyan);
+        }
 
-    /* Section spacing */
-    section {
-      margin-bottom: 120px;
-    }
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1e40af 100%);
+            color: white;
+            padding: 4rem 2rem;
+        }
 
-    h2 {
-      font-size: clamp(32px, 5vw, 48px);
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      margin-bottom: 48px;
-    }
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
 
-    h3 {
-      font-size: clamp(22px, 3vw, 28px);
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      margin-bottom: 16px;
-    }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
 
-    p {
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.7;
-      margin-bottom: 16px;
-    }
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin-bottom: 2rem;
+        }
 
-    a {
-      color: var(--accent);
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.2s;
-    }
+        .hero-tags {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
 
-    a:hover {
-      border-bottom-color: var(--accent);
-    }
+        .tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
 
-    /* Work grid - large cards with imagery space */
-    .work-grid {
-      display: grid;
-      gap: 80px;
-    }
+        /* Featured Article */
+        .featured-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
 
-    .work-item {
-      text-decoration: none;
-      display: block;
-      transition: opacity 0.3s;
-    }
+        .featured-article {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
 
-    .work-item:hover {
-      opacity: 0.7;
-    }
+        .featured-image {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
 
-    .work-item:hover a {
-      border-bottom-color: transparent;
-    }
+        .featured-image::after {
+            content: 'Intelligent VFX Futures';
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+        }
 
-    .work-item .image-placeholder {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border-radius: 12px;
-      margin-bottom: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-weight: 600;
-    }
+        .featured-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
 
-    .work-item.alt-1 .image-placeholder {
-      background: linear-gradient(135deg, #4cc9f0 0%, #0066ff 100%);
-    }
+        .article-meta {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
 
-    .work-item.alt-2 .image-placeholder {
-      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    }
+        .category-tag {
+            background: var(--accent-amber);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
 
-    .work-item.alt-3 .image-placeholder {
-      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-    }
+        .category-tag.research {
+            background: var(--primary-blue);
+        }
 
-    .work-meta {
-      display: flex;
-      gap: 16px;
-      font-size: 13px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 12px;
-    }
+        .category-tag.analysis {
+            background: var(--accent-cyan);
+        }
 
-    .work-item h3 {
-      color: var(--text);
-      margin-bottom: 12px;
-    }
+        .date {
+            color: var(--text-gray);
+            font-size: 0.875rem;
+        }
 
-    .work-item p {
-      font-size: 16px;
-    }
+        .featured-content h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
 
-    /* About section with two-column layout */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-    }
+        .featured-content p {
+            font-size: 1.125rem;
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
 
-    @media (max-width: 768px) {
-      .about-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-    }
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+        }
 
-    .about-grid p {
-      font-size: 16px;
-    }
+        .read-more:hover {
+            gap: 1rem;
+            transition: gap 0.2s;
+        }
 
-    /* Simple footer */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 60px 0;
-      margin-top: 120px;
-    }
+        /* Content Grid */
+        .content-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
 
-    .footer-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 24px;
-    }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
 
-    .footer-links {
-      display: flex;
-      gap: 32px;
-    }
+        .section-header h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+        }
 
-    .footer-links a {
-      color: var(--muted);
-      font-size: 14px;
-      border: none;
-    }
+        .view-all {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+        }
 
-    .footer-links a:hover {
-      color: var(--text);
-    }
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
 
-    /* Tag list */
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 16px;
-    }
+        .article-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
 
-    .tag {
-      font-size: 12px;
-      color: var(--muted);
-      background: var(--border);
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-weight: 500;
-    }
-  </style>
+        .article-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .article-card:nth-child(2) .article-image {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .article-card:nth-child(3) .article-image {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .article-body {
+            padding: 1.5rem;
+        }
+
+        .article-body .article-meta {
+            margin-bottom: 0.75rem;
+        }
+
+        .article-body h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        .article-body p {
+            color: var(--text-gray);
+            font-size: 0.938rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .article-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-gray);
+            font-size: 0.875rem;
+        }
+
+        /* Research Section */
+        .research-section {
+            background: var(--bg-gray);
+            padding: 4rem 2rem;
+        }
+
+        .research-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .research-card {
+            background: var(--bg-white);
+            border-radius: 8px;
+            padding: 2rem;
+            border-left: 4px solid var(--primary-blue);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .research-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .research-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .research-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-blue);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .research-card p {
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        .research-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-gray);
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            background: var(--primary-blue);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .newsletter h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter p {
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .newsletter-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .newsletter-form button {
+            background: var(--accent-amber);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .newsletter-form button:hover {
+            background: #d97706;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-dark);
+            color: white;
+            padding: 3rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-about h4 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-about p {
+            color: #9ca3af;
+            line-height: 1.7;
+        }
+
+        .footer-links h5 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            line-height: 2;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+            text-align: center;
+            color: #9ca3af;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .featured-article {
+                grid-template-columns: 1fr;
+            }
+
+            .articles-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .research-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .research-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <nav>
-      <ul>
-        <li><a href="#" class="active">Work</a></li>
-        <li><a href="writing.html">Writing</a></li>
-        <li><a href="#about">About</a></li>
-      </ul>
-    </nav>
-
-    <div class="hero">
-      <h1>Building intelligent infrastructure for creative production</h1>
-      <p class="lead">
-        AI researcher and product strategist exploring how neural rendering, automated segmentation,
-        and cognitive pipelines transform VFX workflows. 8 years at Netflix, now researching
-        the next wave of intelligent tooling.
-      </p>
+    <!-- Navigation -->
+    <div class="nav-container">
+        <nav>
+            <a href="index.html" class="logo">
+                <div class="logo-icon"></div>
+                Next Wave Intelligence
+            </a>
+            <ul class="nav-links">
+                <li><a href="writing.html">Research</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <a href="#newsletter" class="nav-cta">Subscribe</a>
+        </nav>
     </div>
 
-    <section id="work">
-      <h2>Selected Work</h2>
-      <div class="work-grid">
-        <a href="project-sam2.html" class="work-item">
-          <div class="image-placeholder">Visual Demo</div>
-          <div class="work-meta">
-            <span>2024</span>
-            <span>Production Tool</span>
-          </div>
-          <h3>SAM2 Roto Assistant</h3>
-          <p>
-            AI-powered segmentation for VFX rotoscoping, reducing manual work by 78%.
-            Interactive prompting with temporal tracking across frame sequences.
-          </p>
-          <div class="tags">
-            <span class="tag">Segmentation</span>
-            <span class="tag">PyTorch</span>
-            <span class="tag">VFX Pipeline</span>
-          </div>
-        </a>
-
-        <a href="project-neural-materials.html" class="work-item alt-1">
-          <div class="image-placeholder">Visual Demo</div>
-          <div class="work-meta">
-            <span>2024</span>
-            <span>Research</span>
-          </div>
-          <h3>Neural Material Explorer</h3>
-          <p>
-            Neural BRDF synthesis for physically-based material generation. Text-to-material
-            and image-to-material workflows for lookdev artists.
-          </p>
-          <div class="tags">
-            <span class="tag">Neural Rendering</span>
-            <span class="tag">MaterialX</span>
-            <span class="tag">Stable Diffusion</span>
-          </div>
-        </a>
-
-        <a href="project-data-corpus.html" class="work-item alt-2">
-          <div class="image-placeholder">Visual Demo</div>
-          <div class="work-meta">
-            <span>2024</span>
-            <span>Infrastructure</span>
-          </div>
-          <h3>VFX Data Corpus Visualization</h3>
-          <p>
-            Knowledge graph connecting shots, annotations, model training data, and production
-            lineage. Treating data as strategic infrastructure.
-          </p>
-          <div class="tags">
-            <span class="tag">Data Governance</span>
-            <span class="tag">Neo4j</span>
-            <span class="tag">Pipeline Integration</span>
-          </div>
-        </a>
-
-        <a href="essay-neural-rendering.html" class="work-item alt-3">
-          <div class="image-placeholder">Visual Demo</div>
-          <div class="work-meta">
-            <span>2024</span>
-            <span>Essay</span>
-          </div>
-          <h3>How Neural Rendering Redefines Look Development</h3>
-          <p>
-            From NeRFs to neural BRDFs—exploring production-ready applications of neural rendering
-            in VFX workflows. Where does the hype end and production reality begin?
-          </p>
-          <div class="tags">
-            <span class="tag">Neural Rendering</span>
-            <span class="tag">Thought Leadership</span>
-            <span class="tag">Production Reality</span>
-          </div>
-        </a>
-      </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Where VFX Production<br>Meets AI Research</h1>
+            <p>Original research and production tools exploring AI-native infrastructure for visual effects. Built on 8+ years of Netflix production experience and rigorous ML research.</p>
+            <div class="hero-tags">
+                <span class="tag">Computer Vision</span>
+                <span class="tag">Neural Rendering</span>
+                <span class="tag">Production ML</span>
+                <span class="tag">Cognitive Pipelines</span>
+            </div>
+        </div>
     </section>
 
-    <section id="about">
-      <h2>About</h2>
-      <div class="about-grid">
-        <div>
-          <h3>Background</h3>
-          <p>
-            I spent 8+ years managing VFX production at Netflix, overseeing 5,000+ shots
-            and $20M+ in vendor spend across series like The Umbrella Academy, Locke & Key,
-            and other Netflix Originals.
-          </p>
-          <p>
-            Through that experience, I identified a core inefficiency: 30-40% of VFX prep
-            budgets go to manual, repetitive tasks with minimal creative value. This sparked
-            my research into AI-native infrastructure for creative pipelines.
-          </p>
+    <!-- Featured Article -->
+    <section class="featured-section">
+        <div class="featured-article">
+            <div class="featured-image"></div>
+            <div class="featured-content">
+                <div class="article-meta">
+                    <span class="category-tag research">Research Series</span>
+                    <span class="date">2024</span>
+                </div>
+                <h2>AI as a Co-Creator: Production-Ready Platforms</h2>
+                <p>The final installment in the Intelligent VFX Futures series. Exploring the architecture requirements for production-grade AI systems—from latency constraints to human-in-the-loop feedback mechanisms. What does it take to move from prototype to pipeline?</p>
+                <a href="essay-ai-co-creator.html" class="read-more">
+                    Read Full Article →
+                </a>
+            </div>
         </div>
-        <div>
-          <h3>Current Focus</h3>
-          <p>
-            Founded <strong>Next Wave Intelligence</strong>, an R&D practice exploring how
-            AI functions as production infrastructure—not a plugin. Current research areas
-            include neural rendering integration, promptable segmentation, and building
-            cognitive supply chains that learn from production data.
-          </p>
-          <p>
-            Completing UCLA AI certification while prototyping tools and conducting industry
-            validation with VFX supervisors, pipeline TDs, and studio technology leads.
-          </p>
-        </div>
-      </div>
     </section>
 
-    <footer>
-      <div class="footer-content">
-        <div>
-          <p style="color: var(--text); font-size: 14px;">
-            Open to product roles, research partnerships, and pilot collaborations
-          </p>
+    <!-- Latest Research -->
+    <section class="content-grid">
+        <div class="section-header">
+            <h3>Intelligent VFX Futures Series</h3>
+            <a href="writing.html" class="view-all">View All Writing →</a>
         </div>
-        <div class="footer-links">
-          <a href="mailto:m.pistorio@gmail.com">Email</a>
-          <a href="https://linkedin.com/in/michaelpistorio" target="_blank" rel="noopener">LinkedIn</a>
+        <div class="articles-grid">
+            <a href="essay-computer-vision.html" class="article-card">
+                <div class="article-image"></div>
+                <div class="article-body">
+                    <div class="article-meta">
+                        <span class="category-tag research">Research</span>
+                        <span class="date">Part 1</span>
+                    </div>
+                    <h4>Computer Vision: Automating the Creative Prep Phase</h4>
+                    <p>Exploring how SAM2 segmentation, depth estimation, and human-in-the-loop systems can reclaim 30-40% of VFX prep budgets currently wasted on manual work.</p>
+                    <div class="article-footer">
+                        <span>10 min read</span>
+                        <span>🎯 Production Focus</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="essay-predictive-pipelines.html" class="article-card">
+                <div class="article-image"></div>
+                <div class="article-body">
+                    <div class="article-meta">
+                        <span class="category-tag research">Research</span>
+                        <span class="date">Part 2</span>
+                    </div>
+                    <h4>Predictive Pipelines: ML for Smarter Workflows</h4>
+                    <p>Machine learning for render forecasting, intelligent settings optimization, and adaptive farm scheduling. Making pipelines anticipatory instead of reactive.</p>
+                    <div class="article-footer">
+                        <span>12 min read</span>
+                        <span>📊 Data-Driven</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="essay-neural-rendering-series.html" class="article-card">
+                <div class="article-image"></div>
+                <div class="article-body">
+                    <div class="article-meta">
+                        <span class="category-tag research">Research</span>
+                        <span class="date">Part 3</span>
+                    </div>
+                    <h4>Neural Rendering as a Pipeline Primitive</h4>
+                    <p>NeRFs, Gaussian Splatting, and neural BRDFs for lookdev acceleration. Exploring show-specific models that adapt to production constraints and artist feedback.</p>
+                    <div class="article-footer">
+                        <span>15 min read</span>
+                        <span>🔬 Technical Deep Dive</span>
+                    </div>
+                </div>
+            </a>
         </div>
-      </div>
+    </section>
+
+    <!-- Production Projects -->
+    <section class="content-grid" id="projects">
+        <div class="section-header">
+            <h3>Production Prototypes</h3>
+        </div>
+        <div class="articles-grid">
+            <a href="project-sam2.html" class="article-card">
+                <div class="article-image"></div>
+                <div class="article-body">
+                    <div class="article-meta">
+                        <span class="category-tag analysis">Tool</span>
+                        <span class="date">2024</span>
+                    </div>
+                    <h4>SAM2 Roto Assistant</h4>
+                    <p>AI-powered segmentation reducing manual rotoscoping time by 78%. Interactive prompting with temporal tracking across frame sequences, integrated with Nuke/ShotGrid workflows.</p>
+                    <div class="article-footer">
+                        <span>92% accuracy</span>
+                        <span>⚡ Production Tool</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="project-neural-materials.html" class="article-card">
+                <div class="article-image"></div>
+                <div class="article-body">
+                    <div class="article-meta">
+                        <span class="category-tag research">Research</span>
+                        <span class="date">In Progress</span>
+                    </div>
+                    <h4>Neural Material Explorer</h4>
+                    <p>Text-to-material and image-to-material workflows for lookdev artists. Generates MaterialX-compliant texture sets from natural language or reference imagery using neural BRDFs.</p>
+                    <div class="article-footer">
+                        <span>MaterialX/USD</span>
+                        <span>🎨 Lookdev Tool</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="project-data-corpus.html" class="article-card">
+                <div class="article-image"></div>
+                <div class="article-body">
+                    <div class="article-meta">
+                        <span class="category-tag research">Infrastructure</span>
+                        <span class="date">Research Phase</span>
+                    </div>
+                    <h4>VFX Data Corpus Visualization</h4>
+                    <p>Knowledge graph connecting shots, annotations, model versions, and production lineage. Treating data as strategic infrastructure with full lineage tracking and explainability.</p>
+                    <div class="article-footer">
+                        <span>Neo4j + D3.js</span>
+                        <span>📈 Data Governance</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Research Initiatives -->
+    <section class="research-section">
+        <div class="research-content">
+            <div class="section-header">
+                <h3>Research Focus Areas</h3>
+            </div>
+            <div class="research-grid">
+                <a href="essay-computer-vision.html" class="research-card">
+                    <h4>
+                        <span class="research-icon">👁️</span>
+                        Promptable Segmentation
+                    </h4>
+                    <p>Interactive AI tools like SAM2 for VFX rotoscoping. Human-in-the-loop systems with confidence scoring and feedback loops that improve model accuracy over time.</p>
+                    <div class="research-stats">
+                        <div class="stat">
+                            <div class="stat-value">78%</div>
+                            <div class="stat-label">Time Reduction</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">92%</div>
+                            <div class="stat-label">Frame Accuracy</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">4.2/5</div>
+                            <div class="stat-label">Artist Rating</div>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="essay-neural-rendering-series.html" class="research-card">
+                    <h4>
+                        <span class="research-icon">🎨</span>
+                        Neural Rendering
+                    </h4>
+                    <p>Exploring NeRFs, Gaussian Splatting, and neural BRDFs for lookdev and set reconstruction. Focus on hybrid systems combining traditional and neural methods.</p>
+                </a>
+
+                <a href="essay-introduction.html" class="research-card">
+                    <h4>
+                        <span class="research-icon">🏗️</span>
+                        Cognitive Supply Chains
+                    </h4>
+                    <p>Building closed-loop systems where production data, models, and artist feedback form a learning ecosystem. Treating AI as infrastructure, not one-off tools.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter" id="newsletter">
+        <h3>Stay Updated</h3>
+        <p>Get research insights, production case studies, and tool releases exploring AI in VFX workflows.</p>
+        <form class="newsletter-form" action="#" method="post">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer id="about">
+        <div class="footer-content">
+            <div class="footer-about">
+                <h4>Next Wave Intelligence</h4>
+                <p>Research initiative exploring AI-native infrastructure for visual effects production. Founded by Michael Pistorio, combining 8+ years of Netflix VFX production experience with rigorous machine learning research.</p>
+            </div>
+            <div class="footer-links">
+                <h5>Research</h5>
+                <ul>
+                    <li><a href="writing.html">Published Work</a></li>
+                    <li><a href="project-sam2.html">Production Tools</a></li>
+                    <li><a href="essay-introduction.html">Methodology</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h5>Projects</h5>
+                <ul>
+                    <li><a href="project-sam2.html">SAM2 Roto Assistant</a></li>
+                    <li><a href="project-neural-materials.html">Neural Materials</a></li>
+                    <li><a href="project-data-corpus.html">Data Corpus Viz</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h5>Connect</h5>
+                <ul>
+                    <li><a href="mailto:m.pistorio@gmail.com">Email</a></li>
+                    <li><a href="https://linkedin.com/in/michaelpistorio" target="_blank" rel="noopener">LinkedIn</a></li>
+                    <li><a href="https://github.com/michaelpistorio" target="_blank" rel="noopener">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Next Wave Intelligence. Built by Michael Pistorio.</p>
+        </div>
     </footer>
-  </div>
 </body>
 </html>

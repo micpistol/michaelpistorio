@@ -101,11 +101,150 @@
             background: var(--accent-cyan);
         }
 
+        /* Content Layout - 3 Column */
+        .content-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 250px 1fr 300px;
+            gap: 3rem;
+        }
+
+        /* Left Sidebar - Table of Contents */
+        .toc-sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        .toc-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .toc-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .toc-list a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .toc-list a:hover,
+        .toc-list a.active {
+            background: var(--bg-gray);
+            color: var(--primary-blue);
+        }
+
+        .toc-list .toc-subsection {
+            padding-left: 1rem;
+            margin-top: 0.25rem;
+        }
+
+        .toc-list .toc-subsection a {
+            font-size: 0.813rem;
+            color: var(--text-gray);
+        }
+
+        /* Right Sidebar - Author & Topics */
+        .info-sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .sidebar-section {
+            background: var(--bg-gray);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-section h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-cyan));
+        }
+
+        .author-details h5 {
+            font-size: 0.938rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .author-details p {
+            font-size: 0.813rem;
+            color: var(--text-gray);
+            margin: 0;
+        }
+
+        .topic-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .topic-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .topic-tag {
+            display: inline-block;
+            background: var(--bg-white);
+            color: var(--primary-blue);
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.813rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .topic-tag:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            min-width: 0;
+        }
+
         /* Article Header */
         .article-header {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 3rem 2rem 2rem;
+            padding: 1rem 0 2rem;
         }
 
         .breadcrumb {
@@ -178,9 +317,7 @@
 
         /* Article Body */
         .article-body {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem 2rem 4rem;
+            padding: 0;
         }
 
         .article-body h2 {
@@ -351,8 +488,145 @@
             color: #9ca3af;
         }
 
+        /* Related Content Cards */
+        .related-section {
+            background: var(--bg-gray);
+            padding: 4rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .related-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .related-header {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text-dark);
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .related-card {
+            background: var(--bg-white);
+            border-radius: 8px;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .related-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .related-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+        }
+
+        .related-card:nth-child(2) .related-image {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .related-card:nth-child(3) .related-image {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .related-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--accent-amber);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .related-badge.blog {
+            background: var(--primary-blue);
+        }
+
+        .related-badge.tutorial {
+            background: var(--accent-cyan);
+        }
+
+        .related-body {
+            padding: 1.5rem;
+        }
+
+        .related-body h5 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+            color: var(--text-dark);
+        }
+
+        .related-body p {
+            font-size: 0.938rem;
+            color: var(--text-gray);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .related-footer {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .related-author {
+            font-size: 0.813rem;
+            color: var(--text-gray);
+        }
+
+        .related-time {
+            font-size: 0.813rem;
+            color: var(--text-gray);
+        }
+
         /* Responsive */
+        @media (max-width: 1200px) {
+            .content-wrapper {
+                grid-template-columns: 200px 1fr 250px;
+                gap: 2rem;
+            }
+        }
+
         @media (max-width: 1024px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .toc-sidebar {
+                display: none;
+            }
+
+            .info-sidebar {
+                position: static;
+                margin-top: 2rem;
+            }
+
+            .related-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
             .footer-content {
                 grid-template-columns: 1fr 1fr;
             }
@@ -365,6 +639,10 @@
 
             .nav-links {
                 display: none;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr;
             }
 
             .footer-content {
@@ -393,30 +671,62 @@
         </nav>
     </div>
 
-    <!-- Article Header -->
-    <article class="article-header">
-        <div class="breadcrumb">
-            <a href="index.html">Home</a> / <a href="tutorials.html">Tutorials</a> / <a href="tutorials.html">Segmentation & Roto</a> / Build a SAM2-Powered Roto Assistant
-        </div>
+    <!-- Content Wrapper with 3-Column Layout -->
+    <div class="content-wrapper">
+        <!-- Left Sidebar - Table of Contents -->
+        <aside class="toc-sidebar">
+            <div class="toc-title">Contents</div>
+            <ul class="toc-list">
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#setup">Set Up Your Environment</a>
+                    <ul class="toc-subsection">
+                        <li><a href="#download-checkpoints">Download SAM2 Model Checkpoints</a></li>
+                    </ul>
+                </li>
+                <li><a href="#prepare-plates">Prepare Your VFX Plates</a>
+                    <ul class="toc-subsection">
+                        <li><a href="#convert-sequence">Convert to Image Sequence</a></li>
+                        <li><a href="#downscale">Downscale for Processing</a></li>
+                    </ul>
+                </li>
+                <li><a href="#wire-sam2">Wire Up SAM2 for Segmentation</a></li>
+                <li><a href="#integrate-workflow">Integrate With Your Compositing Workflow</a>
+                    <ul class="toc-subsection">
+                        <li><a href="#export-masks">Export Masks for Nuke</a></li>
+                        <li><a href="#interactive-ui">Create a Simple Interactive UI</a></li>
+                    </ul>
+                </li>
+                <li><a href="#visualize">Visualize and Iterate</a></li>
+                <li><a href="#production">Production Considerations</a></li>
+            </ul>
+        </aside>
 
-        <h1>Build a SAM2-Powered Roto Assistant for VFX</h1>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Article Header -->
+            <article class="article-header">
+                <div class="breadcrumb">
+                    <a href="index.html">Home</a> / <a href="tutorials.html">Tutorials</a> / <a href="tutorials.html">Segmentation & Roto</a> / Build a SAM2-Powered Roto Assistant
+                </div>
 
-        <p class="dek">
-            Learn how to integrate Meta's Segment Anything Model 2 (SAM2) into a production compositing workflow. You'll build an interactive rotoscoping tool that reduces manual segmentation time while handling motion blur and occlusion.
-        </p>
+                <h1>Build a SAM2-Powered Roto Assistant for VFX</h1>
 
-        <div class="meta-row">
-            <span class="meta-item">Nov 19, 2024</span>
-            <span class="meta-item">11 min read</span>
-            <span class="pill pill-category">Segmentation & Roto</span>
-            <span class="pill pill-tech">SAM2</span>
-            <span class="pill pill-tech">Nuke</span>
-            <span class="pill pill-tech">Python</span>
-        </div>
-    </article>
+                <p class="dek">
+                    Learn how to integrate Meta's Segment Anything Model 2 (SAM2) into a production compositing workflow. You'll build an interactive rotoscoping tool that reduces manual segmentation time while handling motion blur and occlusion.
+                </p>
 
-    <!-- Article Body -->
-    <div class="article-body">
+                <div class="meta-row">
+                    <span class="meta-item">Nov 19, 2024</span>
+                    <span class="meta-item">11 min read</span>
+                    <span class="pill pill-category">Segmentation & Roto</span>
+                    <span class="pill pill-tech">SAM2</span>
+                    <span class="pill pill-tech">Nuke</span>
+                    <span class="pill pill-tech">Python</span>
+                </div>
+            </article>
+
+            <!-- Article Body -->
+            <div class="article-body">
         <div class="callout">
             <div class="callout-title">Prerequisites</div>
             <p><strong>Skills:</strong> Python (intermediate), basic compositing concepts, familiarity with Nuke or similar tools</p>
@@ -424,7 +734,7 @@
             <p><strong>Time:</strong> 2-3 hours for full implementation</p>
         </div>
 
-        <h2>Introduction</h2>
+        <h2 id="introduction">Introduction</h2>
         <p>
             Rotoscoping is one of the most time-intensive tasks in VFX production. Artists spend hours manually drawing and refining masks for complex plates—particularly when dealing with hair, motion blur, or occlusion. Meta's Segment Anything Model 2 (SAM2) offers a breakthrough: interactive segmentation that can handle these edge cases while integrating into production pipelines.
         </p>
@@ -438,7 +748,7 @@
             <li>Manages GPU memory efficiently for high-resolution plates</li>
         </ul>
 
-        <h2>Set Up Your Environment</h2>
+        <h2 id="setup">Set Up Your Environment</h2>
         <p>
             First, let's set up the Python environment with all required dependencies:
         </p>
@@ -457,7 +767,7 @@ pip install git+https://github.com/facebookresearch/segment-anything-2.git
 pip install opencv-python numpy pillow tqdm
 </code></div>
 
-        <h3>Download SAM2 Model Checkpoints</h3>
+        <h3 id="download-checkpoints">Download SAM2 Model Checkpoints</h3>
         <p>
             SAM2 provides multiple model sizes. For production work, we recommend the <code>sam2_hiera_large</code> checkpoint, which balances quality and performance:
         </p>
@@ -469,12 +779,12 @@ wget https://dl.fbaipublicfiles.com/segment_anything_2/072824/sam2_hiera_large.p
 cd ..
 </code></div>
 
-        <h2>Prepare Your VFX Plates</h2>
+        <h2 id="prepare-plates">Prepare Your VFX Plates</h2>
         <p>
             SAM2 works best with properly prepared input sequences. Here's how to prepare your footage:
         </p>
 
-        <h3>Convert to Image Sequence</h3>
+        <h3 id="convert-sequence">Convert to Image Sequence</h3>
         <p>
             SAM2 expects individual frames. If you're working with a video file, extract frames first:
         </p>
@@ -485,7 +795,7 @@ ffmpeg -i input_plate.mov -qscale:v 2 frames/frame_%04d.png
 # Or export directly from Nuke as an image sequence (EXR or PNG)
 </code></div>
 
-        <h3>Downscale for Processing (Optional)</h3>
+        <h3 id="downscale">Downscale for Processing (Optional)</h3>
         <p>
             For 4K+ plates, consider downscaling to 2K for initial segmentation, then upscale the mask:
         </p>
@@ -503,7 +813,7 @@ for filename in os.listdir(input_dir):
     cv2.imwrite(os.path.join(output_dir, filename), img_2k)
 </code></div>
 
-        <h2>Wire Up SAM2 for Segmentation</h2>
+        <h2 id="wire-sam2">Wire Up SAM2 for Segmentation</h2>
         <p>
             Now let's build the core segmentation engine. We'll create a class that handles SAM2 inference with interactive prompts:
         </p>
@@ -559,7 +869,7 @@ class SAM2RotoAssistant:
             </ul>
         </div>
 
-        <h2>Integrate With Your Compositing Workflow</h2>
+        <h2 id="integrate-workflow">Integrate With Your Compositing Workflow</h2>
         <p>
             Now let's connect this to Nuke. We'll create a Python panel that allows artists to:
         </p>
@@ -570,7 +880,7 @@ class SAM2RotoAssistant:
             <li>Export masks as a Nuke-compatible image sequence</li>
         </ul>
 
-        <h3>Export Masks for Nuke</h3>
+        <h3 id="export-masks">Export Masks for Nuke</h3>
         <div class="code-block"><code>def export_masks_for_nuke(masks, output_dir, frame_format='frame_%04d.png'):
     """Export binary masks as 8-bit PNG sequence"""
     import os
@@ -587,7 +897,7 @@ class SAM2RotoAssistant:
     print(f"Exported {len(masks)} masks to {output_dir}")
 </code></div>
 
-        <h3>Create a Simple Interactive UI</h3>
+        <h3 id="interactive-ui">Create a Simple Interactive UI</h3>
         <p>
             For production use, you'll want a GUI. Here's a minimal example using OpenCV's window system:
         </p>
@@ -634,7 +944,7 @@ def interactive_segmentation(assistant, frame_dir):
     cv2.destroyAllWindows()
 </code></div>
 
-        <h2>Visualize and Iterate</h2>
+        <h2 id="visualize">Visualize and Iterate</h2>
         <p>
             Once you've generated masks, bring them back into Nuke to refine:
         </p>
@@ -657,7 +967,7 @@ def interactive_segmentation(assistant, frame_dir):
             </ul>
         </div>
 
-        <h2>Production Considerations</h2>
+        <h2 id="production">Production Considerations</h2>
         <p>
             Before deploying this in a production pipeline, consider:
         </p>
@@ -667,7 +977,88 @@ def interactive_segmentation(assistant, frame_dir):
             <li><strong>Version control:</strong> Save prompt coordinates and model versions so artists can reproduce results.</li>
             <li><strong>Batch processing:</strong> For large shows, create a job submission system that queues SAM2 inference on render nodes.</li>
         </ul>
+            </div>
+        </main>
+
+        <!-- Right Sidebar - Author & Topics -->
+        <aside class="info-sidebar">
+            <!-- Author Section -->
+            <div class="sidebar-section">
+                <h4>Author</h4>
+                <div class="author-info">
+                    <div class="author-avatar"></div>
+                    <div class="author-details">
+                        <h5>Michael Pistorio</h5>
+                        <p>Technical Director</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Topics Section -->
+            <div class="sidebar-section">
+                <h4>Topics</h4>
+                <ul class="topic-list">
+                    <li><a href="tutorials.html" class="topic-tag">Segmentation & Roto</a></li>
+                    <li><a href="project-sam2.html" class="topic-tag">SAM2</a></li>
+                    <li><a href="tutorials.html" class="topic-tag">Compositing</a></li>
+                    <li><a href="tutorials.html" class="topic-tag">Computer Vision</a></li>
+                </ul>
+            </div>
+        </aside>
     </div>
+
+    <!-- Related Content Section -->
+    <section class="related-section">
+        <div class="related-content">
+            <h2 class="related-header">Related</h2>
+            <div class="related-grid">
+                <!-- Card 1 -->
+                <a href="essay-computer-vision.html" class="related-card">
+                    <div class="related-image">
+                        <span class="related-badge blog">Blog</span>
+                    </div>
+                    <div class="related-body">
+                        <h5>Computer Vision: Automating the Creative Prep Phase</h5>
+                        <p>Understand how computer vision transforms pre-production workflows, from automated segmentation to scene understanding for VFX.</p>
+                        <div class="related-footer">
+                            <span class="related-author">Michael Pistorio</span>
+                            <span class="related-time">13 min</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 2 -->
+                <a href="project-sam2.html" class="related-card">
+                    <div class="related-image">
+                        <span class="related-badge">Project</span>
+                    </div>
+                    <div class="related-body">
+                        <h5>SAM2 Roto Assistant: Production Ready Tool</h5>
+                        <p>Explore the full production implementation of SAM2 for rotoscoping workflows, including performance benchmarks and pipeline integration patterns.</p>
+                        <div class="related-footer">
+                            <span class="related-author">Michael Pistorio</span>
+                            <span class="related-time">18 min</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 3 -->
+                <a href="tutorials.html" class="related-card">
+                    <div class="related-image">
+                        <span class="related-badge tutorial">Tutorial</span>
+                    </div>
+                    <div class="related-body">
+                        <h5>Introduction to Production ML Pipelines</h5>
+                        <p>Learn the fundamentals of building machine learning pipelines that integrate with existing VFX infrastructure and production tracking systems.</p>
+                        <div class="related-footer">
+                            <span class="related-author">Michael Pistorio</span>
+                            <span class="related-time">22 min</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
 
     <!-- Next Steps Section -->
     <section class="next-steps">

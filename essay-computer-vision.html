@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Turning Pixels Into Production-Ready Data | Michael Pistorio</title>
+  <meta name="description" content="Using computer vision to automate VFX prep work while preserving creative control.">
+  <style>
+    :root {
+      --bg:#0b0c10;
+      --card:#12131a;
+      --text:#e6edf3;
+      --muted:#9fb3c8;
+      --accent:#4cc9f0;
+      --border:#202334;
+    }
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font:17px/1.8 system-ui,Segoe UI,Roboto,Inter,Georgia,serif}
+    .article-wrap{max-width:740px;margin:0 auto;padding:60px 20px}
+    .article-header{border-bottom:1px solid var(--border);padding-bottom:32px;margin-bottom:40px}
+    .article-meta{display:flex;gap:16px;align-items:center;margin-bottom:20px;font-size:14px;color:var(--muted)}
+    .article-tag{background:rgba(76,201,240,0.15);color:var(--accent);padding:6px 14px;border-radius:6px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+    h1{margin:0 0 20px;font-size:clamp(32px,5vw,44px);line-height:1.2;letter-spacing:-0.5px}
+    .article-lede{font-size:20px;color:var(--muted);line-height:1.6;margin:0}
+    .article-content h2{font-size:28px;margin:48px 0 20px;color:var(--text);letter-spacing:-0.3px}
+    .article-content h3{font-size:22px;margin:36px 0 16px;color:var(--accent)}
+    .article-content p{margin:20px 0;color:var(--muted)}
+    .article-content strong{color:var(--text);font-weight:600}
+    .article-content ul{margin:20px 0;padding-left:24px}
+    .article-content li{margin:12px 0;color:var(--muted)}
+    .article-footer{margin-top:60px;padding-top:32px;border-top:1px solid var(--border)}
+    .footer-nav{display:flex;justify-content:space-between;gap:20px}
+    .footer-nav a{color:var(--accent);text-decoration:none;font-size:15px}
+    .footer-nav a:hover{text-decoration:underline}
+    nav{margin:20px auto;padding:16px 0;border-bottom:1px solid var(--border);max-width:740px}
+    nav a{margin-right:24px;color:var(--muted);font-size:14px;text-transform:uppercase;letter-spacing:0.5px;text-decoration:none;border:none}
+    nav a:hover{color:var(--accent);text-decoration:none;border:none}
+  </style>
+</head>
+<body>
+  <nav style="padding-left:20px;padding-right:20px">
+    <a href="index.html">← Back to Work</a> |
+    <a href="writing.html">All Writing</a>
+  </nav>
+
+  <article class="article-wrap">
+    <header class="article-header">
+      <div class="article-meta">
+        <span class="article-tag">Part 1 - Computer Vision</span>
+        <span>12 min read</span>
+        <span>Nov 2024</span>
+      </div>
+      <h1>Turning Pixels Into Production-Ready Data Using Computer Vision</h1>
+      <p class="article-lede">
+        VFX prep work consumes vast artist time before creative work begins. Computer vision can automate
+        this "invisible tax" while preserving creative control through human-in-the-loop systems.
+      </p>
+    </header>
+
+    <div class="article-content">
+      <p>
+        Before a single creative note is addressed, VFX supervisors spend weeks on preparatory work:
+        rotoscoping characters, tracking camera motion, isolating objects, checking continuity frame-by-frame.
+        This <strong>"invisible tax"</strong> delays every project and scales poorly as content volume explodes.
+      </p>
+
+      <p>
+        The question isn't whether this work is necessary—it absolutely is. The question is: <strong>why are
+        we still doing it manually</strong> when computer vision has reached production-ready maturity?
+      </p>
+
+      <h2>The Computer Vision Pipeline</h2>
+
+      <p>
+        At its core, VFX preprocessing follows a classic computer vision workflow:
+      </p>
+
+      <ul>
+        <li><strong>Input data:</strong> Plates, LIDAR scans, HDRIs, reference imagery</li>
+        <li><strong>Preprocessing:</strong> Standardization, calibration, format conversion</li>
+        <li><strong>Feature extraction:</strong> Masks, depth maps, camera tracks, object IDs</li>
+        <li><strong>Downstream applications:</strong> Compositing, matchmove, lighting, QC</li>
+      </ul>
+
+      <p>
+        The difference between academic computer vision and production computer vision? <strong>Reliability,
+        temporal coherence, and artist control.</strong> A mask that's 95% accurate on a single frame is
+        useless if it flickers across a shot or misses critical edge detail.
+      </p>
+
+      <h2>Three Key Technologies</h2>
+
+      <h3>1. Promptable Segmentation (SAM/SAM2)</h3>
+
+      <p>
+        Meta's Segment Anything Model represents a breakthrough for VFX: <strong>zero-shot segmentation</strong>
+        that works on footage the model has never seen, guided by minimal artist input (clicks, bounding boxes,
+        natural language).
+      </p>
+
+      <p>
+        SAM2 adds <strong>temporal consistency</strong>—the model tracks masks across video sequences, maintaining
+        coherence even through occlusions and complex motion. This is critical for production where a rotoscope
+        must hold for 120+ frames.
+      </p>
+
+      <p>
+        The workflow becomes: artist provides rough guidance → model generates high-quality mask → artist refines
+        edges → result feeds downstream. <strong>78% time reduction</strong> on simple-to-medium complexity shots
+        in my testing.
+      </p>
+
+      <h3>2. Depth Estimation</h3>
+
+      <p>
+        Monocular depth inference has reached a point where it provides <strong>useful structural information</strong>
+        for compositing and matchmoving—not ground truth, but good enough for creative decisions.
+      </p>
+
+      <p>
+        Combined with emerging techniques like 3D Gaussian Splatting, we can generate approximate scene geometry
+        from plates without expensive multi-camera capture. This is especially valuable for:
+      </p>
+
+      <ul>
+        <li>Editorial departments making early CG integration decisions</li>
+        <li>Previs teams blocking camera moves based on plate depth</li>
+        <li>Compositors generating depth-aware defocus and atmospheric effects</li>
+      </ul>
+
+      <p>
+        The key insight: <strong>depth doesn't need to be perfect</strong> to be production-useful. It needs to
+        be consistent, queryable, and artist-refinable.
+      </p>
+
+      <h3>3. Plate Diagnostics</h3>
+
+      <p>
+        Automated quality checks flag issues before they cascade: motion blur severity, exposure problems,
+        compression artifacts, rolling shutter, lens distortion anomalies. Problems caught in prep cost hours
+        to fix; problems discovered in comp cost days.
+      </p>
+
+      <p>
+        Computer vision excels at these objective measurements. A classifier trained on "good" vs. "problematic"
+        plates can surface issues faster and more consistently than manual review, especially across thousands
+        of frames.
+      </p>
+
+      <h2>Infrastructure, Not Point Solutions</h2>
+
+      <p>
+        The strategic shift: treating computer vision as <strong>centralized infrastructure</strong> supporting
+        multiple concurrent shows across vendors, rather than per-project tools.
+      </p>
+
+      <p>
+        This means:
+      </p>
+
+      <ul>
+        <li><strong>Shared model deployment</strong> across studio productions (ShotGrid integration)</li>
+        <li><strong>Show-specific fine-tuning</strong> that adapts foundation models to particular aesthetics</li>
+        <li><strong>Feedback loops</strong> where artist corrections improve model performance over time</li>
+        <li><strong>Version tracking</strong> connecting model checkpoints to shot metadata</li>
+      </ul>
+
+      <p>
+        One studio's SAM2 refinement for hair detail benefits every subsequent show. Depth models improve as
+        they see more plate diversity. Diagnostics get smarter by learning from past issues.
+      </p>
+
+      <h2>The Human-in-the-Loop Imperative</h2>
+
+      <p>
+        Here's what doesn't work: <strong>fully automated "fire and forget" systems</strong>. Edge cases remain
+        challenging—extreme motion blur, dense particle effects, reflections, fine detail like hair and foliage.
+        Any AI system claiming 100% automation for VFX prep is overselling.
+      </p>
+
+      <p>
+        What <em>does</em> work: <strong>hybrid systems</strong> where AI handles the heavy lifting while artists
+        maintain creative control:
+      </p>
+
+      <ul>
+        <li>AI generates initial segmentation → artist refines edges → AI propagates refinements across frames</li>
+        <li>Depth estimation provides rough structure → artist corrects key areas → system interpolates</li>
+        <li>Diagnostics flag potential issues → artist reviews and confirms → database learns from decisions</li>
+      </ul>
+
+      <p>
+        This isn't AI replacing artists. It's AI <strong>eliminating grunt work</strong> so artists focus on
+        creative problem-solving.
+      </p>
+
+      <h2>Production Reality Check</h2>
+
+      <p>
+        After prototyping these systems on personal projects and validating with VFX supervisors, three patterns
+        emerged:
+      </p>
+
+      <p>
+        <strong>1. Integration matters more than accuracy.</strong> A 90% accurate tool that fits seamlessly into
+        Nuke/ShotGrid workflows gets used. A 95% accurate standalone tool that requires format conversion and
+        manual import doesn't.
+      </p>
+
+      <p>
+        <strong>2. Confidence scoring builds trust.</strong> Systems that flag "I'm uncertain about this region"
+        let artists focus QC efforts intelligently. Transparency about limitations is more valuable than
+        overselling capabilities.
+      </p>
+
+      <p>
+        <strong>3. Show-specific training is essential.</strong> Foundation models provide incredible starting
+        points, but fine-tuning on a show's visual language (materials, lighting, motion characteristics) makes
+        outputs feel production-native rather than "AI-generated."
+      </p>
+
+      <h2>What's Next</h2>
+
+      <p>
+        Computer vision transforms pixels into structured data: masks become composition layers, depth becomes
+        3D information, diagnostics become preventive intelligence. The next essay explores how <strong>machine
+        learning makes pipelines predictive</strong>—forecasting render behavior, optimizing settings, and
+        intelligently scheduling farm resources.
+      </p>
+
+      <p>
+        This is the cognitive supply chain in action: perception becomes the foundation for prediction.
+      </p>
+    </div>
+
+    <footer class="article-footer">
+      <div class="footer-nav">
+        <a href="essay-introduction.html">← Prev: Introduction</a>
+        <a href="essay-predictive-pipelines.html">Next: Part 2 - Predictive Pipelines →</a>
+      </div>
+    </footer>
+  </article>
+</body>
+</html>

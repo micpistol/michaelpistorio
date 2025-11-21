@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Michael Pistorio | AI & VFX Infrastructure Research</title>
+  <meta name="description" content="Research at the intersection of artificial intelligence and visual effects production infrastructure.">
+  <style>
+    /* Research Institution Aesthetic - Professional & Authoritative */
+
+    :root {
+      /* Sophisticated color palette */
+      --primary: #1a1a1a;
+      --secondary: #4a4a4a;
+      --accent: #0066cc;
+      --accent-light: #3399ff;
+      --background: #ffffff;
+      --surface: #f8f9fa;
+      --border: #e1e4e8;
+      --text-primary: #1a1a1a;
+      --text-secondary: #586069;
+      --text-muted: #6a737d;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --primary: #f6f8fa;
+        --secondary: #c9d1d9;
+        --accent: #58a6ff;
+        --accent-light: #79b8ff;
+        --background: #0d1117;
+        --surface: #161b22;
+        --border: #30363d;
+        --text-primary: #f6f8fa;
+        --text-secondary: #c9d1d9;
+        --text-muted: #8b949e;
+      }
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+      background: var(--background);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Container System */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .container-narrow {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* Professional Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--background);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      header {
+        background: rgba(13, 17, 23, 0.95);
+      }
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+    }
+
+    .logo {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    /* Hero Section - Research Institution Style */
+    .hero {
+      padding: 120px 0 80px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--surface);
+      color: var(--accent);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+    }
+
+    h1 {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      color: var(--text-primary);
+    }
+
+    .hero-subtitle {
+      font-size: clamp(18px, 2.5vw, 24px);
+      color: var(--text-secondary);
+      max-width: 800px;
+      line-height: 1.5;
+      margin-bottom: 40px;
+    }
+
+    /* Stats Grid - Data-Driven */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px;
+      padding: 60px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--accent);
+      display: block;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-weight: 500;
+    }
+
+    /* Research Areas - Structured Grid */
+    section {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-header {
+      margin-bottom: 48px;
+    }
+
+    h2 {
+      font-size: clamp(28px, 3.5vw, 36px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+
+    .section-subtitle {
+      font-size: 18px;
+      color: var(--text-secondary);
+      max-width: 700px;
+    }
+
+    /* Research Cards */
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .research-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 32px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: block;
+    }
+
+    .research-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .card-tag {
+      display: inline-block;
+      background: rgba(0, 102, 204, 0.1);
+      color: var(--accent);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 16px;
+    }
+
+    .research-card h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    .research-card p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .research-card .metrics {
+      display: flex;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .metrics span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Publications List */
+    .publications-list {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .publication {
+      display: flex;
+      gap: 24px;
+      padding: 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .publication:hover {
+      border-color: var(--accent);
+      background: var(--background);
+    }
+
+    .pub-meta {
+      min-width: 120px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .pub-date {
+      font-weight: 600;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .pub-series {
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.6px;
+    }
+
+    .pub-content h4 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+
+    .pub-content p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* About Section - Two Column */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin-top: 32px;
+    }
+
+    @media (max-width: 768px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .about-section h3 {
+      font-size: 16px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .about-section p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .about-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .about-section li {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .about-section li:last-child {
+      border-bottom: none;
+    }
+
+    /* Footer */
+    footer {
+      padding: 48px 0;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-light);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--accent);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      background: rgba(0, 102, 204, 0.05);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container,
+      .container-narrow {
+        padding: 0 20px;
+      }
+
+      .hero {
+        padding: 60px 0 40px;
+      }
+
+      .nav-links {
+        gap: 16px;
+      }
+
+      section {
+        padding: 48px 0;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+
+      .publication {
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a href="#" class="logo">Michael Pistorio</a>
+        <ul class="nav-links">
+          <li><a href="#research">Research</a></li>
+          <li><a href="#publications">Publications</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container-narrow">
+        <span class="hero-tag">Next Wave Intelligence R&D</span>
+        <h1>Building Intelligent Infrastructure for Visual Effects Production</h1>
+        <p class="hero-subtitle">
+          Research at the intersection of artificial intelligence and VFX production systems—from
+          neural rendering to cognitive supply chains. Translating 8+ years of Netflix production
+          experience into scalable, artist-centered AI infrastructure.
+        </p>
+        <div style="display: flex; gap: 16px; margin-top: 32px;">
+          <a href="#publications" class="btn btn-primary">View Publications</a>
+          <a href="#research" class="btn btn-secondary">Explore Research</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+      <div class="container">
+        <div class="stat-item">
+          <span class="stat-number">10,000+</span>
+          <span class="stat-label">Shots Managed</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">$20M+</span>
+          <span class="stat-label">Vendor Oversight</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">78%</span>
+          <span class="stat-label">Time Reduction (SAM2)</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">4</span>
+          <span class="stat-label">Published Essays</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Research Areas -->
+    <section id="research">
+      <div class="container">
+        <div class="section-header">
+          <h2>Research Areas</h2>
+          <p class="section-subtitle">
+            Four interconnected pillars exploring how AI transforms VFX production workflows—from
+            perception to platform architecture.
+          </p>
+        </div>
+
+        <div class="research-grid">
+          <a href="project-sam2.html" class="research-card">
+            <span class="card-tag">Computer Vision</span>
+            <h3>SAM2 Roto Assistant</h3>
+            <p>
+              Promptable segmentation for tracked rotoscoping using Meta's Segment Anything Model 2.
+              Human-in-the-loop system with temporal consistency.
+            </p>
+            <div class="metrics">
+              <span>📊 78% time reduction</span>
+              <span>✓ Production tested</span>
+            </div>
+          </a>
+
+          <a href="project-neural-materials.html" class="research-card">
+            <span class="card-tag">Neural Rendering</span>
+            <h3>Neural Material Explorer</h3>
+            <p>
+              Neural BRDF synthesis for physically-based material generation. Text-to-material and
+              image-to-material workflows for lookdev artists.
+            </p>
+            <div class="metrics">
+              <span>🔬 In progress</span>
+              <span>MaterialX export</span>
+            </div>
+          </a>
+
+          <a href="project-data-corpus.html" class="research-card">
+            <span class="card-tag">Infrastructure</span>
+            <h3>VFX Data Corpus Visualization</h3>
+            <p>
+              Knowledge graph connecting shots, model training data, and production lineage.
+              Treating data as strategic infrastructure.
+            </p>
+            <div class="metrics">
+              <span>📈 Research phase</span>
+              <span>Neo4j + D3.js</span>
+            </div>
+          </a>
+
+          <a href="essay-ai-co-creator.html" class="research-card">
+            <span class="card-tag">Platform Design</span>
+            <h3>Production-Ready AI Pipelines</h3>
+            <p>
+              Node-based AI platform architecture with deterministic outputs, versioned workflows,
+              and full lineage tracking.
+            </p>
+            <div class="metrics">
+              <span>📝 Published</span>
+              <span>Framework paper</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Publications -->
+    <section id="publications">
+      <div class="container">
+        <div class="section-header">
+          <h2>Publications</h2>
+          <p class="section-subtitle">
+            The Intelligent VFX Futures series—exploring AI as production infrastructure across
+            perception, prediction, representation, and platform design.
+          </p>
+        </div>
+
+        <div class="publications-list">
+          <a href="essay-introduction.html" class="publication">
+            <div class="pub-meta">
+              <span class="pub-date">Nov 2024</span>
+              <span class="pub-series">Introduction</span>
+            </div>
+            <div class="pub-content">
+              <h4>Introducing Next Wave Intelligence — R&D for the Future of Creative Production</h4>
+              <p>
+                The Cognitive Supply Chain framework: transforming linear VFX workflows into intelligent,
+                adaptive systems through predictive AI, computer vision, and neural rendering.
+              </p>
+            </div>
+          </a>
+
+          <a href="essay-computer-vision.html" class="publication">
+            <div class="pub-meta">
+              <span class="pub-date">Nov 2024</span>
+              <span class="pub-series">Part 1 of 4</span>
+            </div>
+            <div class="pub-content">
+              <h4>Turning Pixels Into Production-Ready Data Using Computer Vision</h4>
+              <p>
+                Automated VFX prep through promptable segmentation, depth estimation, and plate
+                diagnostics. Human-in-the-loop systems that eliminate grunt work.
+              </p>
+            </div>
+          </a>
+
+          <a href="essay-predictive-pipelines.html" class="publication">
+            <div class="pub-meta">
+              <span class="pub-date">Nov 2024</span>
+              <span class="pub-series">Part 2 of 4</span>
+            </div>
+            <div class="pub-content">
+              <h4>Predictive Pipelines and the Adaptive Brain of VFX</h4>
+              <p>
+                Machine learning for render forecasting, intelligent settings optimization, and
+                adaptive farm scheduling. Anticipatory guidance over reactive troubleshooting.
+              </p>
+            </div>
+          </a>
+
+          <a href="essay-neural-rendering-series.html" class="publication">
+            <div class="pub-meta">
+              <span class="pub-date">Nov 2024</span>
+              <span class="pub-series">Part 3 of 4</span>
+            </div>
+            <div class="pub-content">
+              <h4>Neural Rendering and the New Creative Stack</h4>
+              <p>
+                Show-specific neural models as pipeline primitives. Lookdev acceleration through
+                learned representations without replacing path tracing.
+              </p>
+            </div>
+          </a>
+
+          <a href="essay-ai-co-creator.html" class="publication">
+            <div class="pub-meta">
+              <span class="pub-date">Nov 2024</span>
+              <span class="pub-series">Part 4 of 4</span>
+            </div>
+            <div class="pub-content">
+              <h4>AI as a Co-Creator: Building Production-Ready, Node-Based AI Pipelines</h4>
+              <p>
+                Five production requirements for AI at scale: deterministic outputs, versioned workflows,
+                pipeline integration, asset tracking, and full lineage documentation.
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+      <div class="container">
+        <div class="section-header">
+          <h2>About</h2>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-section">
+            <h3>Background</h3>
+            <p>
+              Product strategist and researcher with 8+ years managing VFX production at Netflix.
+              Led 10,000+ shots across series including The Umbrella Academy, Locke & Key, and other
+              Netflix Originals, overseeing $20M+ in vendor spend.
+            </p>
+            <p>
+              Identified persistent inefficiency: 30-40% of VFX prep budgets consumed by manual,
+              repetitive tasks. Founded Next Wave Intelligence to investigate AI-native infrastructure
+              that augments creative workflows without disrupting artist autonomy.
+            </p>
+          </div>
+
+          <div class="about-section">
+            <h3>Current Research</h3>
+            <p>
+              Exploring production-aware AI systems: promptable segmentation (SAM2), neural rendering
+              integration, predictive pipeline optimization, and cognitive supply chain architectures.
+              Conducting industry validation with VFX supervisors, pipeline TDs, and studio technology leads.
+            </p>
+            <p>
+              Completing UCLA AI certification while prototyping tools that bridge academic AI research
+              with Netflix-class production reality.
+            </p>
+          </div>
+        </div>
+
+        <div style="margin-top: 48px;">
+          <h3 style="font-size: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-muted); margin-bottom: 16px;">
+            Education & Experience
+          </h3>
+          <ul style="list-style: none; padding: 0;">
+            <li style="padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--text-secondary);">
+              <strong style="color: var(--text-primary);">UCLA Extension</strong> — AI, ML & Systems Engineering (In Progress)
+            </li>
+            <li style="padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--text-secondary);">
+              <strong style="color: var(--text-primary);">Netflix</strong> — VFX Production Strategy (2016-2024)
+            </li>
+            <li style="padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--text-secondary);">
+              <strong style="color: var(--text-primary);">REC.IO</strong> — Technical Product Manager (2025, Contract)
+            </li>
+            <li style="padding: 12px 0; font-size: 14px; color: var(--text-secondary);">
+              <strong style="color: var(--text-primary);">San Francisco State University</strong> — B.A. Political Science & Journalism
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div>
+          <p style="font-size: 14px; color: var(--text-muted);">
+            © 2025 Michael Pistorio · Next Wave Intelligence R&D
+          </p>
+        </div>
+        <div class="footer-links">
+          <a href="mailto:m.pistorio@gmail.com">Email</a>
+          <a href="https://linkedin.com/in/michaelpistorio" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://github.com/micpistol" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

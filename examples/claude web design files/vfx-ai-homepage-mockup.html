@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VFX Intelligence | AI Research & Industry Analysis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #1e3a8a;
+            --accent-cyan: #06b6d4;
+            --accent-amber: #f59e0b;
+            --bg-white: #ffffff;
+            --bg-gray: #fafafa;
+            --bg-dark: #1f2937;
+            --text-dark: #1f2937;
+            --text-gray: #6b7280;
+            --border-color: #e5e7eb;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--bg-white);
+        }
+
+        /* Navigation - inspired by The Verge */
+        .nav-container {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-cyan));
+            border-radius: 6px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-cta {
+            background: var(--primary-blue);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .nav-cta:hover {
+            background: var(--accent-cyan);
+        }
+
+        /* Hero Section - inspired by DeepLearning.AI */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1e40af 100%);
+            color: white;
+            padding: 4rem 2rem;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin-bottom: 2rem;
+        }
+
+        .hero-tags {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        /* Featured Article - The Verge style */
+        .featured-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .featured-article {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .featured-image {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-image::after {
+            content: 'Research Visualization';
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+        }
+
+        .featured-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .category-tag {
+            background: var(--accent-amber);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .category-tag.research {
+            background: var(--primary-blue);
+        }
+
+        .category-tag.analysis {
+            background: var(--accent-cyan);
+        }
+
+        .category-tag.review {
+            background: var(--accent-amber);
+        }
+
+        .date {
+            color: var(--text-gray);
+            font-size: 0.875rem;
+        }
+
+        .featured-content h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .featured-content p {
+            font-size: 1.125rem;
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .read-more:hover {
+            gap: 1rem;
+            transition: gap 0.2s;
+        }
+
+        /* Content Grid - DeepLearning.AI inspired */
+        .content-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .section-header h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+        }
+
+        .view-all {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .article-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .article-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .article-card:nth-child(2) .article-image {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .article-card:nth-child(3) .article-image {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .article-body {
+            padding: 1.5rem;
+        }
+
+        .article-body .article-meta {
+            margin-bottom: 0.75rem;
+        }
+
+        .article-body h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        .article-body p {
+            color: var(--text-gray);
+            font-size: 0.938rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .article-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-gray);
+            font-size: 0.875rem;
+        }
+
+        /* Research Section - OpenCV style */
+        .research-section {
+            background: var(--bg-gray);
+            padding: 4rem 2rem;
+        }
+
+        .research-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .research-card {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .research-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .research-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-blue);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .research-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-gray);
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            background: var(--primary-blue);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .newsletter h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter p {
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .newsletter-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .newsletter-form button {
+            background: var(--accent-amber);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .newsletter-form button:hover {
+            background: #d97706;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-dark);
+            color: white;
+            padding: 3rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-about h4 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-about p {
+            color: #9ca3af;
+            line-height: 1.7;
+        }
+
+        .footer-links h5 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            line-height: 2;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+            text-align: center;
+            color: #9ca3af;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .featured-article {
+                grid-template-columns: 1fr;
+            }
+
+            .articles-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .research-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-container">
+        <nav>
+            <a href="#" class="logo">
+                <div class="logo-icon"></div>
+                VFX Intelligence
+            </a>
+            <ul class="nav-links">
+                <li><a href="#research">Research</a></li>
+                <li><a href="#analysis">Analysis</a></li>
+                <li><a href="#reviews">Reviews</a></li>
+                <li><a href="#resources">Resources</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <a href="#newsletter" class="nav-cta">Subscribe</a>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Where VFX Production<br>Meets AI Research</h1>
+            <p>Original research, industry analysis, and practical tools for intelligent visual effects workflows. Bridging the gap between machine learning capabilities and production reality.</p>
+            <div class="hero-tags">
+                <span class="tag">Computer Vision</span>
+                <span class="tag">Production ML</span>
+                <span class="tag">Pipeline Innovation</span>
+                <span class="tag">Open Research</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Article -->
+    <section class="featured-section">
+        <div class="featured-article">
+            <div class="featured-image"></div>
+            <div class="featured-content">
+                <div class="article-meta">
+                    <span class="category-tag research">Research</span>
+                    <span class="date">November 20, 2025</span>
+                </div>
+                <h2>Multi-Modal Shot Complexity Classification for VFX Production Estimation</h2>
+                <p>We present a classification system combining computer vision, NLP, and structured metadata to predict shot complexity with 82% accuracy across 500 production shots, reducing estimation variance from 40-60% to under 20%.</p>
+                <a href="#" class="read-more">
+                    Read Full Paper →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest Research -->
+    <section class="content-grid">
+        <div class="section-header">
+            <h3>Latest Research</h3>
+            <a href="#" class="view-all">View All Research →</a>
+        </div>
+        <div class="articles-grid">
+            <article class="article-card">
+                <div class="article-image"></div>
+                <div class="article-body">
+                    <div class="article-meta">
+                        <span class="category-tag research">Research</span>
+                        <span class="date">Nov 15, 2025</span>
+                    </div>
+                    <h4>Automated Quality Assessment for Green Screen Plates</h4>
+                    <p>Deep learning pipeline for detecting unusable VFX plates before artist assignment, reducing wasted effort by 15-20% across production workflows.</p>
+                    <div class="article-footer">
+                        <span>12 min read</span>
+                        <span>📊 Dataset Available</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="article-card">
+                <div class="article-image"></div>
+                <div class="article-body">
+                    <div class="article-meta">
+                        <span class="category-tag research">Research</span>
+                        <span class="date">Nov 8, 2025</span>
+                    </div>
+                    <h4>Transfer Learning for Face Replacement in Stunt Work</h4>
+                    <p>Comparing fine-tuned GANs vs zero-shot diffusion models for production-grade face replacement with real-world performance benchmarks.</p>
+                    <div class="article-footer">
+                        <span>18 min read</span>
+                        <span>💻 Code Available</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="article-card">
+                <div class="article-image"></div>
+                <div class="article-body">
+                    <div class="article-meta">
+                        <span class="category-tag research">Research</span>
+                        <span class="date">Nov 1, 2025</span>
+                    </div>
+                    <h4>Vendor Performance Forecasting Using Time-Series Analysis</h4>
+                    <p>Predicting vendor capacity and timeline accuracy across 500+ shots from 8 studios using historical production data and ML forecasting.</p>
+                    <div class="article-footer">
+                        <span>15 min read</span>
+                        <span>📈 Interactive Demo</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Industry Analysis -->
+    <section class="content-grid">
+        <div class="section-header">
+            <h3>Industry Analysis</h3>
+            <a href="#" class="view-all">View All Analysis →</a>
+        </div>
+        <div class="articles-grid">
+            <article class="article-card">
+                <div class="article-image"></div>
+                <div class="article-body">
+                    <div class="article-meta">
+                        <span class="category-tag analysis">Analysis</span>
+                        <span class="date">Nov 18, 2025</span>
+                    </div>
+                    <h4>Why Every VFX Studio's AI Strategy Looks the Same (And Why That's Failing)</h4>
+                    <p>Survey of 20 studio AI initiatives reveals common patterns and surprisingly low production adoption rates. What's going wrong?</p>
+                    <div class="article-footer">
+                        <span>10 min read</span>
+                        <span>🎯 Opinion</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="article-card">
+                <div class="article-image"></div>
+                <div class="article-body">
+                    <div class="article-meta">
+                        <span class="category-tag analysis">Analysis</span>
+                        <span class="date">Nov 12, 2025</span>
+                    </div>
+                    <h4>The State of AI in VFX Production: 2025 Report</h4>
+                    <p>Comprehensive analysis of AI adoption across 50+ studios, from rotoscoping automation to real-time previsualization systems.</p>
+                    <div class="article-footer">
+                        <span>25 min read</span>
+                        <span>📑 Report</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="article-card">
+                <div class="article-image"></div>
+                <div class="article-body">
+                    <div class="article-meta">
+                        <span class="category-tag review">Review</span>
+                        <span class="date">Nov 5, 2025</span>
+                    </div>
+                    <h4>Runway Gen-3 for VFX Production: A 60-Day Reality Check</h4>
+                    <p>Testing Runway's latest model on 50 real production scenarios. Where it excels, where it fails, and what the ROI actually looks like.</p>
+                    <div class="article-footer">
+                        <span>14 min read</span>
+                        <span>⭐ 7.5/10</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Research Initiatives -->
+    <section class="research-section">
+        <div class="research-content">
+            <div class="section-header">
+                <h3>Active Research Initiatives</h3>
+                <a href="#" class="view-all">Explore All Projects →</a>
+            </div>
+            <div class="research-grid">
+                <div class="research-card">
+                    <h4>
+                        <span class="research-icon">🎬</span>
+                        VFX Shot Complexity Database
+                    </h4>
+                    <p>Building the largest open dataset of labeled VFX shots for ML research. Includes shot breakdowns, technical specifications, and production outcomes from 10+ shows.</p>
+                    <div class="research-stats">
+                        <div class="stat">
+                            <div class="stat-value">500+</div>
+                            <div class="stat-label">Labeled Shots</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">5</div>
+                            <div class="stat-label">Complexity Tiers</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">82%</div>
+                            <div class="stat-label">Model Accuracy</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="research-card">
+                    <h4>
+                        <span class="research-icon">🔬</span>
+                        Production QC Pipeline
+                    </h4>
+                    <p>Open-source quality control tools for VFX production, including automated plate checking, color verification, and technical validation systems.</p>
+                    <div class="research-stats">
+                        <div class="stat">
+                            <div class="stat-value">3</div>
+                            <div class="stat-label">Open Tools</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">1.2K</div>
+                            <div class="stat-label">GitHub Stars</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">85%</div>
+                            <div class="stat-label">Defect Detection</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="research-card">
+                    <h4>
+                        <span class="research-icon">⚡</span>
+                        Real-Time CV for Virtual Production
+                    </h4>
+                    <p>Exploring computer vision techniques for on-set feedback during virtual production shoots. Focus on tracking validation and real-time compositing preview.</p>
+                    <div class="research-stats">
+                        <div class="stat">
+                            <div class="stat-value">&lt;100ms</div>
+                            <div class="stat-label">Latency</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">4K</div>
+                            <div class="stat-label">Resolution</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">30fps</div>
+                            <div class="stat-label">Processing</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="research-card">
+                    <h4>
+                        <span class="research-icon">📊</span>
+                        ML for Production Analytics
+                    </h4>
+                    <p>Time-series forecasting and predictive models for vendor performance, render optimization, and resource allocation across VFX pipelines.</p>
+                    <div class="research-stats">
+                        <div class="stat">
+                            <div class="stat-value">8</div>
+                            <div class="stat-label">Vendors Tracked</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">25%</div>
+                            <div class="stat-label">Cost Reduction</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">90%</div>
+                            <div class="stat-label">Forecast Accuracy</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter" id="newsletter">
+        <h3>Stay Updated</h3>
+        <p>Get weekly insights on AI in VFX production, new research findings, and industry analysis delivered to your inbox.</p>
+        <form class="newsletter-form">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-about">
+                <h4>VFX Intelligence</h4>
+                <p>A research initiative exploring the intersection of artificial intelligence and visual effects production. Combining hands-on industry experience with rigorous ML research to advance the field.</p>
+            </div>
+            <div class="footer-links">
+                <h5>Research</h5>
+                <ul>
+                    <li><a href="#">Published Papers</a></li>
+                    <li><a href="#">Experiments</a></li>
+                    <li><a href="#">Open Source</a></li>
+                    <li><a href="#">Datasets</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h5>Resources</h5>
+                <ul>
+                    <li><a href="#">VFX Pipeline Guides</a></li>
+                    <li><a href="#">ML for Artists</a></li>
+                    <li><a href="#">Code Snippets</a></li>
+                    <li><a href="#">Reading List</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h5>Connect</h5>
+                <ul>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">GitHub</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 VFX Intelligence. All research published under open licenses.</p>
+        </div>
+    </footer>
+</body>
+</html>

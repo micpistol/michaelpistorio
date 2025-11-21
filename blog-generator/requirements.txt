@@ -1,0 +1,25 @@
+# Blog Post Generator Dependencies
+
+# Core dependencies
+anthropic>=0.18.0
+python-dotenv>=1.0.0
+pyyaml>=6.0
+
+# Input processing
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+pypdf2>=3.0.0
+pdfplumber>=0.10.0
+pillow>=10.0.0
+pytesseract>=0.3.10
+
+# Markdown processing
+markdown>=3.5.0
+python-frontmatter>=1.0.0
+
+# CLI
+click>=8.1.0
+rich>=13.0.0
+
+# Utils
+python-dateutil>=2.8.0

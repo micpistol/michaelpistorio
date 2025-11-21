@@ -1,0 +1,29 @@
+# Blog Post Generator Configuration
+
+# Site settings
+site:
+  author: "Michael Pistorio"
+  base_url: "https://michaelpistorio.com"
+
+# Default metadata
+defaults:
+  category: "Research"
+  reading_speed: 200  # words per minute
+
+# Style settings
+style:
+  primary_blue: "#1e3a8a"
+  accent_cyan: "#06b6d4"
+  max_width: "740px"
+
+# Generation settings
+generation:
+  model: "claude-sonnet-4"
+  temperature: 0.7
+  max_tokens: 4000
+
+# Processing settings
+processing:
+  ocr_language: "eng"
+  max_image_size: 5242880  # 5MB
+  fetch_timeout: 30  # seconds

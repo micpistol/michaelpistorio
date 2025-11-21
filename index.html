@@ -155,11 +155,68 @@
             font-weight: 500;
         }
 
-        /* Featured Article */
-        .featured-section {
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-cta-primary {
+            background: var(--accent-amber);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.125rem;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .hero-cta-primary:hover {
+            background: #d97706;
+            transform: translateY(-2px);
+        }
+
+        .hero-cta-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.125rem;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .hero-cta-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Section Backgrounds - Subtle alternation */
+        .section-white {
+            background: var(--bg-white);
+        }
+
+        .section-gray {
+            background: var(--bg-gray);
+        }
+
+        /* Latest Update */
+        .latest-update-section {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 3rem 2rem;
+            padding: 4rem 2rem;
+        }
+
+        .section-label {
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
         }
 
         .featured-article {
@@ -260,7 +317,111 @@
         .content-grid {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 2rem 4rem;
+            padding: 4rem 2rem;
+        }
+
+        /* Featured Series Cards */
+        .series-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .series-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .series-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .series-card h4 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--primary-blue);
+        }
+
+        .series-card p {
+            color: var(--text-gray);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .series-link {
+            color: var(--primary-blue);
+            font-weight: 600;
+            font-size: 0.938rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Research Notes List */
+        .notes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .note-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: var(--bg-white);
+            border-left: 3px solid var(--accent-cyan);
+            border-radius: 4px;
+            text-decoration: none;
+            color: inherit;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .note-item:hover {
+            background: var(--bg-gray);
+            transform: translateX(4px);
+        }
+
+        .note-title {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .note-date {
+            color: var(--text-gray);
+            font-size: 0.875rem;
+        }
+
+        /* Browse by Theme */
+        .theme-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .theme-chip {
+            background: var(--bg-white);
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+        }
+
+        .theme-chip:hover {
+            background: var(--primary-blue);
+            color: white;
+            transform: translateY(-2px);
         }
 
         .section-header {
@@ -544,6 +705,10 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
+            .series-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
             .research-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -559,6 +724,10 @@
             }
 
             .articles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .series-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -600,195 +769,154 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Where VFX Production<br>Meets AI Research</h1>
-            <p>Original research and production tools exploring AI-native infrastructure for visual effects. Built on 8+ years of Netflix production experience and rigorous ML research.</p>
-            <div class="hero-tags">
-                <span class="tag">Computer Vision</span>
-                <span class="tag">Neural Rendering</span>
-                <span class="tag">Production ML</span>
-                <span class="tag">Cognitive Pipelines</span>
+            <h1>Next Wave Intelligence — research for the AI-native VFX pipeline</h1>
+            <p>Weekly essays, prototypes, and production-aware analysis on how AI is reshaping VFX pipelines and creative infrastructure.</p>
+            <div class="hero-ctas">
+                <a href="essay-ai-co-creator.html" class="hero-cta-primary">Read the latest</a>
+                <a href="#projects" class="hero-cta-secondary">Explore the lab</a>
             </div>
         </div>
     </section>
 
-    <!-- Featured Article -->
-    <section class="featured-section">
-        <div class="featured-article">
-            <div class="featured-image"></div>
-            <div class="featured-content">
-                <div class="article-meta">
-                    <span class="category-tag research">Research Series</span>
-                    <span class="date">2024</span>
-                </div>
-                <h2>AI as a Co-Creator: Production-Ready Platforms</h2>
-                <p>The final installment in the Intelligent VFX Futures series. Exploring the architecture requirements for production-grade AI systems—from latency constraints to human-in-the-loop feedback mechanisms. What does it take to move from prototype to pipeline?</p>
-                <a href="essay-ai-co-creator.html" class="read-more">
-                    Read Full Article →
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Latest Research -->
-    <section class="content-grid">
-        <div class="section-header">
-            <h3>Intelligent VFX Futures Series</h3>
-            <a href="writing.html" class="view-all">View All Writing →</a>
-        </div>
-        <div class="articles-grid">
-            <a href="essay-computer-vision.html" class="article-card">
-                <div class="article-image"></div>
-                <div class="article-body">
+    <!-- Latest Update -->
+    <section class="section-white">
+        <div class="latest-update-section">
+            <div class="section-label">Latest Update</div>
+            <div class="featured-article">
+                <div class="featured-image"></div>
+                <div class="featured-content">
                     <div class="article-meta">
-                        <span class="category-tag research">Research</span>
-                        <span class="date">Part 1</span>
-                    </div>
-                    <h4>Computer Vision: Automating the Creative Prep Phase</h4>
-                    <p>Exploring how SAM2 segmentation, depth estimation, and human-in-the-loop systems can reclaim 30-40% of VFX prep budgets currently wasted on manual work.</p>
-                    <div class="article-footer">
-                        <span>10 min read</span>
-                        <span>🎯 Production Focus</span>
-                    </div>
-                </div>
-            </a>
-
-            <a href="essay-predictive-pipelines.html" class="article-card">
-                <div class="article-image"></div>
-                <div class="article-body">
-                    <div class="article-meta">
-                        <span class="category-tag research">Research</span>
-                        <span class="date">Part 2</span>
-                    </div>
-                    <h4>Predictive Pipelines: ML for Smarter Workflows</h4>
-                    <p>Machine learning for render forecasting, intelligent settings optimization, and adaptive farm scheduling. Making pipelines anticipatory instead of reactive.</p>
-                    <div class="article-footer">
-                        <span>12 min read</span>
-                        <span>📊 Data-Driven</span>
-                    </div>
-                </div>
-            </a>
-
-            <a href="essay-neural-rendering-series.html" class="article-card">
-                <div class="article-image"></div>
-                <div class="article-body">
-                    <div class="article-meta">
-                        <span class="category-tag research">Research</span>
-                        <span class="date">Part 3</span>
-                    </div>
-                    <h4>Neural Rendering as a Pipeline Primitive</h4>
-                    <p>NeRFs, Gaussian Splatting, and neural BRDFs for lookdev acceleration. Exploring show-specific models that adapt to production constraints and artist feedback.</p>
-                    <div class="article-footer">
-                        <span>15 min read</span>
-                        <span>🔬 Technical Deep Dive</span>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </section>
-
-    <!-- Production Projects -->
-    <section class="content-grid" id="projects">
-        <div class="section-header">
-            <h3>Production Prototypes</h3>
-        </div>
-        <div class="articles-grid">
-            <a href="project-sam2.html" class="article-card">
-                <div class="article-image"></div>
-                <div class="article-body">
-                    <div class="article-meta">
-                        <span class="category-tag analysis">Tool</span>
+                        <span class="category-tag research">Research Series</span>
                         <span class="date">2024</span>
                     </div>
-                    <h4>SAM2 Roto Assistant</h4>
-                    <p>AI-powered segmentation reducing manual rotoscoping time by 78%. Interactive prompting with temporal tracking across frame sequences, integrated with Nuke/ShotGrid workflows.</p>
-                    <div class="article-footer">
-                        <span>92% accuracy</span>
-                        <span>⚡ Production Tool</span>
-                    </div>
+                    <h2>AI as a Co-Creator: Production-Ready Platforms</h2>
+                    <p>The final installment in the Intelligent VFX Futures series. Exploring the architecture requirements for production-grade AI systems—from latency constraints to human-in-the-loop feedback mechanisms. What does it take to move from prototype to pipeline?</p>
+                    <a href="essay-ai-co-creator.html" class="read-more">
+                        Read update →
+                    </a>
                 </div>
-            </a>
-
-            <a href="project-neural-materials.html" class="article-card">
-                <div class="article-image"></div>
-                <div class="article-body">
-                    <div class="article-meta">
-                        <span class="category-tag research">Research</span>
-                        <span class="date">In Progress</span>
-                    </div>
-                    <h4>Neural Material Explorer</h4>
-                    <p>Text-to-material and image-to-material workflows for lookdev artists. Generates MaterialX-compliant texture sets from natural language or reference imagery using neural BRDFs.</p>
-                    <div class="article-footer">
-                        <span>MaterialX/USD</span>
-                        <span>🎨 Lookdev Tool</span>
-                    </div>
-                </div>
-            </a>
-
-            <a href="project-data-corpus.html" class="article-card">
-                <div class="article-image"></div>
-                <div class="article-body">
-                    <div class="article-meta">
-                        <span class="category-tag research">Infrastructure</span>
-                        <span class="date">Research Phase</span>
-                    </div>
-                    <h4>VFX Data Corpus Visualization</h4>
-                    <p>Knowledge graph connecting shots, annotations, model versions, and production lineage. Treating data as strategic infrastructure with full lineage tracking and explainability.</p>
-                    <div class="article-footer">
-                        <span>Neo4j + D3.js</span>
-                        <span>📈 Data Governance</span>
-                    </div>
-                </div>
-            </a>
+            </div>
         </div>
     </section>
 
-    <!-- Research Initiatives -->
-    <section class="research-section">
-        <div class="research-content">
+    <!-- Featured Series -->
+    <section class="section-gray">
+        <div class="content-grid">
             <div class="section-header">
-                <h3>Research Focus Areas</h3>
+                <h3>Featured Series</h3>
+                <a href="writing.html" class="view-all">View All Writing →</a>
             </div>
-            <div class="research-grid">
-                <a href="essay-computer-vision.html" class="research-card">
-                    <h4>
-                        <span class="research-icon">👁️</span>
-                        Promptable Segmentation
-                    </h4>
-                    <p>Interactive AI tools like SAM2 for VFX rotoscoping. Human-in-the-loop systems with confidence scoring and feedback loops that improve model accuracy over time.</p>
-                    <div class="research-stats">
-                        <div class="stat">
-                            <div class="stat-value">78%</div>
-                            <div class="stat-label">Time Reduction</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-value">92%</div>
-                            <div class="stat-label">Frame Accuracy</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-value">4.2/5</div>
-                            <div class="stat-label">Artist Rating</div>
-                        </div>
-                    </div>
+            <div class="series-grid">
+                <a href="essay-computer-vision.html" class="series-card">
+                    <h4>Intelligent VFX Futures</h4>
+                    <p>A multi-part series exploring computer vision, predictive pipelines, and neural rendering as production primitives. From SAM2 segmentation to NeRF-based lookdev acceleration.</p>
+                    <span class="series-link">View series →</span>
                 </a>
 
-                <a href="essay-neural-rendering-series.html" class="research-card">
-                    <h4>
-                        <span class="research-icon">🎨</span>
-                        Neural Rendering
-                    </h4>
-                    <p>Exploring NeRFs, Gaussian Splatting, and neural BRDFs for lookdev and set reconstruction. Focus on hybrid systems combining traditional and neural methods.</p>
+                <a href="essay-introduction.html" class="series-card">
+                    <h4>Cognitive Supply Chain</h4>
+                    <p>Building closed-loop systems where production data, models, and artist feedback form a learning ecosystem. AI as infrastructure, not one-off tools.</p>
+                    <span class="series-link">View series →</span>
                 </a>
 
-                <a href="essay-introduction.html" class="research-card">
-                    <h4>
-                        <span class="research-icon">🏗️</span>
-                        Cognitive Supply Chains
-                    </h4>
-                    <p>Building closed-loop systems where production data, models, and artist feedback form a learning ecosystem. Treating AI as infrastructure, not one-off tools.</p>
+                <a href="essay-neural-rendering-series.html" class="series-card">
+                    <h4>Neural Rendering & Materials</h4>
+                    <p>Exploring NeRFs, Gaussian Splatting, and neural BRDFs for lookdev workflows. Hybrid systems combining traditional and neural methods for production constraints.</p>
+                    <span class="series-link">View series →</span>
                 </a>
             </div>
         </div>
     </section>
+
+    <!-- Lab / Prototypes -->
+    <section class="section-white" id="projects">
+        <div class="content-grid">
+            <div class="section-header">
+                <h3>Lab / Prototypes</h3>
+            </div>
+            <div class="articles-grid">
+                <a href="project-sam2.html" class="article-card">
+                    <div class="article-image"></div>
+                    <div class="article-body">
+                        <h4>SAM2 Roto Assistant</h4>
+                        <p>AI-powered segmentation tool reducing manual rotoscoping time by 78%.</p>
+                        <div class="article-footer">
+                            <span class="date">Last updated: 2024</span>
+                        </div>
+                        <a href="project-sam2.html" class="read-more" style="margin-top: 0.5rem;">View project →</a>
+                    </div>
+                </a>
+
+                <a href="project-neural-materials.html" class="article-card">
+                    <div class="article-image"></div>
+                    <div class="article-body">
+                        <h4>Neural Material Explorer</h4>
+                        <p>Text-to-material workflows generating MaterialX-compliant texture sets for lookdev.</p>
+                        <div class="article-footer">
+                            <span class="date">Last updated: In Progress</span>
+                        </div>
+                        <a href="project-neural-materials.html" class="read-more" style="margin-top: 0.5rem;">View project →</a>
+                    </div>
+                </a>
+
+                <a href="project-data-corpus.html" class="article-card">
+                    <div class="article-image"></div>
+                    <div class="article-body">
+                        <h4>VFX Corpus Visualization</h4>
+                        <p>Knowledge graph connecting shots, annotations, model versions, and production lineage.</p>
+                        <div class="article-footer">
+                            <span class="date">Last updated: Research Phase</span>
+                        </div>
+                        <a href="project-data-corpus.html" class="read-more" style="margin-top: 0.5rem;">View project →</a>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Notes / Notebook -->
+    <section class="section-gray">
+        <div class="content-grid">
+            <div class="section-header">
+                <h3>Research Notes / Notebook</h3>
+                <a href="writing.html" class="view-all">View All →</a>
+            </div>
+            <div class="notes-list">
+                <a href="essay-computer-vision.html" class="note-item">
+                    <span class="note-title">Computer Vision: Automating the Creative Prep Phase</span>
+                    <span class="note-date">2024</span>
+                </a>
+                <a href="essay-predictive-pipelines.html" class="note-item">
+                    <span class="note-title">Predictive Pipelines: ML for Smarter Workflows</span>
+                    <span class="note-date">2024</span>
+                </a>
+                <a href="essay-neural-rendering.html" class="note-item">
+                    <span class="note-title">Neural Rendering as a Pipeline Primitive</span>
+                    <span class="note-date">2024</span>
+                </a>
+                <a href="essay-introduction.html" class="note-item">
+                    <span class="note-title">Building Cognitive Supply Chains for VFX</span>
+                    <span class="note-date">2024</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Browse by Theme -->
+    <section class="section-white">
+        <div class="content-grid">
+            <div class="section-header">
+                <h3>Browse by Theme</h3>
+            </div>
+            <div class="theme-chips">
+                <a href="essay-neural-rendering-series.html" class="theme-chip">Neural Rendering</a>
+                <a href="essay-predictive-pipelines.html" class="theme-chip">Production AI / Infrastructure</a>
+                <a href="essay-computer-vision.html" class="theme-chip">Human-in-the-loop Tools</a>
+                <a href="project-data-corpus.html" class="theme-chip">Data & Asset Pipelines</a>
+            </div>
+        </div>
+    </section>
+
 
     <!-- Newsletter -->
     <section class="newsletter" id="newsletter">

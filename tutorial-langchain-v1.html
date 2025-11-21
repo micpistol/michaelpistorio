@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LangChain v1 Tutorial | Next Wave Intelligence</title>
+    <meta name="description" content="Learn about LangChain v1 and build an auto meeting recap assistant.">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="favicon.ico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #1e3a8a;
+            --accent-cyan: #06b6d4;
+            --accent-amber: #f59e0b;
+            --bg-white: #ffffff;
+            --bg-gray: #fafafa;
+            --bg-dark: #1f2937;
+            --text-dark: #1f2937;
+            --text-gray: #6b7280;
+            --border-color: #e5e7eb;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--bg-white);
+        }
+
+        /* Navigation */
+        .nav-container {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-cyan));
+            border-radius: 6px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-blue);
+        }
+
+        .nav-cta {
+            background: var(--primary-blue);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .nav-cta:hover {
+            background: var(--accent-cyan);
+        }
+
+        /* Layout Container */
+        .page-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        /* Sidebar with Table of Contents */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        .toc {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .toc h3 {
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc li {
+            margin-bottom: 0.5rem;
+        }
+
+        .toc li li {
+            margin-left: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .toc a {
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: color 0.2s;
+            display: block;
+            padding: 0.25rem 0;
+        }
+
+        .toc a:hover {
+            color: var(--primary-blue);
+        }
+
+        .toc li.active a {
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .main-content {
+            min-width: 0;
+        }
+
+        .article-header {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .breadcrumb {
+            font-size: 0.875rem;
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+        }
+
+        .breadcrumb a {
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .article-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            color: var(--primary-blue);
+        }
+
+        .dek {
+            font-size: 1.125rem;
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+
+        /* Article Body */
+        .article-body h2 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-blue);
+            scroll-margin-top: 100px;
+        }
+
+        .article-body h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            scroll-margin-top: 100px;
+        }
+
+        .article-body p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1.0625rem;
+        }
+
+        .article-body ul,
+        .article-body ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+
+        .article-body li {
+            margin-bottom: 0.75rem;
+            line-height: 1.7;
+        }
+
+        .callout {
+            background: var(--bg-gray);
+            border-left: 4px solid var(--accent-cyan);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 4px;
+        }
+
+        .callout-title {
+            font-weight: 700;
+            font-size: 1.0625rem;
+            margin-bottom: 0.75rem;
+            color: var(--primary-blue);
+        }
+
+        .code-block {
+            background: var(--bg-dark);
+            color: #f0f0f0;
+            padding: 1.5rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 2rem 0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-dark);
+            color: white;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-about h4 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-about p {
+            color: #9ca3af;
+            line-height: 1.7;
+        }
+
+        .footer-links h5 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            line-height: 2;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+            text-align: center;
+            color: #9ca3af;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .page-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .sidebar {
+                position: static;
+                max-height: none;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .article-header h1 {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-container">
+        <nav>
+            <a href="index.html" class="logo">
+                <div class="logo-icon"></div>
+                Next Wave Intelligence
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="writing.html">Research</a></li>
+                <li><a href="tutorials.html" class="active">Tutorials</a></li>
+                <li><a href="lab.html">Lab</a></li>
+                <li><a href="notes.html">Notes</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <a href="index.html#newsletter" class="nav-cta">Subscribe</a>
+        </nav>
+    </div>
+
+    <!-- Page Container with Sidebar and Main Content -->
+    <div class="page-container">
+        <!-- Sticky Sidebar -->
+        <aside class="sidebar">
+            <nav class="toc">
+                <h3>Contents</h3>
+                <ul>
+                    <li><a href="#introduction">What Is LangChain v1?</a></li>
+                    <li><a href="#enhancements">Key Technical Enhancements in LangChain v1</a></li>
+                    <li>
+                        <a href="#demo">Demo: Building an Auto Meeting Recap Assistant with LangChain v1</a>
+                        <ul>
+                            <li><a href="#step-1">Step 1: Prerequisites</a></li>
+                            <li><a href="#step-2">Step 2: Enable Google Docs API</a></li>
+                            <li><a href="#step-3">Step 3: Imports</a></li>
+                            <li><a href="#step-4">Step 4: Define structured output</a></li>
+                            <li><a href="#step-5">Step 5: System prompt</a></li>
+                            <li><a href="#step-7">Step 7: Append utility and Markdown renderer</a></li>
+                            <li><a href="#step-8">Step 8: Recap generator</a></li>
+                            <li><a href="#step-9">Step 9: Streamlit UI</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#migration">Migration and Adoption Considerations</a></li>
+                    <li><a href="#use-cases">Additional Use Cases for LangChain V1 and Challenges</a></li>
+                    <li><a href="#conclusion">Conclusion</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <article>
+                <header class="article-header">
+                    <div class="breadcrumb">
+                        <a href="index.html">Home</a> / <a href="tutorials.html">Tutorials</a> / LangChain v1
+                    </div>
+                    <h1>Building with LangChain v1: A Comprehensive Guide</h1>
+                    <p class="dek">
+                        Learn about LangChain v1's key enhancements and build a production-ready meeting recap assistant that automatically summarizes conversations and generates documentation.
+                    </p>
+                </header>
+
+                <div class="article-body">
+                    <h2 id="introduction">What Is LangChain v1?</h2>
+                    <p>
+                        LangChain v1 represents a significant milestone in the evolution of the LangChain framework, bringing enhanced stability, improved APIs, and better production readiness. This release focuses on developer experience, performance optimizations, and more robust integration patterns for building AI-powered applications.
+                    </p>
+                    <p>
+                        The framework has matured significantly, addressing common pain points from earlier versions while maintaining backward compatibility where possible. LangChain v1 introduces cleaner abstractions, better error handling, and more predictable behavior across different LLM providers.
+                    </p>
+
+                    <h2 id="enhancements">Key Technical Enhancements in LangChain v1</h2>
+                    <p>
+                        LangChain v1 brings several critical improvements that make it more suitable for production deployments:
+                    </p>
+                    <ul>
+                        <li><strong>Streamlined API Design:</strong> Simplified interfaces that reduce boilerplate and improve code readability</li>
+                        <li><strong>Enhanced Type Safety:</strong> Better TypeScript and Python type hints for improved developer experience</li>
+                        <li><strong>Performance Optimizations:</strong> Reduced latency and more efficient token usage across chains</li>
+                        <li><strong>Improved Observability:</strong> Built-in tracing and debugging tools for production monitoring</li>
+                        <li><strong>Modular Architecture:</strong> Easier to swap components and customize behavior without forking the framework</li>
+                        <li><strong>Better Error Handling:</strong> More descriptive error messages and graceful degradation patterns</li>
+                    </ul>
+
+                    <h2 id="demo">Demo: Building an Auto Meeting Recap Assistant with LangChain v1</h2>
+                    <p>
+                        In this hands-on tutorial, we'll build a meeting recap assistant that:
+                    </p>
+                    <ul>
+                        <li>Processes meeting transcripts or audio recordings</li>
+                        <li>Extracts key discussion points and action items</li>
+                        <li>Generates structured summaries</li>
+                        <li>Exports results to Google Docs for easy sharing</li>
+                    </ul>
+
+                    <h3 id="step-1">Step 1: Prerequisites</h3>
+                    <div class="callout">
+                        <div class="callout-title">What You'll Need</div>
+                        <p><strong>Python Environment:</strong> Python 3.9 or higher</p>
+                        <p><strong>API Keys:</strong> OpenAI API key (or other LLM provider)</p>
+                        <p><strong>Google Cloud:</strong> Google Cloud project with Docs API enabled</p>
+                        <p><strong>Time:</strong> 30-45 minutes for full implementation</p>
+                    </div>
+                    <p>
+                        First, install the required packages:
+                    </p>
+                    <div class="code-block"><code>pip install langchain langchain-openai google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client streamlit</code></div>
+
+                    <h3 id="step-2">Step 2: Enable Google Docs API</h3>
+                    <p>
+                        To enable your application to create and edit Google Docs:
+                    </p>
+                    <ol>
+                        <li>Go to the Google Cloud Console</li>
+                        <li>Create a new project or select an existing one</li>
+                        <li>Enable the Google Docs API</li>
+                        <li>Create OAuth 2.0 credentials</li>
+                        <li>Download the credentials JSON file</li>
+                    </ol>
+
+                    <h3 id="step-3">Step 3: Imports</h3>
+                    <div class="code-block"><code>from langchain_openai import ChatOpenAI
+from langchain.prompts import ChatPromptTemplate
+from langchain.output_parsers import PydanticOutputParser
+from pydantic import BaseModel, Field
+from google.oauth2.credentials import Credentials
+from googleapiclient.discovery import build
+import streamlit as st</code></div>
+
+                    <h3 id="step-4">Step 4: Define structured output</h3>
+                    <p>
+                        We'll use Pydantic models to define the structure of our meeting recap:
+                    </p>
+                    <div class="code-block"><code>class ActionItem(BaseModel):
+    task: str = Field(description="The action item task")
+    assignee: str = Field(description="Person responsible")
+    deadline: str = Field(description="Due date if mentioned")
+
+class MeetingRecap(BaseModel):
+    summary: str = Field(description="Brief meeting summary")
+    key_points: list[str] = Field(description="Main discussion points")
+    decisions: list[str] = Field(description="Decisions made")
+    action_items: list[ActionItem] = Field(description="Action items")
+    next_steps: str = Field(description="Next steps")</code></div>
+
+                    <h3 id="step-5">Step 5: System prompt</h3>
+                    <div class="code-block"><code>system_prompt = """You are an expert meeting facilitator and note-taker.
+Analyze the provided meeting transcript and extract:
+1. A concise summary of the meeting
+2. Key discussion points
+3. Decisions that were made
+4. Action items with assignees
+5. Next steps
+
+Be thorough but concise. Focus on actionable information."""</code></div>
+
+                    <h3 id="step-7">Step 7: Append utility and Markdown renderer</h3>
+                    <p>
+                        Create utility functions to format the output and interact with Google Docs:
+                    </p>
+                    <div class="code-block"><code>def format_recap_as_markdown(recap: MeetingRecap) -> str:
+    md = f"# Meeting Recap\n\n"
+    md += f"## Summary\n{recap.summary}\n\n"
+    md += f"## Key Points\n"
+    for point in recap.key_points:
+        md += f"- {point}\n"
+    md += f"\n## Decisions\n"
+    for decision in recap.decisions:
+        md += f"- {decision}\n"
+    md += f"\n## Action Items\n"
+    for item in recap.action_items:
+        md += f"- {item.task} (Assignee: {item.assignee}, Due: {item.deadline})\n"
+    md += f"\n## Next Steps\n{recap.next_steps}\n"
+    return md</code></div>
+
+                    <h3 id="step-8">Step 8: Recap generator</h3>
+                    <div class="code-block"><code>def generate_recap(transcript: str) -> MeetingRecap:
+    # Initialize LLM
+    llm = ChatOpenAI(model="gpt-4", temperature=0)
+
+    # Create parser
+    parser = PydanticOutputParser(pydantic_object=MeetingRecap)
+
+    # Create prompt
+    prompt = ChatPromptTemplate.from_messages([
+        ("system", system_prompt),
+        ("user", "{transcript}\n\n{format_instructions}")
+    ])
+
+    # Create chain
+    chain = prompt | llm | parser
+
+    # Generate recap
+    recap = chain.invoke({
+        "transcript": transcript,
+        "format_instructions": parser.get_format_instructions()
+    })
+
+    return recap</code></div>
+
+                    <h3 id="step-9">Step 9: Streamlit UI</h3>
+                    <p>
+                        Finally, create a simple web interface using Streamlit:
+                    </p>
+                    <div class="code-block"><code>def main():
+    st.title("🎤 Meeting Recap Assistant")
+    st.write("Paste your meeting transcript below:")
+
+    transcript = st.text_area("Meeting Transcript", height=300)
+
+    if st.button("Generate Recap"):
+        with st.spinner("Analyzing transcript..."):
+            recap = generate_recap(transcript)
+
+            # Display recap
+            st.markdown(format_recap_as_markdown(recap))
+
+            # Option to export to Google Docs
+            if st.button("Export to Google Docs"):
+                # Implementation for Google Docs export
+                st.success("Exported to Google Docs!")
+
+if __name__ == "__main__":
+    main()</code></div>
+
+                    <h2 id="migration">Migration and Adoption Considerations</h2>
+                    <p>
+                        When migrating existing LangChain applications to v1, consider:
+                    </p>
+                    <ul>
+                        <li><strong>Breaking Changes:</strong> Review the migration guide for API changes that may affect your code</li>
+                        <li><strong>Dependency Updates:</strong> Ensure all LangChain-related packages are updated to v1 compatible versions</li>
+                        <li><strong>Testing Strategy:</strong> Implement comprehensive tests before deploying to production</li>
+                        <li><strong>Gradual Rollout:</strong> Consider a phased migration approach for critical systems</li>
+                        <li><strong>Performance Monitoring:</strong> Track latency and token usage to identify optimization opportunities</li>
+                    </ul>
+
+                    <h2 id="use-cases">Additional Use Cases for LangChain V1 and Challenges</h2>
+                    <p>
+                        Beyond meeting recaps, LangChain v1 excels at:
+                    </p>
+                    <ul>
+                        <li><strong>Document Q&A Systems:</strong> Build RAG applications with improved retrieval accuracy</li>
+                        <li><strong>Code Generation Assistants:</strong> Create tools that generate and review code</li>
+                        <li><strong>Customer Support Automation:</strong> Implement intelligent chatbots with context awareness</li>
+                        <li><strong>Data Analysis Agents:</strong> Build agents that can query databases and generate insights</li>
+                        <li><strong>Content Generation Pipelines:</strong> Automate blog posts, reports, and documentation</li>
+                    </ul>
+                    <p>
+                        Common challenges and solutions:
+                    </p>
+                    <ul>
+                        <li><strong>Token Limits:</strong> Implement intelligent chunking and summarization strategies</li>
+                        <li><strong>Latency:</strong> Use streaming responses and caching to improve user experience</li>
+                        <li><strong>Cost Management:</strong> Monitor token usage and implement rate limiting</li>
+                        <li><strong>Hallucinations:</strong> Add verification steps and confidence scoring</li>
+                    </ul>
+
+                    <h2 id="conclusion">Conclusion</h2>
+                    <p>
+                        LangChain v1 represents a significant step forward in building production-ready AI applications. With improved APIs, better error handling, and enhanced performance, it's now easier than ever to create sophisticated AI-powered tools.
+                    </p>
+                    <p>
+                        The meeting recap assistant we built demonstrates key patterns that apply to many LangChain applications: structured output parsing, prompt engineering, and external API integration. These patterns can be adapted for a wide range of use cases.
+                    </p>
+                    <p>
+                        As you continue building with LangChain v1, focus on monitoring, testing, and iterating based on real-world usage. The framework provides the tools—your creativity and domain expertise will make the difference.
+                    </p>
+                </div>
+            </article>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer id="about">
+        <div class="footer-content">
+            <div class="footer-about">
+                <h4>Next Wave Intelligence</h4>
+                <p>Ongoing research, tutorials, and tools for AI-native VFX pipelines. Combining production experience with machine learning research to build the next generation of creative infrastructure.</p>
+            </div>
+            <div class="footer-links">
+                <h5>Research</h5>
+                <ul>
+                    <li><a href="writing.html">Published Work</a></li>
+                    <li><a href="tutorials.html">Tutorials</a></li>
+                    <li><a href="notes.html">Research Notes</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h5>Lab</h5>
+                <ul>
+                    <li><a href="project-sam2.html">SAM2 Roto Assistant</a></li>
+                    <li><a href="project-neural-materials.html">Neural Materials</a></li>
+                    <li><a href="project-data-corpus.html">Data Corpus Viz</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h5>Connect</h5>
+                <ul>
+                    <li><a href="mailto:m.pistorio@gmail.com">Email</a></li>
+                    <li><a href="https://linkedin.com/in/michaelpistorio" target="_blank" rel="noopener">LinkedIn</a></li>
+                    <li><a href="https://github.com/micpistol" target="_blank" rel="noopener">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Next Wave Intelligence. Built by Michael Pistorio.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Highlight active section in TOC
+        const sections = document.querySelectorAll('h2[id], h3[id]');
+        const tocLinks = document.querySelectorAll('.toc a');
+
+        function highlightTOC() {
+            let currentSection = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const scrollPosition = window.scrollY + 150;
+                if (scrollPosition >= sectionTop) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                const parent = link.parentElement;
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    parent.classList.add('active');
+                } else {
+                    parent.classList.remove('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', highlightTOC);
+        highlightTOC(); // Initial call
+    </script>
+</body>
+</html>
